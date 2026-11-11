@@ -1,0 +1,11 @@
+00:00 +0: loading C:/EELE_MOB_APP/test/order_queue_test.dart
+00:00 +0: C:/EELE_MOB_APP/test/order_queue_test.dart: Queue advances automatically without pressing refresh and stops after closing
+00:00 +1: C:/EELE_MOB_APP/test/order_queue_test.dart: Queue advances automatically without pressing refresh and stops after closing
+00:00 +2: C:/EELE_MOB_APP/test/order_queue_test.dart: Queue advances automatically without pressing refresh and stops after closing
+00:01 +3: C:/EELE_MOB_APP/test/local_orders_test.dart: Saved receipt reopens, refreshes Paid and retains status on refresh failure
+00:01 +4: C:/EELE_MOB_APP/test/local_orders_test.dart: Saved receipt reopens, refreshes Paid and retains status on refresh failure
+00:03 +5: C:/EELE_MOB_APP/test/local_orders_test.dart: Receipt actions remain usable after the initial status read fails
+00:03 +6: C:/EELE_MOB_APP/test/local_orders_test.dart: Failed save leaves checkout and does not clear cart
+00:04 +7: C:/EELE_MOB_APP/test/local_orders_test.dart: Saving locks checkout and confirmation keeps its item snapshot
+00:05 +8: C:/EELE_MOB_APP/test/local_orders_test.dart: Staff simulation is gated and updates only the chosen local order
+00:05 +9: All tests passed!

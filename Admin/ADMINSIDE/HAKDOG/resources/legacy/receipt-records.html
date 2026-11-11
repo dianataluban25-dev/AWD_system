@@ -1,0 +1,1631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receipt Records - ELEE Hardware</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f5f5f5;
+            color: #222;
+        }
+
+        .layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* ================= SIDEBAR ================= */
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 235px;
+            height: 100vh;
+            background: #00551f;
+            color: white;
+            padding: 28px 16px;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 36px;
+            font-weight: 900;
+            margin-left: 12px;
+            letter-spacing: -2px;
+        }
+
+        .logo span {
+            color: #ffbd00;
+        }
+
+        .hardware {
+            color: #ffbd00;
+            font-size: 14px;
+            font-weight: bold;
+            margin-left: 13px;
+            margin-top: 3px;
+            margin-bottom: 25px;
+        }
+
+        .menu {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: white;
+            padding: 13px 14px;
+            border-radius: 7px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: 0.2s;
+        }
+
+        .menu a:hover {
+            background: #08732e;
+        }
+
+        .menu a.active {
+            background: #08732e;
+        }
+
+        .icon {
+            width: 20px;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        /* ================= MAIN ================= */
+
+        .main {
+            flex: 1;
+            background: white;
+            padding: 40px 50px;
+            min-width: 0;
+            margin-left: 235px;
+        }
+
+        .page-title {
+            color: #075b21;
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        .subtitle {
+            color: #888;
+            margin-top: 5px;
+            margin-bottom: 28px;
+        }
+
+        /* ================= SUMMARY ================= */
+
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+
+        .summary-card {
+            border: 1px solid #e5e5e5;
+            border-radius: 10px;
+            padding: 18px;
+            background: white;
+        }
+
+        .summary-card .label {
+            color: #777;
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        .summary-card .number {
+            font-size: 25px;
+            font-weight: bold;
+            color: #075b21;
+        }
+
+        .summary-card.paid .number {
+            color: #16853b;
+        }
+
+        .summary-card.unpaid .number {
+            color: #d88a00;
+        }
+
+        /* ================= TOOLBAR ================= */
+
+        .toolbar {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .search-box {
+            flex: 1;
+            height: 50px;
+            border: 1px solid #ddd;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+        }
+
+        .search-box span {
+            font-size: 24px;
+            color: #666;
+            margin-right: 12px;
+        }
+
+        .search-box input {
+            border: none;
+            outline: none;
+            width: 100%;
+            font-size: 14px;
+        }
+
+        .filter-box {
+            height: 50px;
+            min-width: 190px;
+            border: 1px solid #ddd;
+            border-radius: 9px;
+            padding: 0 14px;
+            outline: none;
+            background: white;
+            cursor: pointer;
+            color: #444;
+        }
+
+        /* ================= TABLE ================= */
+
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+
+        th {
+            text-align: left;
+            padding: 15px 12px;
+            font-size: 13px;
+            color: #333;
+            background: #fafafa;
+            border-bottom: 1px solid #ddd;
+        }
+
+        td {
+            padding: 16px 12px;
+            border-bottom: 1px solid #eee;
+            font-size: 13px;
+        }
+
+        .order-id {
+            color: #075b21;
+            font-weight: bold;
+        }
+
+        .amount {
+            font-weight: bold;
+        }
+
+        /* ================= STATUS ================= */
+
+        .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .status.paid {
+            background: #e5f7ea;
+            color: #16853b;
+        }
+
+        .status.unpaid {
+            background: #fff3d6;
+            color: #b87500;
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: currentColor;
+        }
+
+        .payment-method {
+            color: #555;
+            font-size: 12px;
+        }
+
+        /* ================= BUTTON ================= */
+
+        .view-btn {
+            border: 1px solid #16a34a;
+            color: #12813b;
+            background: white;
+            padding: 7px 17px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: .2s;
+        }
+
+        .view-btn:hover {
+            background: #12813b;
+            color: white;
+        }
+
+        /* ================= EMPTY ================= */
+
+        .empty {
+            text-align: center;
+            padding: 50px;
+            color: #999;
+        }
+
+        /* ================= BOTTOM ================= */
+
+        .bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 25px;
+            color: #777;
+            font-size: 13px;
+        }
+
+        .pagination {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+
+        .page {
+            padding: 7px 11px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .page:hover {
+            background: #e8f5eb;
+        }
+
+        .page.active {
+            background: #239447;
+            color: white;
+        }
+
+        /* ================= MODAL ================= */
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            z-index: 999;
+            inset: 0;
+            background: rgba(0,0,0,.55);
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .receipt-modal {
+            background: white;
+            width: 680px;
+            max-width: 100%;
+            max-height: 92vh;
+            overflow-y: auto;
+            border-radius: 10px;
+            padding: 28px;
+            box-shadow: 0 10px 40px rgba(0,0,0,.25);
+        }
+
+        .modal-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .receipt-icon {
+            width: 34px;
+            height: 34px;
+            background: #1c9142;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 6px;
+        }
+
+        .modal-title h2 {
+            font-size: 18px;
+        }
+
+        .modal-title p {
+            font-size: 11px;
+            color: #999;
+            margin-top: 3px;
+        }
+
+        /* ================= RECEIPT PAPER ================= */
+
+        .receipt-paper {
+            border: 1px solid #ddd;
+            padding: 25px;
+        }
+
+        .receipt-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding-bottom: 18px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .receipt-logo {
+            font-size: 32px;
+            font-weight: 900;
+            color: #00a52a;
+        }
+
+        .receipt-logo span {
+            color: #ffb000;
+        }
+
+        .receipt-hardware {
+            color: #ffb000;
+            font-size: 9px;
+            font-weight: bold;
+        }
+
+        .receipt-type {
+            text-align: right;
+        }
+
+        .receipt-type strong {
+            display: block;
+            color: #168537;
+            font-size: 12px;
+        }
+
+        .receipt-type span {
+            font-size: 10px;
+            color: #888;
+        }
+
+        /* ================= RECEIPT INFO ================= */
+
+        .receipt-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            margin-top: 16px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 15px;
+        }
+
+        .info-box {
+            padding: 8px 10px;
+            font-size: 11px;
+        }
+
+        .info-box:nth-child(odd) {
+            border-right: 1px solid #ddd;
+        }
+
+        .info-label {
+            color: #777;
+            margin-bottom: 5px;
+        }
+
+        .info-value {
+            font-weight: bold;
+        }
+
+        /* ================= CUSTOMER ================= */
+
+        .customer-section {
+            margin-top: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .customer-title {
+            font-size: 11px;
+            color: #777;
+            margin-bottom: 5px;
+        }
+
+        .customer-name {
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .customer-phone {
+            font-size: 10px;
+            color: #666;
+            margin-top: 3px;
+        }
+
+        /* ================= ITEMS ================= */
+
+        .items-title {
+            margin-top: 18px;
+            background: #e8f6e9;
+            padding: 9px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .items-table {
+            width: 100%;
+            min-width: 0;
+            border-collapse: collapse;
+        }
+
+        .items-table th {
+            background: #f3faf4;
+            font-size: 10px;
+            padding: 9px;
+        }
+
+        .items-table td {
+            font-size: 10px;
+            padding: 9px;
+            border-bottom: 1px solid #eee;
+        }
+
+        /* ================= TOTAL ================= */
+
+        .totals {
+            margin-top: 15px;
+            margin-left: auto;
+            width: 260px;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+            font-size: 11px;
+        }
+
+        .total-row.final {
+            border-top: 1px solid #bbb;
+            margin-top: 5px;
+            padding-top: 10px;
+            font-weight: bold;
+            font-size: 14px;
+            color: #075b21;
+        }
+
+        /* ================= MODAL ACTIONS ================= */
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        .close-btn {
+            background: white;
+            border: 1px solid #ddd;
+            padding: 9px 18px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .print-btn {
+            background: #238f45;
+            border: none;
+            color: white;
+            padding: 9px 18px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .print-btn:hover {
+            background: #176d32;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media(max-width: 1000px) {
+
+            .sidebar {
+                width: 200px;
+            }
+
+            .main {
+                margin-left: 200px;
+                padding: 30px;
+            }
+
+            .summary {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+        @media(max-width: 700px) {
+
+            .layout {
+                display: block;
+            }
+
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+                min-height: auto;
+                padding: 20px;
+            }
+
+            .menu {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 7px;
+            }
+
+            .menu a {
+                margin: 0;
+            }
+
+            .main {
+                margin-left: 0;
+                padding: 25px 18px;
+            }
+
+            .summary {
+                grid-template-columns: 1fr;
+            }
+
+            .toolbar {
+                flex-direction: column;
+            }
+
+            .filter-box {
+                width: 100%;
+            }
+
+            .bottom {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+
+            .receipt-paper {
+                padding: 15px;
+            }
+
+        }
+
+        /* ================= PRINT ================= */
+
+        @media print {
+
+            body * {
+                visibility: hidden;
+            }
+
+            .receipt-modal,
+            .receipt-modal * {
+                visibility: visible;
+            }
+
+            .receipt-modal {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                max-width: none;
+                max-height: none;
+                box-shadow: none;
+                border-radius: 0;
+            }
+
+            .modal-actions {
+                display: none;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="layout">
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            <span style="color:white;">E</span><span>LEE</span>
+        </div>
+
+        <div class="hardware">
+            HARDWARE
+        </div>
+
+        <div class="menu">
+
+            <a href="{{ url('/') }}">
+                <span class="icon">☼</span>
+                Dashboard
+            </a>
+
+            <a href="{{ url('/orders') }}">
+                <span class="icon">▣</span>
+                Orders
+            </a>
+
+            <a href="{{ url('/products') }}">
+                <span class="icon">◇</span>
+                Products
+            </a>
+
+            <a href="{{ url('/ai-recommendations') }}">
+                <span class="icon">↗</span>
+                AI Recommendations
+            </a>
+
+            <a href="{{ url('/payments') }}">
+                <span class="icon"><svg aria-hidden="true" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5.5" width="17" height="14" rx="2"/><path d="M3.5 9h17M7 5.5v-.75A1.75 1.75 0 0 1 8.75 3h8.5"/><path d="M16 13h4.5"/><circle cx="16" cy="13" r=".55"/></svg></span>
+                Payments
+            </a>
+
+            <a href="{{ url('/customers') }}">
+                <span class="icon">♙</span>
+                Customers
+            </a>
+
+            <a href="{{ url('/queuing') }}">
+                <span class="icon">▱</span>
+                Queuing
+            </a>
+
+            <a href="{{ url('/receipt-records') }}" class="active">
+                <span class="icon">▤</span>
+                Receipt Records
+            </a>
+
+            <a href="{{ url('/settings') }}">
+                <span class="icon">⚙</span>
+                Settings
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="main">
+
+        <h1 class="page-title">Receipt Records</h1>
+
+        <p class="subtitle">
+            View and manage order receipts, totals, payment methods, and payment status.
+        </p>
+
+
+        <!-- ================= SUMMARY ================= -->
+
+        <div class="summary">
+
+            <div class="summary-card">
+                <div class="label">Total Orders</div>
+                <div class="number" id="totalOrders">0</div>
+            </div>
+
+            <div class="summary-card">
+                <div class="label">Total Amount</div>
+                <div class="number" id="totalAmount">₱0.00</div>
+            </div>
+
+            <div class="summary-card paid">
+                <div class="label">Paid Orders</div>
+                <div class="number" id="paidOrders">0</div>
+            </div>
+
+            <div class="summary-card unpaid">
+                <div class="label">Unpaid Orders</div>
+                <div class="number" id="unpaidOrders">0</div>
+            </div>
+
+        </div>
+
+
+        <!-- ================= TOOLBAR ================= -->
+
+        <div class="toolbar">
+
+            <div class="search-box">
+                <span>⌕</span>
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search receipt, order, or customer..."
+                    oninput="renderReceipts()"
+                >
+            </div>
+
+            <select
+                class="filter-box"
+                id="statusFilter"
+                onchange="renderReceipts()"
+            >
+                <option value="all">All Payment Status</option>
+                <option value="Paid">Paid</option>
+                <option value="Unpaid">Unpaid</option>
+            </select>
+
+        </div>
+
+
+        <!-- ================= TABLE ================= -->
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Receipt No.</th>
+                        <th>Order ID</th>
+                        <th>Customer</th>
+                        <th>Order Total</th>
+                        <th>Payment Method</th>
+                        <th>Payment Status</th>
+                        <th>Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody id="receiptTableBody"></tbody>
+
+            </table>
+
+        </div>
+
+
+        <!-- ================= BOTTOM ================= -->
+
+        <div class="bottom">
+
+            <div id="showingText">
+                Showing 0 orders
+            </div>
+
+            <div class="pagination">
+
+                <span class="page active">
+                    1
+                </span>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<!-- ================= RECEIPT MODAL ================= -->
+
+<div
+    class="modal-overlay"
+    id="receiptModal"
+    onclick="closeOutside(event)"
+>
+
+    <div class="receipt-modal">
+
+        <div class="modal-title">
+
+            <div class="receipt-icon">
+                ▣
+            </div>
+
+            <div>
+                <h2>View Receipt</h2>
+
+                <p>
+                    Order and payment details
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="receipt-paper">
+
+            <div class="receipt-header">
+
+                <div>
+
+                    <div class="receipt-logo">
+                        EL<span>EE</span>
+                    </div>
+
+                    <div class="receipt-hardware">
+                        HARDWARE
+                    </div>
+
+                </div>
+
+                <div class="receipt-type">
+
+                    <strong>ORDER RECEIPT</strong>
+
+                    <span>
+                        Thank you for your purchase
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="receipt-info">
+
+                <div class="info-box">
+
+                    <div class="info-label">
+                        Receipt No.
+                    </div>
+
+                    <div
+                        class="info-value"
+                        id="modalReceiptNo">
+                    </div>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    <div class="info-label">
+                        Order ID
+                    </div>
+
+                    <div
+                        class="info-value"
+                        id="modalOrderId">
+                    </div>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    <div class="info-label">
+                        Date
+                    </div>
+
+                    <div
+                        class="info-value"
+                        id="modalDate">
+                    </div>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    <div class="info-label">
+                        Payment Method
+                    </div>
+
+                    <div
+                        class="info-value"
+                        id="modalPaymentMethod">
+                    </div>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    <div class="info-label">
+                        Payment Status
+                    </div>
+
+                    <div
+                        class="info-value"
+                        id="modalPaymentStatus">
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="customer-section">
+
+                <div class="customer-title">
+                    Customer
+                </div>
+
+                <div
+                    class="customer-name"
+                    id="modalCustomer">
+                </div>
+
+                <div
+                    class="customer-phone"
+                    id="modalPhone">
+                </div>
+
+            </div>
+
+
+            <div class="items-title">
+                Items Ordered
+            </div>
+
+            <table class="items-table">
+
+                <thead>
+
+                    <tr>
+                        <th>Product</th>
+                        <th>Qty</th>
+                        <th>Unit Price</th>
+                        <th>Subtotal</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="modalItems"></tbody>
+
+            </table>
+
+
+            <div class="totals">
+
+                <div class="total-row">
+
+                    <span>
+                        Subtotal
+                    </span>
+
+                    <span id="modalSubtotal">
+                        ₱0.00
+                    </span>
+
+                </div>
+
+
+                <div class="total-row">
+
+                    <span>
+                        Delivery Fee
+                    </span>
+
+                    <span id="modalDeliveryFee">
+                        ₱0.00
+                    </span>
+
+                </div>
+
+
+                <div class="total-row final">
+
+                    <span>
+                        Order Total
+                    </span>
+
+                    <span id="modalTotal">
+                        ₱0.00
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="modal-actions">
+
+            <button
+                class="close-btn"
+                onclick="closeReceipt()"
+            >
+                Close
+            </button>
+
+            <button
+                class="print-btn"
+                onclick="printReceipt()"
+            >
+                🖨 Print Receipt
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+const receipts = [
+
+    {
+        receipt: "RCP-2026-000119",
+        order: "#ELEE-2026-000119",
+        customer: "Kobe Foster",
+        phone: "0911 122 8765",
+        total: 4390,
+        method: "Cash on Delivery",
+        status: "Paid",
+        date: "September 2, 2026",
+        items: [
+            {
+                name: "Cement (40 kg)",
+                qty: 10,
+                price: 250
+            },
+            {
+                name: "GI Roofing Sheet",
+                qty: 5,
+                price: 320
+            },
+            {
+                name: "Nails (1kg)",
+                qty: 1,
+                price: 240
+            }
+        ],
+        deliveryFee: 50
+    },
+
+    {
+        receipt: "RCP-2026-000120",
+        order: "#ELEE-2026-000120",
+        customer: "Myka Santos",
+        phone: "0912 345 6789",
+        total: 2750,
+        method: "Cash at Store",
+        status: "Paid",
+        date: "September 5, 2026",
+        items: [
+            {
+                name: "Paint 4L",
+                qty: 2,
+                price: 850
+            },
+            {
+                name: "Paint Brush",
+                qty: 2,
+                price: 250
+            },
+            {
+                name: "Sandpaper",
+                qty: 5,
+                price: 100
+            }
+        ],
+        deliveryFee: 0
+    },
+
+    {
+        receipt: "RCP-2026-000121",
+        order: "#ELEE-2026-000121",
+        customer: "Janna Salvador",
+        phone: "0913 456 7890",
+        total: 3180,
+        method: "Cash on Delivery",
+        status: "Unpaid",
+        date: "September 9, 2026",
+        items: [
+            {
+                name: "PVC Pipe",
+                qty: 10,
+                price: 180
+            },
+            {
+                name: "PVC Elbow",
+                qty: 8,
+                price: 120
+            },
+            {
+                name: "PVC Cement",
+                qty: 1,
+                price: 580
+            }
+        ],
+        deliveryFee: 100
+    },
+
+    {
+        receipt: "RCP-2026-000122",
+        order: "#ELEE-2026-000122",
+        customer: "Anna Corpuz",
+        phone: "0914 567 8901",
+        total: 5120,
+        method: "Cash at Store",
+        status: "Paid",
+        date: "September 12, 2026",
+        items: [
+            {
+                name: "Steel Bar",
+                qty: 10,
+                price: 350
+            },
+            {
+                name: "Tie Wire",
+                qty: 4,
+                price: 150
+            },
+            {
+                name: "Cement (40 kg)",
+                qty: 1,
+                price: 850
+            }
+        ],
+        deliveryFee: 20
+    },
+
+    {
+        receipt: "RCP-2026-000123",
+        order: "#ELEE-2026-000123",
+        customer: "Bea Sanchez",
+        phone: "0915 678 9012",
+        total: 6890,
+        method: "Cash on Delivery",
+        status: "Unpaid",
+        date: "September 15, 2026",
+        items: [
+            {
+                name: "Cement (40 kg)",
+                qty: 15,
+                price: 250
+            },
+            {
+                name: "GI Roofing Sheet",
+                qty: 8,
+                price: 320
+            },
+            {
+                name: "Nails (1kg)",
+                qty: 2,
+                price: 240
+            }
+        ],
+        deliveryFee: 50
+    },
+
+    {
+        receipt: "RCP-2026-000124",
+        order: "#ELEE-2026-000124",
+        customer: "John Bautista",
+        phone: "0916 789 0123",
+        total: 2340,
+        method: "Cash at Store",
+        status: "Paid",
+        date: "September 18, 2026",
+        items: [
+            {
+                name: "Hammer",
+                qty: 2,
+                price: 450
+            },
+            {
+                name: "Screwdriver Set",
+                qty: 1,
+                price: 850
+            },
+            {
+                name: "Nails",
+                qty: 3,
+                price: 180
+            }
+        ],
+        deliveryFee: 0
+    },
+
+    {
+        receipt: "RCP-2026-000125",
+        order: "#ELEE-2026-000125",
+        customer: "Vito Navarro",
+        phone: "0917 890 1234",
+        total: 4250,
+        method: "Cash on Delivery",
+        status: "Paid",
+        date: "September 20, 2026",
+        items: [
+            {
+                name: "Power Drill",
+                qty: 1,
+                price: 3500
+            },
+            {
+                name: "Drill Bit Set",
+                qty: 1,
+                price: 700
+            }
+        ],
+        deliveryFee: 50
+    }
+
+];
+
+
+function formatMoney(amount) {
+
+    return new Intl.NumberFormat("en-PH", {
+        style: "currency",
+        currency: "PHP"
+    }).format(amount);
+
+}
+
+
+function updateSummary() {
+
+    const totalOrders = receipts.length;
+
+    const totalAmount = receipts.reduce(
+        (sum, receipt) => sum + receipt.total,
+        0
+    );
+
+    const paidOrders = receipts.filter(
+        receipt => receipt.status === "Paid"
+    ).length;
+
+    const unpaidOrders = receipts.filter(
+        receipt => receipt.status === "Unpaid"
+    ).length;
+
+
+    document.getElementById("totalOrders").innerText =
+        totalOrders;
+
+    document.getElementById("totalAmount").innerText =
+        formatMoney(totalAmount);
+
+    document.getElementById("paidOrders").innerText =
+        paidOrders;
+
+    document.getElementById("unpaidOrders").innerText =
+        unpaidOrders;
+
+}
+
+
+function renderReceipts() {
+
+    const tbody =
+        document.getElementById("receiptTableBody");
+
+    const search =
+        document
+            .getElementById("searchInput")
+            .value
+            .toLowerCase()
+            .trim();
+
+    const status =
+        document
+            .getElementById("statusFilter")
+            .value;
+
+
+    const filtered = receipts.filter(receipt => {
+
+        const searchableText = (
+
+            receipt.receipt +
+            " " +
+            receipt.order +
+            " " +
+            receipt.customer +
+            " " +
+            receipt.method
+
+        ).toLowerCase();
+
+
+        const matchesSearch =
+            searchableText.includes(search);
+
+
+        const matchesStatus =
+            status === "all" ||
+            receipt.status === status;
+
+
+        return matchesSearch && matchesStatus;
+
+    });
+
+
+    tbody.innerHTML = "";
+
+
+    if (filtered.length === 0) {
+
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="8" class="empty">
+                    No receipt records found.
+                </td>
+            </tr>
+        `;
+
+        document.getElementById("showingText").innerText =
+            "Showing 0 orders";
+
+        return;
+    }
+
+
+    filtered.forEach((receipt) => {
+
+        const row = document.createElement("tr");
+
+
+        row.innerHTML = `
+
+            <td>
+                <strong>${receipt.receipt}</strong>
+            </td>
+
+            <td>
+                <span class="order-id">
+                    ${receipt.order}
+                </span>
+            </td>
+
+            <td>
+                ${receipt.customer}
+            </td>
+
+            <td>
+                <span class="amount">
+                    ${formatMoney(receipt.total)}
+                </span>
+            </td>
+
+            <td>
+                <span class="payment-method">
+                    ${receipt.method}
+                </span>
+            </td>
+
+            <td>
+
+                <span class="status ${receipt.status.toLowerCase()}">
+
+                    <span class="status-dot"></span>
+
+                    ${receipt.status}
+
+                </span>
+
+            </td>
+
+            <td>
+                ${receipt.date}
+            </td>
+
+            <td>
+
+                <button
+                    class="view-btn"
+                    onclick="showReceipt(${receipts.indexOf(receipt)})"
+                >
+                    View
+                </button>
+
+            </td>
+
+        `;
+
+
+        tbody.appendChild(row);
+
+    });
+
+
+    document.getElementById("showingText").innerText =
+        `Showing 1 to ${filtered.length} of ${filtered.length} orders`;
+
+}
+
+
+function showReceipt(index) {
+
+    const data = receipts[index];
+
+
+    document.getElementById("modalReceiptNo").innerText =
+        data.receipt;
+
+
+    document.getElementById("modalOrderId").innerText =
+        data.order;
+
+
+    document.getElementById("modalDate").innerText =
+        data.date;
+
+
+    document.getElementById("modalPaymentMethod").innerText =
+        data.method;
+
+
+    document.getElementById("modalPaymentStatus").innerHTML = `
+
+        <span class="status ${data.status.toLowerCase()}">
+
+            <span class="status-dot"></span>
+
+            ${data.status}
+
+        </span>
+
+    `;
+
+
+    document.getElementById("modalCustomer").innerText =
+        data.customer;
+
+
+    document.getElementById("modalPhone").innerText =
+        data.phone;
+
+
+    const itemsContainer =
+        document.getElementById("modalItems");
+
+    itemsContainer.innerHTML = "";
+
+
+    let subtotal = 0;
+
+
+    data.items.forEach(item => {
+
+        const itemSubtotal =
+            item.qty * item.price;
+
+        subtotal += itemSubtotal;
+
+
+        const row =
+            document.createElement("tr");
+
+
+        row.innerHTML = `
+
+            <td>
+                ${item.name}
+            </td>
+
+            <td>
+                ${item.qty}
+            </td>
+
+            <td>
+                ${formatMoney(item.price)}
+            </td>
+
+            <td>
+                ${formatMoney(itemSubtotal)}
+            </td>
+
+        `;
+
+
+        itemsContainer.appendChild(row);
+
+    });
+
+
+    document.getElementById("modalSubtotal").innerText =
+        formatMoney(subtotal);
+
+
+    document.getElementById("modalDeliveryFee").innerText =
+        formatMoney(data.deliveryFee);
+
+
+    document.getElementById("modalTotal").innerText =
+        formatMoney(data.total);
+
+
+    document
+        .getElementById("receiptModal")
+        .classList.add("show");
+
+}
+
+
+function closeReceipt() {
+
+    document
+        .getElementById("receiptModal")
+        .classList.remove("show");
+
+}
+
+
+function closeOutside(event) {
+
+    if (
+        event.target.id === "receiptModal"
+    ) {
+
+        closeReceipt();
+
+    }
+
+}
+
+
+function printReceipt() {
+
+    window.print();
+
+}
+
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (event.key === "Escape") {
+
+            closeReceipt();
+
+        }
+
+    }
+);
+
+
+updateSummary();
+renderReceipts();
+
+</script>
+
+</body>
+</html>

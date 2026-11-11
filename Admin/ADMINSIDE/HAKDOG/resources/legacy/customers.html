@@ -1,0 +1,1842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customers - ELEE Hardware</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background: #ffffff;
+            color: #111;
+        }
+
+        .layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* ================= SIDEBAR ================= */
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 235px;
+            height: 100vh;
+            background: #00551f;
+            color: white;
+            padding: 28px 16px;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 36px;
+            font-weight: 900;
+            margin-left: 12px;
+            letter-spacing: -2px;
+        }
+
+        .logo span {
+            color: #ffbd00;
+        }
+
+        .hardware {
+            color: #ffbd00;
+            font-size: 14px;
+            font-weight: bold;
+            margin-left: 13px;
+            margin-top: 3px;
+            margin-bottom: 25px;
+        }
+
+        .menu {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: white;
+            padding: 13px 14px;
+            border-radius: 7px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: 0.2s;
+        }
+
+        .menu a:hover {
+            background: #08732e;
+        }
+
+        .menu a.active {
+            background: #08732e;
+        }
+
+        .icon {
+            width: 20px;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        /* ================= MAIN ================= */
+
+        .main {
+            margin-left: 235px;
+            width: calc(100% - 235px);
+            min-height: 100vh;
+            padding: 30px 40px;
+        }
+
+        .page-header {
+            margin-bottom: 25px;
+        }
+
+        .page-header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .page-header p {
+            color: #8c8c8c;
+            font-size: 14px;
+        }
+
+        /* ================= SUMMARY CARDS ================= */
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .summary-card {
+            border: 1px solid #e5e5e5;
+            border-radius: 12px;
+            padding: 18px;
+            background: white;
+        }
+
+        .summary-label {
+            color: #777;
+            font-size: 12px;
+            margin-bottom: 8px;
+        }
+
+        .summary-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #00551b;
+        }
+
+        /* ================= TOOLBAR ================= */
+
+        .toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .search-container {
+            width: 350px;
+            height: 43px;
+            border: 1px solid #dddddd;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            padding: 0 13px;
+            background: white;
+        }
+
+        .search-icon {
+            font-size: 22px;
+            color: #999;
+            margin-right: 10px;
+        }
+
+        .search-container input {
+            border: none;
+            outline: none;
+            width: 100%;
+            font-size: 13px;
+        }
+
+        .search-container input::placeholder {
+            color: #999;
+        }
+
+        .clear-search {
+            border: none;
+            background: none;
+            cursor: pointer;
+            color: #999;
+            font-size: 17px;
+            display: none;
+        }
+
+        .clear-search:hover {
+            color: #00551b;
+        }
+
+        .customer-count {
+            color: #777;
+            font-size: 13px;
+        }
+
+        /* ================= TABLE CARD ================= */
+
+        .table-card {
+            border: 1px solid #e5e5e5;
+            border-radius: 12px;
+            overflow: hidden;
+            background: white;
+        }
+
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        .customer-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 1000px;
+        }
+
+        .customer-table thead {
+            background: #f8f9f8;
+        }
+
+        .customer-table th {
+            text-align: left;
+            font-size: 12px;
+            font-weight: 700;
+            color: #555;
+            padding: 16px 18px;
+            border-bottom: 1px solid #e5e5e5;
+            white-space: nowrap;
+        }
+
+        .customer-table td {
+            padding: 17px 18px;
+            font-size: 13px;
+            border-bottom: 1px solid #eeeeee;
+            vertical-align: middle;
+        }
+
+        .customer-table tbody tr:hover {
+            background: #fafafa;
+        }
+
+        .customer-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .customer-name {
+            font-weight: 700;
+            color: #222;
+        }
+
+        .mobile-number {
+            color: #444;
+        }
+
+        .address {
+            color: #666;
+            max-width: 260px;
+            white-space: normal !important;
+            line-height: 1.4;
+        }
+
+        .orders-count {
+            font-weight: 600;
+            color: #00551b;
+        }
+
+        .amount {
+            font-weight: 600;
+        }
+
+        .last-order {
+            color: #555;
+        }
+
+        /* ================= VIEW HISTORY BUTTON ================= */
+
+        .history-btn {
+            border: 1px solid #00551b;
+            background: white;
+            color: #00551b;
+            padding: 8px 12px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .history-btn:hover {
+            background: #00551b;
+            color: white;
+        }
+
+        /* ================= EMPTY STATE ================= */
+
+        .empty-state {
+            display: none;
+            text-align: center;
+            padding: 55px 20px;
+        }
+
+        .empty-icon {
+            font-size: 40px;
+            color: #bbb;
+            margin-bottom: 12px;
+        }
+
+        .empty-state h3 {
+            font-size: 17px;
+            margin-bottom: 6px;
+        }
+
+        .empty-state p {
+            color: #888;
+            font-size: 13px;
+        }
+
+        /* ================= PAGINATION ================= */
+
+        .pagination-area {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 20px;
+            border-top: 1px solid #eeeeee;
+        }
+
+        .pagination-info {
+            color: #777;
+            font-size: 12px;
+        }
+
+        .pagination {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .page-btn {
+            min-width: 30px;
+            height: 30px;
+            border: 1px solid #dddddd;
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            color: #555;
+        }
+
+        .page-btn:hover {
+            background: #f0f0f0;
+        }
+
+        .page-btn.active {
+            background: #299447;
+            border-color: #299447;
+            color: white;
+            font-weight: bold;
+        }
+
+        .page-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        /* ================= MODAL ================= */
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.45);
+            z-index: 500;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal {
+            width: 100%;
+            max-width: 750px;
+            max-height: 90vh;
+            overflow-y: auto;
+            background: white;
+            border-radius: 14px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 24px;
+            border-bottom: 1px solid #eeeeee;
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 2;
+        }
+
+        .modal-header h2 {
+            font-size: 19px;
+            color: #222;
+        }
+
+        .close-btn {
+            border: none;
+            background: #f1f1f1;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            color: #555;
+        }
+
+        .close-btn:hover {
+            background: #e5e5e5;
+        }
+
+        .modal-body {
+            padding: 24px;
+        }
+
+        /* ================= CUSTOMER INFO ================= */
+
+        .customer-info {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .info-box {
+            background: #f8faf8;
+            border-radius: 9px;
+            padding: 14px;
+        }
+
+        .info-box.full {
+            grid-column: 1 / -1;
+        }
+
+        .info-label {
+            font-size: 11px;
+            color: #888;
+            margin-bottom: 5px;
+        }
+
+        .info-value {
+            font-size: 13px;
+            font-weight: 600;
+            color: #222;
+        }
+
+        /* ================= ORDER HISTORY ================= */
+
+        .history-title {
+            font-size: 16px;
+            margin-bottom: 12px;
+            color: #222;
+        }
+
+        .history-table-wrapper {
+            overflow-x: auto;
+            border: 1px solid #e5e5e5;
+            border-radius: 9px;
+        }
+
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+        }
+
+        .history-table th {
+            background: #f7f8f7;
+            text-align: left;
+            padding: 12px;
+            font-size: 11px;
+            color: #666;
+            white-space: nowrap;
+        }
+
+        .history-table td {
+            padding: 12px;
+            border-top: 1px solid #eeeeee;
+            font-size: 12px;
+            white-space: nowrap;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 5px 9px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .status.paid {
+            background: #e4f6e9;
+            color: #168139;
+        }
+
+        .status.unpaid {
+            background: #fff4d6;
+            color: #9a7000;
+        }
+
+        .status.cancelled {
+            background: #fce8e8;
+            color: #b52a2a;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 1100px) {
+            .summary-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 900px) {
+
+            .sidebar {
+                width: 190px;
+            }
+
+            .main {
+                margin-left: 190px;
+                width: calc(100% - 190px);
+                padding: 25px;
+            }
+
+            .customer-table {
+                min-width: 1050px;
+            }
+
+            .toolbar {
+                align-items: flex-start;
+            }
+        }
+
+        @media (max-width: 650px) {
+
+            .sidebar {
+                width: 70px;
+                padding: 20px 8px;
+            }
+
+            .logo {
+                margin-left: 5px;
+            }
+
+            .logo-name {
+                font-size: 20px;
+                letter-spacing: -1px;
+            }
+
+            .hardware {
+                display: none;
+            }
+
+            .menu a {
+                justify-content: center;
+                padding: 12px 5px;
+            }
+
+            .menu a span:not(.icon) {
+                display: none;
+            }
+
+            .main {
+                margin-left: 70px;
+                width: calc(100% - 70px);
+                padding: 20px;
+            }
+
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .search-container {
+                width: 100%;
+            }
+
+            .toolbar {
+                display: block;
+            }
+
+            .customer-count {
+                display: block;
+                margin-top: 10px;
+            }
+
+            .pagination-area {
+                display: block;
+            }
+
+            .pagination {
+                margin-top: 12px;
+                justify-content: center;
+            }
+
+            .customer-info {
+                grid-template-columns: 1fr;
+            }
+
+            .info-box.full {
+                grid-column: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="layout">
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            <span style="color:white;">E</span><span>LEE</span>
+        </div>
+
+        <div class="hardware">
+            HARDWARE
+        </div>
+
+        <nav class="menu">
+
+            <a href="{{ url('/dashboard') }}">
+                <span class="icon">☼</span>
+                Dashboard
+            </a>
+
+            <a href="{{ url('/orders') }}">
+                <span class="icon">▣</span>
+                Orders
+            </a>
+
+            <a href="{{ url('/products') }}">
+                <span class="icon">◇</span>
+                Products
+            </a>
+
+            <a href="{{ url('/ai-recommendations') }}">
+                <span class="icon">↗</span>
+                AI Recommendations
+            </a>
+
+            <a href="{{ url('/payments') }}">
+                <span class="icon"><svg aria-hidden="true" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5.5" width="17" height="14" rx="2"/><path d="M3.5 9h17M7 5.5v-.75A1.75 1.75 0 0 1 8.75 3h8.5"/><path d="M16 13h4.5"/><circle cx="16" cy="13" r=".55"/></svg></span>
+                Payments
+            </a>
+
+            <a href="{{ url('/customers') }}" class="active">
+                <span class="icon">♙</span>
+                Customers
+            </a>
+
+            <a href="{{ url('/queuing') }}">
+                <span class="icon">▱</span>
+                Queuing
+            </a>
+
+            <a href="{{ url('/receipt-records') }}">
+                <span class="icon">▤</span>
+                Receipt Records
+            </a>
+
+            <a href="{{ url('/settings') }}">
+                <span class="icon">⚙</span>
+                Settings
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="main customer-page">
+
+        <div class="page-header">
+            <h1>Customer Records</h1>
+            <p>View customer information and order history</p>
+        </div>
+
+
+        <!-- ================= SUMMARY ================= -->
+
+        <div class="summary-grid">
+
+            <div class="summary-card">
+                <div class="summary-label">Total Customers</div>
+                <div class="summary-value" id="totalCustomers">0</div>
+            </div>
+
+            <div class="summary-card">
+                <div class="summary-label">Total Orders</div>
+                <div class="summary-value" id="totalOrders">0</div>
+            </div>
+
+            <div class="summary-card">
+                <div class="summary-label">Total Sales</div>
+                <div class="summary-value" id="totalSales">₱ 0.00</div>
+            </div>
+
+            <div class="summary-card">
+                <div class="summary-label">Active Customers</div>
+                <div class="summary-value" id="activeCustomers">0</div>
+            </div>
+
+        </div>
+
+
+        <!-- ================= SEARCH ================= -->
+
+        <div class="toolbar">
+
+            <div class="search-container">
+
+                <span class="search-icon">⌕</span>
+
+                <input
+                    type="text"
+                    id="customerSearch"
+                    placeholder="Search customer, mobile number, or address..."
+                    oninput="searchCustomer()"
+                >
+
+                <button
+                    type="button"
+                    class="clear-search"
+                    id="clearSearch"
+                    onclick="clearSearch()"
+                >
+                    ×
+                </button>
+
+            </div>
+
+            <div class="customer-count" id="customerCount">
+                Showing 0 customers
+            </div>
+
+        </div>
+
+
+        <!-- ================= CUSTOMER TABLE ================= -->
+
+        <div class="table-card">
+
+            <div class="table-wrapper">
+
+                <table class="customer-table">
+
+                    <thead>
+                        <tr>
+                            <th>Customer Name</th>
+                            <th>Mobile Number</th>
+                            <th>Delivery Address</th>
+                            <th>Total Orders</th>
+                            <th>Total Spent</th>
+                            <th>Last Order</th>
+                            <th>Order History</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="customerTable">
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            <!-- EMPTY STATE -->
+
+            <div class="empty-state" id="emptyState">
+
+                <div class="empty-icon">⌕</div>
+
+                <h3>No customer found</h3>
+
+                <p>
+                    Try searching using a different customer name,
+                    mobile number, or address.
+                </p>
+
+            </div>
+
+
+            <!-- PAGINATION -->
+
+            <div class="pagination-area">
+
+                <div class="pagination-info" id="paginationInfo">
+                    Showing 0 to 0 of 0 customers
+                </div>
+
+                <div class="pagination" id="pagination">
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<!-- ================= ORDER HISTORY MODAL ================= -->
+
+<div class="modal-overlay" id="historyModal">
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <h2>Customer Details</h2>
+
+            <button
+                class="close-btn"
+                onclick="closeHistory()"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div class="modal-body">
+
+            <!-- CUSTOMER INFORMATION -->
+
+            <div class="customer-info">
+
+                <div class="info-box">
+
+                    <div class="info-label">
+                        Customer Name
+                    </div>
+
+                    <div
+                        class="info-value"
+                        id="modalCustomerName"
+                    >
+                    </div>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    <div class="info-label">
+                        Mobile Number
+                    </div>
+
+                    <div
+                        class="info-value"
+                        id="modalMobile"
+                    >
+                    </div>
+
+                </div>
+
+
+                <div class="info-box full">
+
+                    <div class="info-label">
+                        Delivery Address
+                    </div>
+
+                    <div
+                        class="info-value"
+                        id="modalAddress"
+                    >
+                    </div>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    <div class="info-label">
+                        Total Orders
+                    </div>
+
+                    <div
+                        class="info-value"
+                        id="modalTotalOrders"
+                    >
+                    </div>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    <div class="info-label">
+                        Total Spent
+                    </div>
+
+                    <div
+                        class="info-value"
+                        id="modalTotalSpent"
+                    >
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ORDER HISTORY -->
+
+            <h3 class="history-title">
+                Order History
+            </h3>
+
+            <div class="history-table-wrapper">
+
+                <table class="history-table">
+
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Date</th>
+                            <th>Items</th>
+                            <th>Amount</th>
+                            <th>Payment</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="historyTable">
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    /* =====================================================
+       CUSTOMER DATA
+       ===================================================== */
+
+    const customers = [
+
+        {
+            name: "Juan Dela Cruz",
+            mobile: "0917 123 4507",
+            address: "123 Mabini Street, Barangay San Jose, Manila",
+            orders: [
+                {
+                    id: "ORD-1001",
+                    date: "2025-05-10",
+                    items: "Cement, Nails",
+                    amount: 1250,
+                    payment: "Cash at Store",
+                    status: "Paid"
+                },
+                {
+                    id: "ORD-1015",
+                    date: "2025-05-14",
+                    items: "Paint, Paint Brush",
+                    amount: 1850,
+                    payment: "Cash on Delivery",
+                    status: "Paid"
+                },
+                {
+                    id: "ORD-1028",
+                    date: "2025-05-18",
+                    items: "PVC Pipe, Elbow",
+                    amount: 950,
+                    payment: "Cash at Store",
+                    status: "Paid"
+                },
+                {
+                    id: "ORD-1042",
+                    date: "2025-05-23",
+                    items: "Door Lock Set",
+                    amount: 1100,
+                    payment: "Cash on Delivery",
+                    status: "Paid"
+                },
+                {
+                    id: "ORD-1055",
+                    date: "2025-05-27",
+                    items: "Electrical Wires, Switch",
+                    amount: 1300,
+                    payment: "Cash at Store",
+                    status: "Paid"
+                }
+            ]
+        },
+
+        {
+            name: "Maria Santos",
+            mobile: "0920 007 6543",
+            address: "45 Rizal Avenue, Barangay Poblacion, Quezon City",
+            orders: [
+                {
+                    id: "ORD-1008",
+                    date: "2025-05-09",
+                    items: "LED Bulbs",
+                    amount: 1200,
+                    payment: "Cash at Store",
+                    status: "Paid"
+                },
+                {
+                    id: "ORD-1031",
+                    date: "2025-05-20",
+                    items: "Extension Cord",
+                    amount: 1500,
+                    payment: "Cash on Delivery",
+                    status: "Paid"
+                },
+                {
+                    id: "ORD-1058",
+                    date: "2025-05-27",
+                    items: "Electric Fan",
+                    amount: 1500,
+                    payment: "Cash at Store",
+                    status: "Paid"
+                }
+            ]
+        },
+
+        {
+            name: "Pedro Reyes",
+            mobile: "0906 555 7788",
+            address: "78 Bonifacio Street, Barangay Maligaya, Pasig City",
+            orders: [
+                {
+                    id: "ORD-1003",
+                    date: "2025-05-05",
+                    items: "Cement, Sand",
+                    amount: 1800,
+                    payment: "Cash at Store",
+                    status: "Paid"
+                },
+                {
+                    id: "ORD-1012",
+                    date: "2025-05-09",
+                    items: "Steel Bars",
+                    amount: 2200,
+                    payment: "Cash on Delivery",
+                    status: "Paid"
+                },
+                {
+                    id: "ORD-1021",
+                    date: "2025-05-14",
+                    items: "Paint, Roller",
+                    amount: 1350,
+                    payment: "Cash at Store",
+                    status: "Paid"
+                },
+                {
+                    id: "ORD-1035",
+                    date: "2025-05-18",
+                    items: "PVC Pipes",
+                    amount: 1100,
+                    payment: "Cash on Delivery",
+                    status: "Paid"
+                },
+                {
+                    id: "ORD-1044",
+                    date: "2025-05-21",
+                    items: "Drill Machine",
+                    amount: 1750,
+                    payment: "Cash at Store",
+                    status: "Paid"
+                },
+                {
+                    id: "ORD-1052",
+                    date: "2025-05-25",
+                    items: "Power Tools",
+                    amount: 1050,
+                    payment: "Cash on Delivery",
+                    status: "Paid"
+                },
+                {
+                    id: "ORD-1060",
+                    date: "2025-05-27",
+                    items: "Safety Equipment",
+                    amount: 600,
+                    payment: "Cash at Store",
+                    status: "Paid"
+                }
+            ]
+        },
+
+        {
+            name: "Ana Garcia",
+            mobile: "0916 444 5322",
+            address: "22 Luna Street, Barangay Santo Niño, Makati City",
+            orders: [
+                {
+                    id: "ORD-1025",
+                    date: "2025-05-16",
+                    items: "Paint",
+                    amount: 950,
+                    payment: "Cash at Store",
+                    status: "Paid"
+                },
+                {
+                    id: "ORD-1057",
+                    date: "2025-05-26",
+                    items: "Paint Brush Set",
+                    amount: 1200,
+                    payment: "Cash on Delivery",
+                    status: "Paid"
+                }
+            ]
+        },
+
+        {
+            name: "Ramon Mendoza",
+            mobile: "0933 111 2222",
+            address: "91 Bonifacio Avenue, Barangay San Isidro, Taguig City",
+            orders: [
+                {
+                    id: "ORD-1006",
+                    date: "2025-05-06",
+                    items: "Cement",
+                    amount: 1450,
+                    payment: "Cash at Store",
+                    status: "Paid"
+                },
+                {
+                    id: "ORD-1018",
+                    date: "2025-05-11",
+                    items: "Steel Bars",
+                    amount: 1250,
+                    payment: "Cash on Delivery",
+                    status: "Paid"
+                },
+                {
+                    id: "ORD-1029",
+                    date: "2025-05-17",
+                    items: "Power Tools",
+                    amount: 1500,
+                    payment: "Cash at Store",
+                    status: "Paid"
+                },
+                {
+                    id: "ORD-1047",
+                    date: "2025-05-22",
+                    items: "Electrical Supplies",
+                    amount: 1800,
+                    payment: "Cash on Delivery",
+                    status: "Paid"
+                },
+                {
+                    id: "ORD-1054",
+                    date: "2025-05-25",
+                    items: "PVC Pipes",
+                    amount: 900,
+                    payment: "Cash at Store",
+                    status: "Paid"
+                },
+                {
+                    id: "ORD-1061",
+                    date: "2025-05-26",
+                    items: "Door Lock",
+                    amount: 600,
+                    payment: "Cash on Delivery",
+                    status: "Paid"
+                }
+            ]
+        },
+
+        {
+            name: "Bea Sanchez",
+            mobile: "0918 333 7788",
+            address: "15 Quezon Street, Barangay Central, Manila",
+            orders: [
+                {
+                    id: "ORD-1062",
+                    date: "2025-05-27",
+                    items: "Power Drill",
+                    amount: 2450,
+                    payment: "Cash at Store",
+                    status: "Paid"
+                },
+                {
+                    id: "ORD-1065",
+                    date: "2025-05-28",
+                    items: "Drill Bits",
+                    amount: 850,
+                    payment: "Cash on Delivery",
+                    status: "Unpaid"
+                }
+            ]
+        },
+
+        {
+            name: "John Bautista",
+            mobile: "0927 555 8899",
+            address: "88 Marcos Highway, Barangay Dela Paz, Marikina City",
+            orders: [
+                {
+                    id: "ORD-1066",
+                    date: "2025-05-28",
+                    items: "Hammer, Nails",
+                    amount: 1250,
+                    payment: "Cash on Delivery",
+                    status: "Unpaid"
+                },
+                {
+                    id: "ORD-1067",
+                    date: "2025-05-29",
+                    items: "Cement, Sand",
+                    amount: 2100,
+                    payment: "Cash at Store",
+                    status: "Paid"
+                }
+            ]
+        },
+
+        {
+            name: "Liza Fernandez",
+            mobile: "0919 777 3344",
+            address: "31 Mabini Street, Barangay San Antonio, Pasay City",
+            orders: [
+                {
+                    id: "ORD-1068",
+                    date: "2025-05-29",
+                    items: "Paint, Roller",
+                    amount: 1650,
+                    payment: "Cash at Store",
+                    status: "Paid"
+                }
+            ]
+        }
+
+    ];
+
+
+    /* =====================================================
+       VARIABLES
+       ===================================================== */
+
+    let filteredCustomers = [...customers];
+
+    let currentPage = 1;
+
+    const rowsPerPage = 5;
+
+
+    /* =====================================================
+       FORMAT CURRENCY
+       ===================================================== */
+
+    function formatCurrency(amount) {
+
+        return "₱ " + Number(amount).toLocaleString("en-PH", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
+
+    }
+
+
+    /* =====================================================
+       FORMAT DATE
+       ===================================================== */
+
+    function formatDate(dateString) {
+
+        const date = new Date(dateString + "T00:00:00");
+
+        return date.toLocaleDateString("en-PH", {
+            month: "short",
+            day: "numeric",
+            year: "numeric"
+        });
+
+    }
+
+
+    /* =====================================================
+       GET CUSTOMER TOTAL
+       ===================================================== */
+
+    function getCustomerTotal(customer) {
+
+        return customer.orders.reduce(function(total, order) {
+
+            return total + order.amount;
+
+        }, 0);
+
+    }
+
+
+    /* =====================================================
+       RENDER CUSTOMERS
+       ===================================================== */
+
+    function renderCustomers() {
+
+        const table = document.getElementById("customerTable");
+
+        const emptyState = document.getElementById("emptyState");
+
+        table.innerHTML = "";
+
+
+        if (filteredCustomers.length === 0) {
+
+            emptyState.style.display = "block";
+
+            document.getElementById("pagination").innerHTML = "";
+
+            document.getElementById("paginationInfo").textContent =
+                "Showing 0 to 0 of 0 customers";
+
+            document.getElementById("customerCount").textContent =
+                "Showing 0 customers";
+
+            return;
+
+        }
+
+
+        emptyState.style.display = "none";
+
+
+        const startIndex = (currentPage - 1) * rowsPerPage;
+
+        const endIndex = startIndex + rowsPerPage;
+
+        const pageCustomers =
+            filteredCustomers.slice(startIndex, endIndex);
+
+
+        pageCustomers.forEach(function(customer) {
+
+            const totalOrders = customer.orders.length;
+
+            const totalSpent = getCustomerTotal(customer);
+
+            const lastOrder =
+                customer.orders[customer.orders.length - 1];
+
+
+            const row = document.createElement("tr");
+
+
+            row.innerHTML = `
+
+                <td>
+                    <div class="customer-name">
+                        ${escapeHtml(customer.name)}
+                    </div>
+                </td>
+
+                <td>
+                    <span class="mobile-number">
+                        ${escapeHtml(customer.mobile)}
+                    </span>
+                </td>
+
+                <td>
+                    <div class="address">
+                        ${escapeHtml(customer.address)}
+                    </div>
+                </td>
+
+                <td>
+                    <span class="orders-count">
+                        ${totalOrders}
+                    </span>
+                </td>
+
+                <td>
+                    <span class="amount">
+                        ${formatCurrency(totalSpent)}
+                    </span>
+                </td>
+
+                <td>
+                    <span class="last-order">
+                        ${formatDate(lastOrder.date)}
+                    </span>
+                </td>
+
+                <td>
+                    <button
+                        class="history-btn"
+                        onclick="openHistory(${customers.indexOf(customer)})"
+                    >
+                        View History
+                    </button>
+                </td>
+
+            `;
+
+
+            table.appendChild(row);
+
+        });
+
+
+        const showingFrom = startIndex + 1;
+
+        const showingTo =
+            Math.min(endIndex, filteredCustomers.length);
+
+
+        document.getElementById("paginationInfo").textContent =
+            `Showing ${showingFrom} to ${showingTo} of ${filteredCustomers.length} customers`;
+
+
+        document.getElementById("customerCount").textContent =
+            `${filteredCustomers.length} customer${filteredCustomers.length !== 1 ? "s" : ""}`;
+
+
+        renderPagination();
+
+    }
+
+
+    /* =====================================================
+       PAGINATION
+       ===================================================== */
+
+    function renderPagination() {
+
+        const pagination =
+            document.getElementById("pagination");
+
+        pagination.innerHTML = "";
+
+
+        const totalPages =
+            Math.ceil(filteredCustomers.length / rowsPerPage);
+
+
+        if (totalPages <= 1) {
+            return;
+        }
+
+
+        const previousButton =
+            document.createElement("button");
+
+        previousButton.className = "page-btn";
+
+        previousButton.innerHTML = "‹";
+
+        previousButton.disabled = currentPage === 1;
+
+        previousButton.onclick = function() {
+
+            if (currentPage > 1) {
+
+                currentPage--;
+
+                renderCustomers();
+
+            }
+
+        };
+
+        pagination.appendChild(previousButton);
+
+
+        for (let page = 1; page <= totalPages; page++) {
+
+            const button =
+                document.createElement("button");
+
+            button.className = "page-btn";
+
+            if (page === currentPage) {
+
+                button.classList.add("active");
+
+            }
+
+            button.textContent = page;
+
+
+            button.onclick = function() {
+
+                currentPage = page;
+
+                renderCustomers();
+
+            };
+
+
+            pagination.appendChild(button);
+
+        }
+
+
+        const nextButton =
+            document.createElement("button");
+
+        nextButton.className = "page-btn";
+
+        nextButton.innerHTML = "›";
+
+        nextButton.disabled =
+            currentPage === totalPages;
+
+        nextButton.onclick = function() {
+
+            if (currentPage < totalPages) {
+
+                currentPage++;
+
+                renderCustomers();
+
+            }
+
+        };
+
+        pagination.appendChild(nextButton);
+
+    }
+
+
+    /* =====================================================
+       SEARCH CUSTOMER
+       ===================================================== */
+
+    function searchCustomer() {
+
+        const input =
+            document
+                .getElementById("customerSearch")
+                .value
+                .toLowerCase()
+                .trim();
+
+
+        const clearButton =
+            document.getElementById("clearSearch");
+
+
+        clearButton.style.display =
+            input.length > 0 ? "block" : "none";
+
+
+        filteredCustomers = customers.filter(function(customer) {
+
+            return (
+
+                customer.name.toLowerCase().includes(input) ||
+
+                customer.mobile.toLowerCase().includes(input) ||
+
+                customer.address.toLowerCase().includes(input)
+
+            );
+
+        });
+
+
+        currentPage = 1;
+
+        renderCustomers();
+
+    }
+
+
+    /* =====================================================
+       CLEAR SEARCH
+       ===================================================== */
+
+    function clearSearch() {
+
+        document.getElementById("customerSearch").value = "";
+
+        document.getElementById("clearSearch").style.display = "none";
+
+        filteredCustomers = [...customers];
+
+        currentPage = 1;
+
+        renderCustomers();
+
+    }
+
+
+    /* =====================================================
+       OPEN ORDER HISTORY
+       ===================================================== */
+
+    function openHistory(customerIndex) {
+
+        const customer = customers[customerIndex];
+
+
+        document.getElementById("modalCustomerName").textContent =
+            customer.name;
+
+        document.getElementById("modalMobile").textContent =
+            customer.mobile;
+
+        document.getElementById("modalAddress").textContent =
+            customer.address;
+
+        document.getElementById("modalTotalOrders").textContent =
+            customer.orders.length;
+
+        document.getElementById("modalTotalSpent").textContent =
+            formatCurrency(getCustomerTotal(customer));
+
+
+        const historyTable =
+            document.getElementById("historyTable");
+
+        historyTable.innerHTML = "";
+
+
+        customer.orders.forEach(function(order) {
+
+            let statusClass = "unpaid";
+
+
+            if (order.status === "Paid") {
+
+                statusClass = "paid";
+
+            } else if (order.status === "Cancelled") {
+
+                statusClass = "cancelled";
+
+            }
+
+
+            const row = document.createElement("tr");
+
+
+            row.innerHTML = `
+
+                <td>
+                    <strong>
+                        ${escapeHtml(order.id)}
+                    </strong>
+                </td>
+
+                <td>
+                    ${formatDate(order.date)}
+                </td>
+
+                <td>
+                    ${escapeHtml(order.items)}
+                </td>
+
+                <td>
+                    ${formatCurrency(order.amount)}
+                </td>
+
+                <td>
+                    ${escapeHtml(order.payment)}
+                </td>
+
+                <td>
+                    <span class="status ${statusClass}">
+                        ${escapeHtml(order.status)}
+                    </span>
+                </td>
+
+            `;
+
+
+            historyTable.appendChild(row);
+
+        });
+
+
+        document
+            .getElementById("historyModal")
+            .classList.add("show");
+
+
+        document.body.style.overflow = "hidden";
+
+    }
+
+
+    /* =====================================================
+       CLOSE ORDER HISTORY
+       ===================================================== */
+
+    function closeHistory() {
+
+        document
+            .getElementById("historyModal")
+            .classList.remove("show");
+
+
+        document.body.style.overflow = "";
+
+    }
+
+
+    /* =====================================================
+       CLOSE MODAL WHEN CLICKING OUTSIDE
+       ===================================================== */
+
+    document
+        .getElementById("historyModal")
+        .addEventListener("click", function(event) {
+
+            if (event.target === this) {
+
+                closeHistory();
+
+            }
+
+        });
+
+
+    /* =====================================================
+       ESC KEY TO CLOSE MODAL
+       ===================================================== */
+
+    document.addEventListener("keydown", function(event) {
+
+        if (event.key === "Escape") {
+
+            closeHistory();
+
+        }
+
+    });
+
+
+    /* =====================================================
+       ESCAPE HTML
+       ===================================================== */
+
+    function escapeHtml(value) {
+
+        return String(value)
+
+            .replace(/&/g, "&amp;")
+
+            .replace(/</g, "&lt;")
+
+            .replace(/>/g, "&gt;")
+
+            .replace(/"/g, "&quot;")
+
+            .replace(/'/g, "&#039;");
+
+    }
+
+
+    /* =====================================================
+       SUMMARY
+       ===================================================== */
+
+    function updateSummary() {
+
+        const totalCustomers =
+            customers.length;
+
+
+        let totalOrders = 0;
+
+        let totalSales = 0;
+
+        let activeCustomers = 0;
+
+
+        customers.forEach(function(customer) {
+
+            totalOrders += customer.orders.length;
+
+            totalSales += getCustomerTotal(customer);
+
+
+            if (customer.orders.length > 0) {
+
+                activeCustomers++;
+
+            }
+
+        });
+
+
+        document.getElementById("totalCustomers").textContent =
+            totalCustomers;
+
+
+        document.getElementById("totalOrders").textContent =
+            totalOrders;
+
+
+        document.getElementById("totalSales").textContent =
+            formatCurrency(totalSales);
+
+
+        document.getElementById("activeCustomers").textContent =
+            activeCustomers;
+
+    }
+
+
+    /* =====================================================
+       INITIAL LOAD
+       ===================================================== */
+
+    updateSummary();
+
+    renderCustomers();
+
+</script>
+
+</body>
+</html>

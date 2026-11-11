@@ -1,0 +1,64 @@
+00:00 +0: loading C:/EELE_MOB_APP/test/widget_test.dart
+00:00 +0: Customer presentation hides demo branding and staff simulator
+00:01 +1: Stock limits repeated adds and cart quantities
+00:02 +2: Zero stock disables purchasing and quantity increase
+00:02 +3: Catalog selects one category per tap and All resets it
+00:03 +4: Add feedback expires; deleting and adding again stays usable
+00:04 +5: Cash on Delivery (COD) checkout clears cart and receipt back returns Home
+00:05 +6: Cash at Store checkout clears cart and receipt back returns Home
+00:07 +7: Checkout summary shows quantities, prices and correct totals
+00:07 +8: Partial checkout retains unchecked items and selection persists
+00:08 +9: Buy Now checks out only current product without changing cart
+00:09 +10: House or unit number is required and included in the receipt
+00:09 +11: Cart badges count distinct items instead of quantities
+00:10 +12: Categories show scoped products and Featured opens product details
+00:10 +13: Home search opens focused search, filters, clears and preserves results on Back
+00:11 +14: Shop Now browses the catalog; category tiles open only their category
+
+Warning: A call to tap() with finder "Found 1 widget with type "Category" that are ancestors of widget with text "Tools": [
+  Category(dependencies: [MediaQuery, _ScrollableScope]),
+]" derived an Offset (Offset(383.0, 537.0)) that would not hit test on the specified widget.
+Maybe the widget is actually off-screen, or another widget is obscuring it, or the widget cannot receive pointer events.
+The finder corresponds to this RenderBox: RenderSemanticsAnnotations#193ae relayoutBoundary=up5
+The hit test result at that offset is: HitTestResult(RenderPointerListener#92ed9@Offset(383.0, 465.0), RenderSemanticsGestureHandler#57ee3@Offset(383.0, 465.0), RenderPointerListener#881c1@Offset(383.0, 465.0), _RenderScrollSemantics#43fab@Offset(383.0, 465.0), RenderClipRect#befd8@Offset(383.0, 465.0), RenderConstrainedBox#9d2e7@Offset(383.0, 465.0), RenderPositionedBox#e4719@Offset(383.0, 465.0), _RenderLayoutBuilder#4ffd2@Offset(383.0, 465.0), RenderPadding#25cce@Offset(383.0, 465.0), RenderCustomMultiChildLayoutBox#9edde@Offset(383.0, 537.0), _RenderInkFeatures#92671@Offset(383.0, 537.0), RenderPhysicalModel#ca146@Offset(383.0, 537.0), RenderSemanticsAnnotations#1c91c@Offset(383.0, 537.0), RenderRepaintBoundary#f8f5b@Offset(383.0, 537.0), RenderIgnorePointer#f837c@Offset(383.0, 537.0), RenderAnimatedOpacity#c8da5@Offset(383.0, 537.0), RenderAnimatedOpacity#d8d7d@Offset(383.0, 537.0), _RenderColoredBox#bf216@Offset(383.0, 537.0), RenderAnimatedOpacity#6e5e1@Offset(383.0, 537.0), RenderIgnorePointer#6f6a7@Offset(383.0, 537.0), RenderAnimatedOpacity#f763f@Offset(383.0, 537.0), RenderRepaintBoundary#29b1f@Offset(383.0, 537.0), RenderSemanticsAnnotations#cff58@Offset(383.0, 537.0), RenderOffstage#84745@Offset(383.0, 537.0), RenderSemanticsAnnotations#bc1a0@Offset(383.0, 537.0), _RenderTheater#ed0fe@Offset(383.0, 537.0), RenderAbsorbPointer#31ddc@Offset(383.0, 537.0), RenderPointerListener#e5af4@Offset(383.0, 537.0), RenderSemanticsAnnotations#35642@Offset(383.0, 537.0), RenderConstrainedBox#41eb0@Offset(383.0, 537.0), RenderPositionedBox#4d0ca@Offset(383.0, 537.0), RenderPadding#91b33@Offset(383.0, 537.0), _RenderColoredBox#e733f@Offset(383.0, 537.0), RenderAnnotatedRegion<SystemUiOverlayStyle>#748ce@Offset(383.0, 537.0), RenderSemanticsAnnotations#25d4b@Offset(383.0, 537.0), RenderSemanticsAnnotations#3616a@Offset(383.0, 537.0), RenderTapRegionSurface#48135@Offset(383.0, 537.0), RenderSemanticsAnnotations#a5e64@Offset(383.0, 537.0), RenderSemanticsAnnotations#f61ba@Offset(383.0, 537.0), RenderSemanticsAnnotations#cc61d@Offset(383.0, 537.0), HitTestEntry<HitTestTarget>#90c58(_ReusableRenderView#b55be), HitTestEntry<HitTestTarget>#a100c(<AutomatedTestWidgetsFlutterBinding>))
+#0      WidgetController._getElementPoint (package:flutter_test/src/controller.dart:2081:25)
+#1      WidgetController.getCenter (package:flutter_test/src/controller.dart:1865:12)
+#2      WidgetController.tap (package:flutter_test/src/controller.dart:1045:7)
+#3      main.<anonymous closure> (file:///C:/EELE_MOB_APP/test/widget_test.dart:420:18)
+<asynchronous suspension>
+#4      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#5      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1059:5)
+<asynchronous suspension>
+#6      StackZoneSpecification._registerCallback.<anonymous closure> (package:stack_trace/src/stack_zone_specification.dart:114:42)
+<asynchronous suspension>
+To silence this warning, pass "warnIfMissed: false" to "tap()".
+To make this warning fatal, set WidgetController.hitTestWarningShouldBeFatal to true.
+
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following TestFailure was thrown running a test:
+Expected: exactly one matching candidate
+  Actual: _TypeWidgetFinder:<Found 0 widgets with type "CategoryProductsPage": []>
+   Which: means none were found but one was expected
+
+When the exception was thrown, this was the stack:
+#4      main.<anonymous closure> (file:///C:/EELE_MOB_APP/test/widget_test.dart:422:5)
+<asynchronous suspension>
+#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1059:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+This was caught by the test expectation on the following line:
+  file:///C:/EELE_MOB_APP/test/widget_test.dart line 422
+The test description was:
+  Shop Now browses the catalog; category tiles open only their category
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:11 +14 -1: Shop Now browses the catalog; category tiles open only their category [E]
+  Test failed. See exception logs above.
+  The test description was: Shop Now browses the catalog; category tiles open only their category
+  
+00:11 +14 -1: Cancelling checkout preserves cart
+00:12 +15 -1: Some tests failed.

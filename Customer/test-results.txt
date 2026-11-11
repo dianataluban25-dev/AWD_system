@@ -1,0 +1,13 @@
+00:00 +0: loading C:/EELE_MOB_APP/test/widget_test.dart
+00:00 +0: Home filter applies and resets catalog category
+00:02 +1: Add feedback expires; deleting and adding again stays usable
+00:04 +2: Cash on Delivery checkout clears cart and receipt back returns Home
+00:06 +3: GCash checkout clears cart and receipt back returns Home
+00:08 +4: Checkout summary shows quantities, prices and correct totals
+00:08 +5: Partial checkout retains unchecked items and selection persists
+00:10 +6: Buy Now checks out only current product without changing cart
+00:11 +7: House or unit number is required and included in the receipt
+00:11 +8: Product cart shortcut updates immediately and opens cart
+00:12 +9: Category View all opens categories, featured View all opens products
+00:12 +10: Cancelling checkout preserves cart
+00:14 +11: All tests passed!

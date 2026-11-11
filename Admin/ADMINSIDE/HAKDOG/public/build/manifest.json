@@ -1,0 +1,83 @@
+{
+  "resources/js/app.js": {
+    "file": "assets/app-VqmHQ2UJ.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true,
+    "dynamicImports": [
+      "resources/legacy/admin-login.html?raw",
+      "resources/legacy/ai-recommendations.html?raw",
+      "resources/legacy/customers.html?raw",
+      "resources/legacy/dashboard.html?raw",
+      "resources/legacy/orders.html?raw",
+      "resources/legacy/payments.html?raw",
+      "resources/legacy/products.html?raw",
+      "resources/legacy/queuing.html?raw",
+      "resources/legacy/receipt-records.html?raw",
+      "resources/legacy/settings.html?raw"
+    ],
+    "css": [
+      "assets/app-CPsV8d2y.css"
+    ]
+  },
+  "resources/legacy/admin-login.html?raw": {
+    "file": "assets/admin-login-YpNyNm5g.js",
+    "name": "admin-login",
+    "src": "resources/legacy/admin-login.html?raw",
+    "isDynamicEntry": true
+  },
+  "resources/legacy/ai-recommendations.html?raw": {
+    "file": "assets/ai-recommendations-C30b2GPw.js",
+    "name": "ai-recommendations",
+    "src": "resources/legacy/ai-recommendations.html?raw",
+    "isDynamicEntry": true
+  },
+  "resources/legacy/customers.html?raw": {
+    "file": "assets/customers-BDYPjQUx.js",
+    "name": "customers",
+    "src": "resources/legacy/customers.html?raw",
+    "isDynamicEntry": true
+  },
+  "resources/legacy/dashboard.html?raw": {
+    "file": "assets/dashboard-B6VWBVpI.js",
+    "name": "dashboard",
+    "src": "resources/legacy/dashboard.html?raw",
+    "isDynamicEntry": true
+  },
+  "resources/legacy/orders.html?raw": {
+    "file": "assets/orders-CVUbRgpF.js",
+    "name": "orders",
+    "src": "resources/legacy/orders.html?raw",
+    "isDynamicEntry": true
+  },
+  "resources/legacy/payments.html?raw": {
+    "file": "assets/payments-DrRV7EFn.js",
+    "name": "payments",
+    "src": "resources/legacy/payments.html?raw",
+    "isDynamicEntry": true
+  },
+  "resources/legacy/products.html?raw": {
+    "file": "assets/products-C1P8E4Re.js",
+    "name": "products",
+    "src": "resources/legacy/products.html?raw",
+    "isDynamicEntry": true
+  },
+  "resources/legacy/queuing.html?raw": {
+    "file": "assets/queuing-BezQuEuK.js",
+    "name": "queuing",
+    "src": "resources/legacy/queuing.html?raw",
+    "isDynamicEntry": true
+  },
+  "resources/legacy/receipt-records.html?raw": {
+    "file": "assets/receipt-records-CNugvwpn.js",
+    "name": "receipt-records",
+    "src": "resources/legacy/receipt-records.html?raw",
+    "isDynamicEntry": true
+  },
+  "resources/legacy/settings.html?raw": {
+    "file": "assets/settings-DifHAMiC.js",
+    "name": "settings",
+    "src": "resources/legacy/settings.html?raw",
+    "isDynamicEntry": true
+  }
+}

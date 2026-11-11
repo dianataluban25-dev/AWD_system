@@ -1,0 +1,12 @@
+.legacy-screen.restored-page .unified-search{display:flex;align-items:center;gap:12px;position:relative;width:100%;max-width:none;min-width:0;flex:1 1 400px;height:46px;padding:0 14px;margin:0;border:1px solid #dde5df;border-radius:9px;background:white;box-shadow:none;box-sizing:border-box;transition:border-color .15s,box-shadow .15s}
+.legacy-screen.restored-page .unified-search:focus-within{border-color:#08752f;box-shadow:0 0 0 3px #08752f10}
+.legacy-screen.restored-page .unified-search .unified-search-icon{position:static;display:flex;align-items:center;justify-content:center;width:18px;height:18px;flex:0 0 18px;color:#78877c;margin:0;transform:none;pointer-events:none}
+.legacy-screen.restored-page .unified-search>input{flex:1 1 0%;width:100%;max-width:none;min-width:0;height:44px;box-sizing:border-box;border:0;border-radius:0;background:transparent;box-shadow:none;padding:0;margin:0;outline:none;color:#26332b;font:400 13px/1.5 NotoSans,sans-serif}
+.legacy-screen.restored-page .unified-search>input:focus{border:0;outline:none;box-shadow:none;background:transparent}
+.legacy-screen.restored-page .unified-search>input::placeholder{color:#77857c;opacity:1;font:400 13px/1.5 NotoSans,sans-serif}
+.legacy-screen.restored-page .unified-search>button{position:static;transform:none;flex:0 0 28px;width:28px;height:28px;min-height:28px;padding:0;margin:0;border:0;border-radius:5px;background:transparent;color:#69786e;font-size:18px;box-shadow:none}
+.legacy-screen.restored-page .toolbar:has(.unified-search){gap:16px;align-items:center}
+.legacy-screen.restored-page .search-area:has(.unified-search),.legacy-screen.restored-page .search-section:has(.unified-search){padding:0;background:transparent;border:0;box-shadow:none}
+.legacy-screen.restored-page .search-container:has(>.unified-search){margin-bottom:24px}
+.legacy-screen.restored-page .queue-toolbar .controls .unified-search{flex:1 1 260px}
+@media(max-width:600px){.legacy-screen.restored-page .unified-search{flex-basis:100%;width:100%}.legacy-screen.restored-page .toolbar:has(.unified-search){flex-wrap:wrap}}

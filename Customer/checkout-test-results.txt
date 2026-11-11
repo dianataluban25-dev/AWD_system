@@ -1,0 +1,79 @@
+
+00:00 +0: loading C:/EELE_MOB_APP/test/widget_test.dart                                                                                                                                                
+00:01 +0: loading C:/EELE_MOB_APP/test/widget_test.dart                                                                                                                                                
+00:02 +0: loading C:/EELE_MOB_APP/test/widget_test.dart                                                                                                                                                
+00:02 +0: Catalog supports multiple categories and All resets them                                                                                                                                     
+00:03 +0: Catalog supports multiple categories and All resets them                                                                                                                                     
+00:04 +0: Catalog supports multiple categories and All resets them                                                                                                                                     
+00:04 +0: Catalog supports multiple categories and All resets them                                                                                                                                     
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following StateError was thrown running a test:
+Bad state: No element
+
+When the exception was thrown, this was the stack:
+#0      Iterable.single (dart:core/iterable.dart:694:25)
+#1      WidgetController.element (package:flutter_test/src/controller.dart:868:30)
+#2      WidgetController.dragUntilVisible.<anonymous closure> (package:flutter_test/src/controller.dart:2398:38)
+<asynchronous suspension>
+#3      TestAsyncUtils.guard.<anonymous closure> (package:flutter_test/src/test_async_utils.dart:130:27)
+<asynchronous suspension>
+#4      WidgetController.scrollUntilVisible.<anonymous closure> (package:flutter_test/src/controller.dart:2355:7)
+<asynchronous suspension>
+#5      TestAsyncUtils.guard.<anonymous closure> (package:flutter_test/src/test_async_utils.dart:130:27)
+<asynchronous suspension>
+#6      main.<anonymous closure> (file:///C:/EELE_MOB_APP/test/widget_test.dart:43:5)
+<asynchronous suspension>
+#7      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#8      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1059:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+The test description was:
+  Catalog supports multiple categories and All resets them
+════════════════════════════════════════════════════════════════════════════════════════════════════
+
+00:04 +0 -1: Catalog supports multiple categories and All resets them [E]                                                                                                                              
+  Test failed. See exception logs above.
+  The test description was: Catalog supports multiple categories and All resets them
+  
+Warning: At least one test in this suite creates an HttpClient. When running a test suite that uses
+TestWidgetsFlutterBinding, all HTTP requests will return status code 400, and no network request
+will actually be made. Any test expecting a real network connection and status code will fail.
+To test code that needs an HttpClient, provide your own HttpClient implementation to the code under
+test, so that your test can consistently provide a testable response to the code under test.
+
+To run this test again: C:\flutter\bin\cache\dart-sdk\bin\dart.exe test C:/EELE_MOB_APP/test/widget_test.dart -p vm --plain-name "Catalog supports multiple categories and All resets them"
+
+00:04 +0 -1: Add feedback expires; deleting and adding again stays usable                                                                                                                              
+00:05 +0 -1: Add feedback expires; deleting and adding again stays usable                                                                                                                              
+00:06 +0 -1: Add feedback expires; deleting and adding again stays usable                                                                                                                              
+00:06 +1 -1: Add feedback expires; deleting and adding again stays usable                                                                                                                              
+00:06 +1 -1: Cash on Delivery (COD) checkout clears cart and receipt back returns Home                                                                                                                 
+00:07 +1 -1: Cash on Delivery (COD) checkout clears cart and receipt back returns Home                                                                                                                 
+00:08 +1 -1: Cash on Delivery (COD) checkout clears cart and receipt back returns Home                                                                                                                 
+00:08 +2 -1: Cash on Delivery (COD) checkout clears cart and receipt back returns Home                                                                                                                 
+00:08 +2 -1: Cash at Store checkout clears cart and receipt back returns Home                                                                                                                          
+00:09 +2 -1: Cash at Store checkout clears cart and receipt back returns Home                                                                                                                          
+00:09 +3 -1: Cash at Store checkout clears cart and receipt back returns Home                                                                                                                          
+00:09 +3 -1: Checkout summary shows quantities, prices and correct totals                                                                                                                              
+00:09 +4 -1: Checkout summary shows quantities, prices and correct totals                                                                                                                              
+00:09 +4 -1: Partial checkout retains unchecked items and selection persists                                                                                                                           
+00:10 +4 -1: Partial checkout retains unchecked items and selection persists                                                                                                                           
+00:11 +4 -1: Partial checkout retains unchecked items and selection persists                                                                                                                           
+00:11 +5 -1: Partial checkout retains unchecked items and selection persists                                                                                                                           
+00:11 +5 -1: Buy Now checks out only current product without changing cart                                                                                                                             
+00:12 +5 -1: Buy Now checks out only current product without changing cart                                                                                                                             
+00:12 +6 -1: Buy Now checks out only current product without changing cart                                                                                                                             
+00:12 +6 -1: House or unit number is required and included in the receipt                                                                                                                              
+00:12 +7 -1: House or unit number is required and included in the receipt                                                                                                                              
+00:12 +7 -1: Product cart shortcut updates immediately and opens cart                                                                                                                                  
+00:13 +7 -1: Product cart shortcut updates immediately and opens cart                                                                                                                                  
+00:13 +8 -1: Product cart shortcut updates immediately and opens cart                                                                                                                                  
+00:13 +8 -1: Category View all opens categories, featured View all opens products                                                                                                                      
+00:13 +9 -1: Category View all opens categories, featured View all opens products                                                                                                                      
+00:13 +9 -1: Cancelling checkout preserves cart                                                                                                                                                        
+00:14 +9 -1: Cancelling checkout preserves cart                                                                                                                                                        
+00:14 +10 -1: Cancelling checkout preserves cart                                                                                                                                                       
+00:14 +10 -1: Some tests failed.                                                                                                                                                                       

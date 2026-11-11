@@ -1,0 +1,57 @@
+/* Staff typography: one family, three text tones and consistent rhythm. */
+.legacy-screen.restored-page.page-products :is(.product-header,.product-row){grid-template-columns:70px minmax(180px,1.5fr) minmax(120px,1fr) 110px 65px 75px 120px 210px;min-width:1160px}
+.legacy-screen.restored-page .product-actions{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.legacy-screen.restored-page .product-actions button{font:700 11px/1.4 NotoSans,sans-serif;min-height:32px;padding:7px 10px;border-radius:7px;cursor:pointer}
+.legacy-screen.restored-page .product-actions .product-archive{background:white;color:#536359;border:1px solid #dde5df}
+.legacy-screen.restored-page .product-actions .product-delete{background:white;color:#b42318;border:1px solid #f0d9d5}
+.legacy-screen.restored-page .status.archived{background:#eef1ee;color:#637166}
+.legacy-screen.restored-page.page-orders .orders-table :is(.table-header,.order-row){grid-template-columns:minmax(265px,1.5fr) minmax(130px,1fr) 155px 110px 190px minmax(180px,1.1fr);column-gap:20px;min-width:1160px;padding-left:16px;padding-right:16px;align-items:center;box-sizing:border-box}
+.legacy-screen.restored-page.page-orders .orders-table .table-header{min-height:52px;padding-top:14px;padding-bottom:14px}
+.legacy-screen.restored-page.page-orders .orders-table .order-row{min-height:88px;padding-top:18px;padding-bottom:18px}
+.legacy-screen.restored-page.page-orders .order-row .order-id{display:flex;flex-direction:column;gap:4px;overflow-wrap:normal;word-break:normal;line-height:1.5}
+.legacy-screen.restored-page.page-orders .order-code-prefix{font-size:10px;font-weight:400;color:#69786e;letter-spacing:.5px}
+.legacy-screen.restored-page.page-orders .order-code-value{font-size:12px;font-weight:700;letter-spacing:0;white-space:nowrap;font-variant-numeric:tabular-nums}
+.legacy-screen.restored-page.page-orders .order-row>div:nth-child(4),.legacy-screen.restored-page.page-orders .order-row>div:nth-child(5){white-space:nowrap}
+.legacy-screen.restored-page.page-orders .order-row .row-actions{margin:0;align-items:center;justify-content:flex-start;gap:8px}
+.legacy-screen.restored-page {
+    --text-primary:#26332b;
+    --text-secondary:#536359;
+    --text-muted:#69786e;
+    font-family:NotoSans,sans-serif;
+    font-size:14px;
+    line-height:1.6;
+}
+.legacy-screen.restored-page :is(h1,h2,h3,h4,button,input,select,textarea,table,.section-title,.page-title,.title){font-family:NotoSans,sans-serif}
+.legacy-screen.restored-page :is(.page-title,.section-title,.header h1,.title){font-size:26px;font-weight:700;line-height:1.3;letter-spacing:-.5px}
+.legacy-screen.restored-page :is(.box-title,.panel h2,.settings-card h2,.recommendation-editor h3){font-size:17px;font-weight:700;line-height:1.45;letter-spacing:-.2px;color:var(--text-primary)}
+.legacy-screen.restored-page :is(.page-subtitle,.section-description,.subtitle,.header p,.box-subtitle,.settings-help){font-size:13px;line-height:1.65;color:var(--text-muted);font-weight:400;letter-spacing:0}
+.legacy-screen.restored-page :is(.page-header,.section-header,.header){margin-bottom:24px}
+.legacy-screen.restored-page :is(.page-subtitle,.section-description,.box-subtitle){margin-top:6px}
+.legacy-screen.restored-page :is(.summary-label,.card-title,.summary-title){font-size:12px;font-weight:400;line-height:1.5;color:var(--text-secondary);letter-spacing:0}
+.legacy-screen.restored-page :is(.summary-value,.summary-number,.card-number){font-size:26px;font-weight:700;line-height:1.35;letter-spacing:-.6px}
+.legacy-screen.restored-page :is(.card-change,.summary-note,.stock-description,.product-category,.product-price,.api-page-number){font-size:12px;line-height:1.6;color:var(--text-muted);letter-spacing:0}
+.legacy-screen.restored-page :is(table th,.table-header,.product-header){font-size:12px;font-weight:700;line-height:1.5;letter-spacing:0;color:var(--text-secondary)}
+.legacy-screen.restored-page :is(table td,.order-row,.product-row){font-size:13px;line-height:1.6;color:var(--text-primary);font-variant-numeric:tabular-nums}
+.legacy-screen.restored-page :is(.customer-name,.product-name){font-size:13px;font-weight:700;color:var(--text-primary);letter-spacing:0}
+.legacy-screen.restored-page :is(.order-time,.date){font-size:12px;line-height:1.6;color:var(--text-secondary)}
+.legacy-screen.restored-page :is(.status.status-badge,.badge){font-size:11px;font-weight:700;letter-spacing:0;line-height:1.5}
+.legacy-screen.restored-page :is(.bottom,.pagination-info,.pagination-text,#showingText,#orderCount,#customerCount,#queueFooter){font-size:12px;line-height:1.6;color:var(--text-muted)}
+.legacy-screen.restored-page :is(.row-actions button,.history-btn,.edit-btn,.view-btn){font-size:12px;font-weight:700;line-height:1.4;min-height:34px;padding:8px 12px}
+.legacy-screen.restored-page :is(input,select,textarea){font-size:13px;line-height:1.5}
+.legacy-screen.restored-page :is(.connected-settings label,.settings-tabs button){font-size:13px;line-height:1.5}
+.legacy-screen.restored-page .settings-card .settings-toggle small{font-size:12px;color:var(--text-muted);line-height:1.65}
+.legacy-screen.restored-page .tabs .tab{font-size:12px;line-height:1.5;letter-spacing:0}
+.legacy-screen.restored-page .trigger-item{font-size:13px;line-height:1.5;padding:14px 16px}
+.legacy-screen.restored-page .recommendation-editor p{font-size:13px;line-height:1.7;color:var(--text-secondary);max-width:70ch}
+.legacy-screen.restored-page .recommendation-options :is(small,p){font-size:12px;line-height:1.6;color:var(--text-muted)}
+.legacy-screen.restored-page .recommendation-editor details{margin-top:24px;border-top:1px solid #e3e9e4;padding-top:16px}
+.legacy-screen.restored-page .recommendation-editor summary{cursor:pointer;font-size:12px;color:var(--text-secondary)}
+.legacy-screen.restored-page .learned-product{border:1px solid #e3e9e4;border-radius:10px;padding:18px;background:white}
+.model-training.compact-model :is(.model-details-content p,.model-status-copy p,.model-details summary,.model-updated){font-size:12px;color:#69786e;line-height:1.65}
+.api-dialog,.api-history-dialog{font-family:NotoSans,sans-serif;color:#26332b;line-height:1.65}
+.api-dialog :is(h2),.api-history-dialog h2{font-size:21px;font-weight:700;letter-spacing:-.3px;line-height:1.4}
+.api-dialog p,.api-history-dialog p{font-size:13px;line-height:1.7;color:#536359;overflow-wrap:anywhere}
+.api-dialog label{font-size:13px;line-height:1.5}
+.api-dialog :is(input,textarea,button),.api-history-dialog :is(td,th,button){font-size:13px;line-height:1.5}
+.store-alerts{font-family:NotoSans,sans-serif;font-size:12px;line-height:1.65}
+@media(max-width:600px){.legacy-screen.restored-page :is(.page-title,.section-title,.header h1){font-size:23px}.legacy-screen.restored-page :is(.summary-value,.summary-number,.card-number){font-size:24px}}

@@ -1,0 +1,1669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - ELEE Hardware</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7f5;
+            color: #333;
+        }
+
+        /* ================= SIDEBAR ================= */
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 235px;
+            height: 100vh;
+            background: #00551f;
+            color: white;
+            padding: 28px 16px;
+        }
+
+        .logo {
+            font-size: 36px;
+            font-weight: 900;
+            margin-left: 12px;
+            letter-spacing: -2px;
+        }
+
+        .logo span {
+            color: #ffbd00;
+        }
+
+        .hardware {
+            color: #ffbd00;
+            font-size: 14px;
+            font-weight: bold;
+            margin-left: 13px;
+            margin-top: 3px;
+            margin-bottom: 25px;
+        }
+
+        .menu {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: white;
+            padding: 13px 14px;
+            border-radius: 7px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: 0.2s;
+        }
+
+        .menu a:hover {
+            background: #08732e;
+        }
+
+        .menu a.active {
+            background: #08732e;
+        }
+
+        .icon {
+            width: 20px;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        /* ================= MAIN ================= */
+
+        .main {
+            margin-left: 235px;
+            padding: 38px 45px;
+            min-height: 100vh;
+        }
+
+        .page-title {
+            font-size: 30px;
+            font-weight: bold;
+            color: #075b21;
+            margin-bottom: 6px;
+        }
+
+        .page-subtitle {
+            color: #777;
+            margin-bottom: 28px;
+        }
+
+        /* ================= TABS ================= */
+
+        .setting-tabs {
+            display: flex;
+            gap: 9px;
+            flex-wrap: wrap;
+            margin-bottom: 22px;
+        }
+
+        .setting-tab {
+            border: 1px solid #e0e0e0;
+            background: white;
+            color: #555;
+            padding: 11px 17px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: .2s;
+        }
+
+        .setting-tab:hover {
+            background: #e9f7ec;
+            color: #087f23;
+        }
+
+        .setting-tab.active {
+            background: #087f23;
+            border-color: #087f23;
+            color: white;
+        }
+
+        /* ================= CONTENT ================= */
+
+        .tab-content {
+            display: none;
+            background: white;
+            padding: 28px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,.07);
+            max-width: 900px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .section-header {
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .section-title {
+            font-size: 21px;
+            font-weight: bold;
+            color: #222;
+            margin-bottom: 5px;
+        }
+
+        .section-description {
+            color: #888;
+            font-size: 13px;
+        }
+
+        /* ================= FORM ================= */
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group {
+            margin-bottom: 4px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 7px;
+            font-size: 13px;
+            font-weight: bold;
+            color: #444;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 11px 12px;
+            border: 1px solid #d5d5d5;
+            border-radius: 7px;
+            font-size: 14px;
+            outline: none;
+            background: white;
+            transition: .2s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #087f23;
+            box-shadow: 0 0 0 2px rgba(8,127,35,.08);
+        }
+
+        .form-group textarea {
+            min-height: 95px;
+            resize: vertical;
+        }
+
+        .hint {
+            font-size: 11px;
+            color: #888;
+            margin-top: 5px;
+        }
+
+        /* ================= INFO BOX ================= */
+
+        .info-box {
+            padding: 15px 17px;
+            background: #f1f8f2;
+            border-left: 4px solid #087f23;
+            border-radius: 6px;
+            margin-bottom: 22px;
+            color: #4d4d4d;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        /* ================= PAYMENT CARDS ================= */
+
+        .option-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 22px;
+        }
+
+        .option-card {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            border: 1px solid #ddd;
+            border-radius: 9px;
+            padding: 16px;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .option-card:hover {
+            border-color: #087f23;
+            background: #f8fcf8;
+        }
+
+        .option-card input {
+            width: 18px;
+            height: 18px;
+            accent-color: #087f23;
+            cursor: pointer;
+        }
+
+        .option-icon {
+            width: 40px;
+            height: 40px;
+            background: #eaf6ed;
+            color: #087f23;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+        }
+
+        .option-info {
+            flex: 1;
+        }
+
+        .option-title {
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 3px;
+        }
+
+        .option-description {
+            color: #888;
+            font-size: 11px;
+        }
+
+        /* ================= NOTIFICATIONS ================= */
+
+        .notification-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .notification-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            padding: 16px;
+            border: 1px solid #e2e2e2;
+            border-radius: 9px;
+        }
+
+        .notification-left {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+        }
+
+        .notification-icon {
+            width: 40px;
+            height: 40px;
+            background: #eaf6ed;
+            color: #087f23;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .notification-name {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .notification-description {
+            color: #888;
+            font-size: 11px;
+            margin-top: 3px;
+        }
+
+        /* ================= SWITCH ================= */
+
+        .switch {
+            position: relative;
+            width: 45px;
+            height: 24px;
+            flex-shrink: 0;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            inset: 0;
+            background: #ccc;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .slider:before {
+            content: "";
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            left: 3px;
+            top: 3px;
+            background: white;
+            border-radius: 50%;
+            transition: .2s;
+            box-shadow: 0 1px 3px rgba(0,0,0,.2);
+        }
+
+        .switch input:checked + .slider {
+            background: #087f23;
+        }
+
+        .switch input:checked + .slider:before {
+            transform: translateX(21px);
+        }
+
+        /* ================= ACCOUNT ================= */
+
+        .account-card {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 18px;
+            background: #f8faf8;
+            border: 1px solid #e5e5e5;
+            border-radius: 9px;
+            margin-bottom: 22px;
+        }
+
+        .account-avatar {
+            width: 55px;
+            height: 55px;
+            background: #087f23;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 23px;
+            font-weight: bold;
+        }
+
+        .account-name {
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        .account-role {
+            color: #888;
+            font-size: 12px;
+            margin-top: 3px;
+        }
+
+        /* ================= BUTTON ================= */
+
+        .save-btn {
+            background: #087f23;
+            color: white;
+            border: none;
+            padding: 11px 23px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: bold;
+            transition: .2s;
+        }
+
+        .save-btn:hover {
+            background: #06691c;
+        }
+
+        .secondary-btn {
+            background: white;
+            color: #087f23;
+            border: 1px solid #087f23;
+            padding: 10px 20px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .secondary-btn:hover {
+            background: #eaf6ed;
+        }
+
+        .button-row {
+            display: flex;
+            gap: 10px;
+            margin-top: 22px;
+        }
+
+        /* ================= TOAST ================= */
+
+        .toast {
+            position: fixed;
+            right: 25px;
+            bottom: 25px;
+            background: #087f23;
+            color: white;
+            padding: 14px 20px;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0,0,0,.2);
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transform: translateY(100px);
+            opacity: 0;
+            pointer-events: none;
+            transition: .3s;
+            z-index: 2000;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media(max-width: 900px) {
+
+            .sidebar {
+                width: 210px;
+            }
+
+            .main {
+                margin-left: 210px;
+                padding: 25px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .full-width {
+                grid-column: auto;
+            }
+        }
+
+        @media(max-width: 650px) {
+
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+                padding: 20px;
+            }
+
+            .menu {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .menu a {
+                padding: 11px 15px;
+            }
+
+            .main {
+                margin-left: 0;
+                padding: 20px 15px;
+            }
+
+            .page-title {
+                font-size: 25px;
+            }
+
+            .tab-content {
+                padding: 20px;
+            }
+
+            .setting-tabs {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .setting-tab {
+                width: 100%;
+            }
+
+            .notification-item {
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- ================= SIDEBAR ================= -->
+
+<div class="sidebar">
+
+    <div class="logo">
+        <span style="color:white;">E</span><span>LEE</span>
+    </div>
+
+    <div class="hardware">
+        HARDWARE
+    </div>
+
+    <div class="menu">
+
+        <a href="{{ url('/') }}">
+            <span class="icon">☼</span>
+            Dashboard
+        </a>
+
+        <a href="{{ url('/orders') }}">
+            <span class="icon">▣</span>
+            Orders
+        </a>
+
+        <a href="{{ url('/products') }}">
+            <span class="icon">◇</span>
+            Products
+        </a>
+
+        <a href="{{ url('/ai-recommendations') }}">
+            <span class="icon">↗</span>
+            AI Recommendations
+        </a>
+
+        <a href="{{ url('/payments') }}">
+            <span class="icon"><svg aria-hidden="true" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5.5" width="17" height="14" rx="2"/><path d="M3.5 9h17M7 5.5v-.75A1.75 1.75 0 0 1 8.75 3h8.5"/><path d="M16 13h4.5"/><circle cx="16" cy="13" r=".55"/></svg></span>
+            Payments
+        </a>
+
+        <a href="{{ url('/customers') }}">
+            <span class="icon">♙</span>
+            Customers
+        </a>
+
+        <a href="{{ url('/queuing') }}">
+            <span class="icon">▱</span>
+            Queuing
+        </a>
+
+        <a href="{{ url('/receipt-records') }}">
+            <span class="icon">▤</span>
+            Receipt Records
+        </a>
+
+        <a href="{{ url('/settings') }}" class="active">
+            <span class="icon">⚙</span>
+            Settings
+        </a>
+
+    </div>
+</div>
+
+
+<!-- ================= MAIN ================= -->
+
+<main class="main settings-page">
+
+    <h1 class="page-title">
+        Settings
+    </h1>
+
+    <p class="page-subtitle">
+        Manage your store information, payment options, notifications, and admin account.
+    </p>
+
+
+    <!-- ================= TABS ================= -->
+
+    <div class="setting-tabs">
+
+        <button
+            type="button"
+            class="setting-tab active"
+            onclick="openTab('general', this)"
+        >
+            ⚙️ General
+        </button>
+
+        <button
+            type="button"
+            class="setting-tab"
+            onclick="openTab('store', this)"
+        >
+            🏪 Store Information
+        </button>
+
+        <button
+            type="button"
+            class="setting-tab"
+            onclick="openTab('payment', this)"
+        >
+            💳 Payment Methods
+        </button>
+
+        <button
+            type="button"
+            class="setting-tab"
+            onclick="openTab('notification', this)"
+        >
+            🔔 Notifications
+        </button>
+
+        <button
+            type="button"
+            class="setting-tab"
+            onclick="openTab('account', this)"
+        >
+            👤 Admin Account
+        </button>
+
+    </div>
+
+
+    <!-- GENERAL SETTINGS -->
+
+    <section id="general" class="tab-content active">
+
+        <div class="section-header">
+
+            <h2 class="section-title">
+                General Settings
+            </h2>
+
+            <p class="section-description">
+                Manage the basic settings of the ELEE Hardware system.
+            </p>
+
+        </div>
+
+        <div class="info-box">
+            These settings control the basic information displayed
+            throughout the store management system.
+        </div>
+
+        <div class="form-grid">
+
+            <div class="form-group">
+                <label>System Name</label>
+                <input
+                    type="text"
+                    id="systemName"
+                    value="ELEE Hardware"
+                >
+            </div>
+
+            <div class="form-group">
+                <label>Language</label>
+
+                <!-- ENGLISH ONLY -->
+                <select id="language">
+                    <option value="English">English</option>
+                </select>
+
+            </div>
+
+        </div>
+
+        <div class="button-row">
+            <button
+                type="button"
+                class="save-btn"
+                onclick="saveGeneralSettings()"
+            >
+                Save Settings
+            </button>
+        </div>
+
+    </section>
+
+
+    <!-- STORE INFORMATION -->
+
+    <section id="store" class="tab-content">
+
+        <div class="section-header">
+
+            <h2 class="section-title">
+                Store Information
+            </h2>
+
+            <p class="section-description">
+                Update the basic information of your hardware store.
+            </p>
+
+        </div>
+
+        <div class="form-grid">
+
+            <div class="form-group">
+                <label>Store Name</label>
+                <input
+                    type="text"
+                    id="storeName"
+                    value="ELEE Hardware"
+                >
+            </div>
+
+            <div class="form-group">
+                <label>Contact Number</label>
+                <input
+                    type="text"
+                    id="storeContact"
+                    placeholder="Enter contact number"
+                >
+            </div>
+
+            <div class="form-group full-width">
+                <label>Store Address</label>
+                <textarea
+                    id="storeAddress"
+                    placeholder="Enter store address"
+                ></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Email Address</label>
+                <input
+                    type="email"
+                    id="storeEmail"
+                    placeholder="Enter store email"
+                >
+            </div>
+
+            <div class="form-group">
+                <label>Store Status</label>
+                <select id="storeStatus">
+                    <option value="Open">Open</option>
+                    <option value="Closed">Closed</option>
+                </select>
+            </div>
+
+        </div>
+
+        <div class="button-row">
+            <button
+                type="button"
+                class="save-btn"
+                onclick="saveStoreSettings()"
+            >
+                Save Store Information
+            </button>
+        </div>
+
+    </section>
+
+
+    <!-- PAYMENT METHODS -->
+
+    <section id="payment" class="tab-content">
+
+        <div class="section-header">
+
+            <h2 class="section-title">
+                Payment Methods
+            </h2>
+
+            <p class="section-description">
+                Select the payment methods available to customers.
+            </p>
+
+        </div>
+
+        <div class="info-box">
+            The system currently supports cash payments for
+            Cash at Store and Cash on Delivery orders.
+        </div>
+
+        <div class="option-list">
+
+            <label class="option-card">
+
+                <input
+                    type="checkbox"
+                    id="cashStore"
+                    checked
+                >
+
+                <div class="option-icon">
+                    🏪
+                </div>
+
+                <div class="option-info">
+
+                    <div class="option-title">
+                        Cash at Store
+                    </div>
+
+                    <div class="option-description">
+                        Customer pays the order at the physical store.
+                    </div>
+
+                </div>
+
+            </label>
+
+
+            <label class="option-card">
+
+                <input
+                    type="checkbox"
+                    id="cashDelivery"
+                    checked
+                >
+
+                <div class="option-icon">
+                    🚚
+                </div>
+
+                <div class="option-info">
+
+                    <div class="option-title">
+                        Cash on Delivery
+                    </div>
+
+                    <div class="option-description">
+                        Customer pays cash when the order is delivered.
+                    </div>
+
+                </div>
+
+            </label>
+
+        </div>
+
+        <div class="button-row">
+
+            <button
+                type="button"
+                class="save-btn"
+                onclick="savePaymentSettings()"
+            >
+                Save Payment Settings
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- NOTIFICATIONS -->
+
+    <section id="notification" class="tab-content">
+
+        <div class="section-header">
+
+            <h2 class="section-title">
+                Notifications
+            </h2>
+
+            <p class="section-description">
+                Choose which alerts should be shown to staff.
+            </p>
+
+        </div>
+
+        <div class="info-box">
+            Notifications help staff monitor new orders, changes,
+            cancellations, and products that are running low in stock.
+        </div>
+
+        <div class="notification-list">
+
+            <div class="notification-item">
+
+                <div class="notification-left">
+
+                    <div class="notification-icon">
+                        🛒
+                    </div>
+
+                    <div>
+
+                        <div class="notification-name">
+                            New Orders
+                        </div>
+
+                        <div class="notification-description">
+                            Alert staff when a new order is received.
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <label class="switch">
+
+                    <input
+                        type="checkbox"
+                        id="notifyNewOrders"
+                        checked
+                    >
+
+                    <span class="slider"></span>
+
+                </label>
+
+            </div>
+
+
+            <div class="notification-item">
+
+                <div class="notification-left">
+
+                    <div class="notification-icon">
+                        ✏️
+                    </div>
+
+                    <div>
+
+                        <div class="notification-name">
+                            Order Changes
+                        </div>
+
+                        <div class="notification-description">
+                            Alert staff when an existing order is changed.
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <label class="switch">
+
+                    <input
+                        type="checkbox"
+                        id="notifyOrderChanges"
+                        checked
+                    >
+
+                    <span class="slider"></span>
+
+                </label>
+
+            </div>
+
+
+            <div class="notification-item">
+
+                <div class="notification-left">
+
+                    <div class="notification-icon">
+                        ❌
+                    </div>
+
+                    <div>
+
+                        <div class="notification-name">
+                            Order Cancellations
+                        </div>
+
+                        <div class="notification-description">
+                            Alert staff when an order is cancelled.
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <label class="switch">
+
+                    <input
+                        type="checkbox"
+                        id="notifyCancellations"
+                        checked
+                    >
+
+                    <span class="slider"></span>
+
+                </label>
+
+            </div>
+
+
+            <div class="notification-item">
+
+                <div class="notification-left">
+
+                    <div class="notification-icon">
+                        ⚠️
+                    </div>
+
+                    <div>
+
+                        <div class="notification-name">
+                            Low-Stock Products
+                        </div>
+
+                        <div class="notification-description">
+                            Alert staff when product inventory reaches a low level.
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <label class="switch">
+
+                    <input
+                        type="checkbox"
+                        id="notifyLowStock"
+                        checked
+                    >
+
+                    <span class="slider"></span>
+
+                </label>
+
+            </div>
+
+        </div>
+
+        <div class="button-row">
+
+            <button
+                type="button"
+                class="save-btn"
+                onclick="saveNotificationSettings()"
+            >
+                Save Notification Settings
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ADMIN ACCOUNT -->
+
+    <section id="account" class="tab-content">
+
+        <div class="section-header">
+
+            <h2 class="section-title">
+                Admin Account
+            </h2>
+
+            <p class="section-description">
+                Manage the administrator account information.
+            </p>
+
+        </div>
+
+        <div class="account-card">
+
+            <div class="account-avatar">
+                A
+            </div>
+
+            <div>
+
+                <div
+                    class="account-name"
+                    id="accountDisplayName"
+                >
+                    Administrator
+                </div>
+
+                <div class="account-role">
+                    Store Administrator
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="form-grid">
+
+            <div class="form-group">
+
+                <label>Admin Name</label>
+
+                <input
+                    type="text"
+                    id="adminName"
+                    value="Administrator"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Username</label>
+
+                <input
+                    type="text"
+                    id="adminUsername"
+                    value="admin"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Email Address</label>
+
+                <input
+                    type="email"
+                    id="adminEmail"
+                    placeholder="admin@example.com"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Role</label>
+
+                <select id="adminRole">
+
+                    <option value="Administrator">
+                        Administrator
+                    </option>
+
+                    <option value="Staff">
+                        Staff
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>New Password</label>
+
+                <input
+                    type="password"
+                    id="adminPassword"
+                    placeholder="Enter new password"
+                >
+
+                <div class="hint">
+                    Leave blank if you do not want to change the password.
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Confirm Password</label>
+
+                <input
+                    type="password"
+                    id="confirmPassword"
+                    placeholder="Confirm new password"
+                >
+
+            </div>
+
+        </div>
+
+        <div class="button-row">
+
+            <button
+                type="button"
+                class="save-btn"
+                onclick="saveAccountSettings()"
+            >
+                Save Account Settings
+            </button>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- ================= TOAST ================= -->
+
+<div class="toast" id="toast">
+
+    <span>✓</span>
+
+    <span id="toastMessage">
+        Settings saved successfully!
+    </span>
+
+</div>
+
+
+<script>
+
+/* ================= OPEN TAB ================= */
+
+function openTab(tabName, button) {
+
+    const contents = document.querySelectorAll(".tab-content");
+    const buttons = document.querySelectorAll(".setting-tab");
+
+    contents.forEach(function(content) {
+        content.classList.remove("active");
+    });
+
+    buttons.forEach(function(btn) {
+        btn.classList.remove("active");
+    });
+
+    const selected = document.getElementById(tabName);
+
+    if (selected) {
+        selected.classList.add("active");
+    }
+
+    if (button) {
+        button.classList.add("active");
+    }
+}
+
+
+/* ================= TOAST ================= */
+
+function showToast(message) {
+
+    const toast = document.getElementById("toast");
+    const toastMessage = document.getElementById("toastMessage");
+
+    if (!toast || !toastMessage) {
+        return;
+    }
+
+    toastMessage.innerText = message;
+    toast.classList.add("show");
+
+    setTimeout(function() {
+        toast.classList.remove("show");
+    }, 2500);
+}
+
+
+/* ================= GENERAL ================= */
+
+function saveGeneralSettings() {
+
+    const systemName = document.getElementById("systemName").value.trim();
+
+    const settings = {
+        systemName: systemName || "ELEE Hardware",
+        language: "English"
+    };
+
+    localStorage.setItem(
+        "eleeGeneralSettings",
+        JSON.stringify(settings)
+    );
+
+    showToast("General settings saved successfully!");
+}
+
+
+/* ================= STORE ================= */
+
+function saveStoreSettings() {
+
+    const settings = {
+
+        storeName:
+            document.getElementById("storeName").value,
+
+        contact:
+            document.getElementById("storeContact").value,
+
+        address:
+            document.getElementById("storeAddress").value,
+
+        email:
+            document.getElementById("storeEmail").value,
+
+        status:
+            document.getElementById("storeStatus").value
+    };
+
+    localStorage.setItem(
+        "eleeStoreSettings",
+        JSON.stringify(settings)
+    );
+
+    showToast("Store information saved successfully!");
+}
+
+
+/* ================= PAYMENT ================= */
+
+function savePaymentSettings() {
+
+    const settings = {
+
+        cashStore:
+            document.getElementById("cashStore").checked,
+
+        cashDelivery:
+            document.getElementById("cashDelivery").checked
+    };
+
+    localStorage.setItem(
+        "eleePaymentSettings",
+        JSON.stringify(settings)
+    );
+
+    showToast("Payment settings saved successfully!");
+}
+
+
+/* ================= NOTIFICATIONS ================= */
+
+function saveNotificationSettings() {
+
+    const settings = {
+
+        newOrders:
+            document.getElementById("notifyNewOrders").checked,
+
+        orderChanges:
+            document.getElementById("notifyOrderChanges").checked,
+
+        cancellations:
+            document.getElementById("notifyCancellations").checked,
+
+        lowStock:
+            document.getElementById("notifyLowStock").checked
+    };
+
+    localStorage.setItem(
+        "eleeNotificationSettings",
+        JSON.stringify(settings)
+    );
+
+    showToast("Notification settings saved successfully!");
+}
+
+
+/* ================= ADMIN ACCOUNT ================= */
+
+function saveAccountSettings() {
+
+    const name =
+        document.getElementById("adminName").value.trim();
+
+    const username =
+        document.getElementById("adminUsername").value.trim();
+
+    const email =
+        document.getElementById("adminEmail").value.trim();
+
+    const role =
+        document.getElementById("adminRole").value;
+
+    const password =
+        document.getElementById("adminPassword").value;
+
+    const confirmPassword =
+        document.getElementById("confirmPassword").value;
+
+
+    if (name === "") {
+
+        showToast("Please enter the admin name.");
+        return;
+
+    }
+
+
+    if (username === "") {
+
+        showToast("Please enter the username.");
+        return;
+
+    }
+
+
+    if (
+        password !== "" &&
+        password !== confirmPassword
+    ) {
+
+        showToast("Passwords do not match.");
+        return;
+
+    }
+
+
+    const account = {
+
+        name: name,
+        username: username,
+        email: email,
+        role: role
+    };
+
+
+    localStorage.setItem(
+        "eleeAdminAccount",
+        JSON.stringify(account)
+    );
+
+
+    document.getElementById(
+        "accountDisplayName"
+    ).innerText = name;
+
+
+    document.getElementById(
+        "adminPassword"
+    ).value = "";
+
+
+    document.getElementById(
+        "confirmPassword"
+    ).value = "";
+
+
+    showToast("Admin account settings saved!");
+}
+
+
+/* ================= LOAD SETTINGS ================= */
+
+function loadSettings() {
+
+    /* GENERAL */
+
+    const generalData =
+        localStorage.getItem("eleeGeneralSettings");
+
+    if (generalData) {
+
+        try {
+
+            const settings =
+                JSON.parse(generalData);
+
+            document.getElementById("systemName").value =
+                settings.systemName || "ELEE Hardware";
+
+            /* English only */
+            document.getElementById("language").value = "English";
+
+        } catch (error) {
+
+            console.log("General settings could not be loaded.");
+
+        }
+
+    }
+
+
+    /* STORE */
+
+    const storeData =
+        localStorage.getItem("eleeStoreSettings");
+
+    if (storeData) {
+
+        try {
+
+            const settings =
+                JSON.parse(storeData);
+
+            document.getElementById("storeName").value =
+                settings.storeName || "ELEE Hardware";
+
+            document.getElementById("storeContact").value =
+                settings.contact || "";
+
+            document.getElementById("storeAddress").value =
+                settings.address || "";
+
+            document.getElementById("storeEmail").value =
+                settings.email || "";
+
+            document.getElementById("storeStatus").value =
+                settings.status || "Open";
+
+        } catch (error) {
+
+            console.log("Store settings could not be loaded.");
+
+        }
+
+    }
+
+
+    /* PAYMENT */
+
+    const paymentData =
+        localStorage.getItem("eleePaymentSettings");
+
+    if (paymentData) {
+
+        try {
+
+            const settings =
+                JSON.parse(paymentData);
+
+            document.getElementById("cashStore").checked =
+                settings.cashStore !== false;
+
+            document.getElementById("cashDelivery").checked =
+                settings.cashDelivery !== false;
+
+        } catch (error) {
+
+            console.log("Payment settings could not be loaded.");
+
+        }
+
+    }
+
+
+    /* NOTIFICATIONS */
+
+    const notificationData =
+        localStorage.getItem("eleeNotificationSettings");
+
+    if (notificationData) {
+
+        try {
+
+            const settings =
+                JSON.parse(notificationData);
+
+            document.getElementById("notifyNewOrders").checked =
+                settings.newOrders !== false;
+
+            document.getElementById("notifyOrderChanges").checked =
+                settings.orderChanges !== false;
+
+            document.getElementById("notifyCancellations").checked =
+                settings.cancellations !== false;
+
+            document.getElementById("notifyLowStock").checked =
+                settings.lowStock !== false;
+
+        } catch (error) {
+
+            console.log("Notification settings could not be loaded.");
+
+        }
+
+    }
+
+
+    /* ADMIN ACCOUNT */
+
+    const accountData =
+        localStorage.getItem("eleeAdminAccount");
+
+    if (accountData) {
+
+        try {
+
+            const account =
+                JSON.parse(accountData);
+
+            document.getElementById("adminName").value =
+                account.name || "Administrator";
+
+            document.getElementById("adminUsername").value =
+                account.username || "admin";
+
+            document.getElementById("adminEmail").value =
+                account.email || "";
+
+            document.getElementById("adminRole").value =
+                account.role || "Administrator";
+
+            document.getElementById("accountDisplayName").innerText =
+                account.name || "Administrator";
+
+        } catch (error) {
+
+            console.log("Admin account could not be loaded.");
+
+        }
+
+    }
+}
+
+
+/* ================= START ================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+        loadSettings();
+    }
+);
+
+</script>
+
+</body>
+</html>

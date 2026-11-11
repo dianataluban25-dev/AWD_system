@@ -1,0 +1,99 @@
+
+00:00 +0: loading C:/EELE_MOB_APP/test/payment_test.dart                                                                                                                                               
+00:01 +0: loading C:/EELE_MOB_APP/test/payment_test.dart                                                                                                                                               
+00:02 +0: loading C:/EELE_MOB_APP/test/payment_test.dart                                                                                                                                               
+00:03 +0: loading C:/EELE_MOB_APP/test/payment_test.dart                                                                                                                                               
+00:03 +0: C:/EELE_MOB_APP/test/payment_test.dart: New order numbers are distinct                                                                                                                       
+00:03 +1: C:/EELE_MOB_APP/test/payment_test.dart: New order numbers are distinct                                                                                                                       
+00:03 +1: C:/EELE_MOB_APP/test/payment_test.dart: API submits Cash on Delivery (COD) as unpaid                                                                                                         
+00:03 +2: C:/EELE_MOB_APP/test/payment_test.dart: API submits Cash on Delivery (COD) as unpaid                                                                                                         
+00:03 +2: C:/EELE_MOB_APP/test/payment_test.dart: API submits Cash at Store as unpaid                                                                                                                  
+00:03 +3: C:/EELE_MOB_APP/test/payment_test.dart: API submits Cash at Store as unpaid                                                                                                                  
+00:03 +3: loading C:/EELE_MOB_APP/test/responsive_test.dart                                                                                                                                            
+00:03 +3: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.android Size(320.0, 568.0) text 1.0                                                                                                
+00:04 +3: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.android Size(320.0, 568.0) text 1.0                                                                                                
+00:05 +3: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.android Size(320.0, 568.0) text 1.0                                                                                                
+00:06 +3: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.android Size(320.0, 568.0) text 1.0                                                                                                
+00:06 +4: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.android Size(320.0, 568.0) text 1.0                                                                                                
+00:06 +5: C:/EELE_MOB_APP/test/widget_test.dart: Add feedback expires; deleting and adding again stays usable                                                                                          
+00:07 +5: C:/EELE_MOB_APP/test/widget_test.dart: Add feedback expires; deleting and adding again stays usable                                                                                          
+00:07 +6: C:/EELE_MOB_APP/test/widget_test.dart: Add feedback expires; deleting and adding again stays usable                                                                                          
+00:08 +6: C:/EELE_MOB_APP/test/widget_test.dart: Add feedback expires; deleting and adding again stays usable                                                                                          
+00:08 +7: C:/EELE_MOB_APP/test/widget_test.dart: Add feedback expires; deleting and adding again stays usable                                                                                          
+00:08 +8: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.android Size(390.0, 844.0) text 1.0                                                                                                
+00:09 +8: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.android Size(390.0, 844.0) text 1.0                                                                                                
+00:09 +9: C:/EELE_MOB_APP/test/widget_test.dart: Cash on Delivery (COD) checkout clears cart and receipt back returns Home                                                                             
+00:09 +10: C:/EELE_MOB_APP/test/widget_test.dart: Cash on Delivery (COD) checkout clears cart and receipt back returns Home                                                                            
+00:10 +10: C:/EELE_MOB_APP/test/widget_test.dart: Cash on Delivery (COD) checkout clears cart and receipt back returns Home                                                                            
+00:10 +11: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.android Size(390.0, 844.0) text 2.0                                                                                               
+00:10 +12: C:/EELE_MOB_APP/test/widget_test.dart: Cash at Store checkout clears cart and receipt back returns Home                                                                                     
+00:11 +12: C:/EELE_MOB_APP/test/widget_test.dart: Cash at Store checkout clears cart and receipt back returns Home                                                                                     
+00:11 +13: C:/EELE_MOB_APP/test/widget_test.dart: Cash at Store checkout clears cart and receipt back returns Home                                                                                     
+00:12 +14: C:/EELE_MOB_APP/test/widget_test.dart: Cash at Store checkout clears cart and receipt back returns Home                                                                                     
+00:12 +15: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.android Size(844.0, 390.0) text 2.0                                                                                               
+00:12 +16: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.android Size(844.0, 390.0) text 2.0                                                                                               
+00:12 +17: C:/EELE_MOB_APP/test/widget_test.dart: Partial checkout retains unchecked items and selection persists                                                                                      
+00:13 +17: C:/EELE_MOB_APP/test/widget_test.dart: Partial checkout retains unchecked items and selection persists                                                                                      
+00:13 +18: C:/EELE_MOB_APP/test/widget_test.dart: Partial checkout retains unchecked items and selection persists                                                                                      
+00:13 +19: C:/EELE_MOB_APP/test/widget_test.dart: Partial checkout retains unchecked items and selection persists                                                                                      
+00:14 +19: C:/EELE_MOB_APP/test/widget_test.dart: Partial checkout retains unchecked items and selection persists                                                                                      
+00:14 +20: C:/EELE_MOB_APP/test/widget_test.dart: Partial checkout retains unchecked items and selection persists                                                                                      
+00:14 +21: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.android Size(1024.0, 768.0) text 1.0                                                                                              
+00:15 +21: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.android Size(1024.0, 768.0) text 1.0                                                                                              
+00:15 +22: C:/EELE_MOB_APP/test/widget_test.dart: Buy Now checks out only current product without changing cart                                                                                        
+00:15 +23: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.android Size(1024.0, 768.0) text 1.5                                                                                              
+00:15 +24: C:/EELE_MOB_APP/test/widget_test.dart: House or unit number is required and included in the receipt                                                                                         
+00:16 +24: C:/EELE_MOB_APP/test/widget_test.dart: House or unit number is required and included in the receipt                                                                                         
+00:16 +25: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.android Size(1024.0, 768.0) text 2.0                                                                                              
+00:16 +26: C:/EELE_MOB_APP/test/widget_test.dart: Product cart shortcut updates immediately and opens cart                                                                                             
+00:16 +27: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.android Size(1366.0, 1024.0) text 1.0                                                                                             
+00:16 +28: C:/EELE_MOB_APP/test/widget_test.dart: Category View all opens categories, featured View all opens products                                                                                 
+00:17 +28: C:/EELE_MOB_APP/test/widget_test.dart: Category View all opens categories, featured View all opens products                                                                                 
+00:17 +29: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.android Size(1366.0, 1024.0) text 1.5                                                                                             
+00:17 +30: C:/EELE_MOB_APP/test/widget_test.dart: Cancelling checkout preserves cart                                                                                                                   
+00:17 +31: C:/EELE_MOB_APP/test/widget_test.dart: Cancelling checkout preserves cart                                                                                                                   
+00:18 +31: C:/EELE_MOB_APP/test/widget_test.dart: Cancelling checkout preserves cart                                                                                                                   
+00:18 +32: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(320.0, 568.0) text 1.0                                                                                                   
+00:18 +33: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(320.0, 568.0) text 1.0                                                                                                   
+00:18 +33: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(320.0, 568.0) text 1.5                                                                                                   
+00:18 +34: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(320.0, 568.0) text 1.5                                                                                                   
+00:18 +34: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(320.0, 568.0) text 2.0                                                                                                   
+00:19 +34: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(320.0, 568.0) text 2.0                                                                                                   
+00:19 +35: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(320.0, 568.0) text 2.0                                                                                                   
+00:19 +35: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(390.0, 844.0) text 1.0                                                                                                   
+00:19 +36: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(390.0, 844.0) text 1.0                                                                                                   
+00:19 +36: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(390.0, 844.0) text 1.5                                                                                                   
+00:20 +36: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(390.0, 844.0) text 1.5                                                                                                   
+00:20 +37: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(390.0, 844.0) text 1.5                                                                                                   
+00:20 +37: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(390.0, 844.0) text 2.0                                                                                                   
+00:20 +38: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(390.0, 844.0) text 2.0                                                                                                   
+00:20 +38: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(844.0, 390.0) text 1.0                                                                                                   
+00:21 +38: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(844.0, 390.0) text 1.0                                                                                                   
+00:21 +39: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(844.0, 390.0) text 1.0                                                                                                   
+00:21 +39: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(844.0, 390.0) text 1.5                                                                                                   
+00:21 +40: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(844.0, 390.0) text 1.5                                                                                                   
+00:21 +40: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(844.0, 390.0) text 2.0                                                                                                   
+00:21 +41: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(844.0, 390.0) text 2.0                                                                                                   
+00:21 +41: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(768.0, 1024.0) text 1.0                                                                                                  
+00:22 +41: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(768.0, 1024.0) text 1.0                                                                                                  
+00:22 +42: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(768.0, 1024.0) text 1.0                                                                                                  
+00:22 +42: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(768.0, 1024.0) text 1.5                                                                                                  
+00:22 +43: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(768.0, 1024.0) text 1.5                                                                                                  
+00:22 +43: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(768.0, 1024.0) text 2.0                                                                                                  
+00:22 +44: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(768.0, 1024.0) text 2.0                                                                                                  
+00:22 +44: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(1024.0, 768.0) text 1.0                                                                                                  
+00:23 +44: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(1024.0, 768.0) text 1.0                                                                                                  
+00:23 +45: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(1024.0, 768.0) text 1.0                                                                                                  
+00:23 +45: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(1024.0, 768.0) text 1.5                                                                                                  
+00:23 +46: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(1024.0, 768.0) text 1.5                                                                                                  
+00:23 +46: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(1024.0, 768.0) text 2.0                                                                                                  
+00:24 +46: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(1024.0, 768.0) text 2.0                                                                                                  
+00:24 +47: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(1024.0, 768.0) text 2.0                                                                                                  
+00:24 +47: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(1366.0, 1024.0) text 1.0                                                                                                 
+00:24 +48: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(1366.0, 1024.0) text 1.0                                                                                                 
+00:24 +48: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(1366.0, 1024.0) text 1.5                                                                                                 
+00:24 +49: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(1366.0, 1024.0) text 1.5                                                                                                 
+00:24 +49: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(1366.0, 1024.0) text 2.0                                                                                                 
+00:25 +49: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(1366.0, 1024.0) text 2.0                                                                                                 
+00:25 +50: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(1366.0, 1024.0) text 2.0                                                                                                 
+00:25 +50: All tests passed!                                                                                                                                                                           

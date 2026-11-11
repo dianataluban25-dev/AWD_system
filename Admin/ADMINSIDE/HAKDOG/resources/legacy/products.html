@@ -1,0 +1,3178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>EleeSiWeb - Products</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background: #fff;
+            color: #111;
+        }
+
+        .layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* ================= SIDEBAR ================= */
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 235px;
+            height: 100vh;
+            background: #00551f;
+            color: white;
+            padding: 28px 16px;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 36px;
+            font-weight: 900;
+            margin-left: 12px;
+            letter-spacing: -2px;
+        }
+
+        .logo span {
+            color: #ffbd00;
+        }
+
+        .hardware {
+            color: #ffbd00;
+            font-size: 14px;
+            font-weight: bold;
+            margin-left: 13px;
+            margin-top: 3px;
+            margin-bottom: 25px;
+        }
+
+        .menu {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: white;
+            padding: 13px 14px;
+            border-radius: 7px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+
+        .menu a:hover {
+            background: #08732e;
+        }
+
+        .menu a.active {
+            background: #08732e;
+        }
+
+        .icon {
+            width: 20px;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        /* ================= MAIN ================= */
+
+        .main {
+            flex: 1;
+            min-width: 0;
+            margin-left: 235px;
+        }
+
+        .content {
+            padding: 28px 25px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .title {
+            font-size: 30px;
+            font-weight: 700;
+            margin-bottom: 3px;
+        }
+
+        .subtitle {
+            color: #888;
+            font-size: 14px;
+        }
+
+        .add-btn {
+            border: none;
+            background: #069b45;
+            color: white;
+            padding: 10px 16px;
+            border-radius: 9px;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        .add-btn:hover {
+            background: #057d38;
+        }
+
+        /* ================= INVENTORY SUMMARY ================= */
+
+        .inventory-summary {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-top: 30px;
+            margin-bottom: 25px;
+        }
+
+        .summary-card {
+            border: 1px solid #e5e5e5;
+            border-radius: 10px;
+            padding: 18px;
+            background: white;
+        }
+
+        .summary-title {
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 8px;
+        }
+
+        .summary-number {
+            font-size: 25px;
+            font-weight: 700;
+        }
+
+        .summary-green {
+            color: #069b45;
+        }
+
+        .summary-yellow {
+            color: #c58a00;
+        }
+
+        .summary-red {
+            color: #d84848;
+        }
+
+        /* ================= SEARCH ================= */
+
+        .search-area {
+            margin-top: 15px;
+            margin-bottom: 28px;
+        }
+
+        .search-box {
+            width: 100%;
+            height: 48px;
+            border: 1px solid #ddd;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-icon {
+            font-size: 27px;
+            color: #999;
+            margin-left: 12px;
+            margin-right: 12px;
+        }
+
+        .search-box input {
+            width: 100%;
+            border: none;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .filter-area {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .filter-area select {
+            border: 1px solid #ddd;
+            border-radius: 7px;
+            padding: 8px 12px;
+            color: #666;
+            outline: none;
+            background: white;
+        }
+
+        /* ================= PRODUCT TABLE ================= */
+
+        .product-table {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        .product-header,
+        .product-row {
+            display: grid;
+
+            grid-template-columns:
+                80px
+                1.4fr
+                1.1fr
+                .7fr
+                .7fr
+                .7fr
+                .8fr
+                85px;
+
+            align-items: center;
+            column-gap: 15px;
+            min-width: 900px;
+        }
+
+        .product-header {
+            font-weight: 700;
+            font-size: 13px;
+            padding: 0 10px 16px;
+        }
+
+        .product-row {
+            min-height: 83px;
+            border: 1px solid #e5e5e5;
+            border-radius: 9px;
+            padding: 10px;
+            margin-bottom: 14px;
+            background: white;
+        }
+
+        .product-row:hover {
+            border-color: #b9dfc5;
+            box-shadow: 0 2px 8px rgba(0,0,0,.04);
+        }
+
+        /* ================= IMAGE ================= */
+
+        .product-image-box {
+            width: 60px;
+            height: 55px;
+            border: 1px solid #e5e5e5;
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: #fafafa;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .image-placeholder {
+            font-size: 27px;
+        }
+
+        .product-name {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .category {
+            font-size: 12px;
+            color: #888;
+        }
+
+        .price,
+        .stock,
+        .unit {
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* ================= STATUS ================= */
+
+        .status {
+            display: inline-block;
+            padding: 5px 9px;
+            border-radius: 5px;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .in-stock {
+            background: #c9f1ce;
+            color: #258b3e;
+        }
+
+        .low-stock {
+            background: #fff0c2;
+            color: #a87500;
+        }
+
+        .out-stock {
+            background: #ffd6d6;
+            color: #c53b3b;
+        }
+
+        .unavailable {
+            background: #eeeeee;
+            color: #777;
+        }
+
+        /* ================= ACTIONS ================= */
+
+        .actions {
+            display: flex;
+            gap: 7px;
+        }
+
+        .edit,
+        .stock-btn,
+        .delete {
+            width: 30px;
+            height: 30px;
+            border: none;
+            background: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .edit {
+            color: #777;
+        }
+
+        .edit:hover {
+            background: #eeeeee;
+        }
+
+        .stock-btn {
+            color: #069b45;
+        }
+
+        .stock-btn:hover {
+            background: #e4f5e9;
+        }
+
+        .delete {
+            color: #e75b5b;
+        }
+
+        .delete:hover {
+            background: #ffe7e7;
+        }
+
+        /* ================= NO RESULTS ================= */
+
+        .no-results {
+            display: none;
+            text-align: center;
+            padding: 35px;
+            color: #888;
+            font-size: 14px;
+            border: 1px solid #eee;
+            border-radius: 9px;
+            min-width: 900px;
+        }
+
+        /* ================= STOCK NOTICE ================= */
+
+        .stock-notice {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #f4faf5;
+            border: 1px solid #d6eadb;
+            border-radius: 9px;
+            padding: 13px 15px;
+            margin-top: 30px;
+            color: #397049;
+            font-size: 12px;
+        }
+
+        .stock-notice strong {
+            color: #17612d;
+        }
+
+        /* ================= PAGINATION ================= */
+
+        .bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 35px;
+            padding: 0 10px;
+            gap: 15px;
+        }
+
+        .showing-text {
+            font-size: 12px;
+            color: #777;
+        }
+
+        .pagination {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .page {
+            min-width: 30px;
+            height: 30px;
+            padding: 0 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 12px;
+            color: #555;
+            cursor: pointer;
+            background: white;
+            user-select: none;
+        }
+
+        .page:hover:not(.disabled):not(.dots) {
+            border-color: #299447;
+            color: #299447;
+        }
+
+        .page.active {
+            background: #299447;
+            color: white;
+            border-color: #299447;
+        }
+
+        .page.disabled {
+            color: #ccc;
+            cursor: not-allowed;
+            background: #f8f8f8;
+        }
+
+        .page.dots {
+            border: none;
+            cursor: default;
+            background: transparent;
+        }
+
+        /* ================= MODAL ================= */
+
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,.45);
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .modal-box {
+            background: white;
+            width: 470px;
+            max-width: 100%;
+            max-height: 92vh;
+            overflow-y: auto;
+            border-radius: 12px;
+            padding: 25px;
+        }
+
+        .modal-box h2 {
+            margin-bottom: 20px;
+            font-size: 22px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 7px;
+            outline: none;
+            background: white;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #069b45;
+        }
+
+        /* ================= IMAGE UPLOAD ================= */
+
+        .image-upload-area {
+            border: 2px dashed #cfcfcf;
+            border-radius: 9px;
+            padding: 15px;
+            text-align: center;
+            background: #fafafa;
+        }
+
+        .image-upload-area:hover {
+            border-color: #069b45;
+        }
+
+        .image-upload-area input[type="file"] {
+            border: none;
+            padding: 0;
+            cursor: pointer;
+        }
+
+        .image-preview {
+            width: 120px;
+            height: 100px;
+            object-fit: contain;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin: 10px auto;
+            display: none;
+            background: white;
+        }
+
+        .upload-text {
+            color: #888;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        /* ================= AVAILABILITY ================= */
+
+        .availability-box {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .availability-box input {
+            width: auto;
+        }
+
+        /* ================= MODAL BUTTONS ================= */
+
+        .modal-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .cancel-btn {
+            border: 1px solid #ccc;
+            background: white;
+            padding: 9px 15px;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+
+        .save-btn {
+            border: none;
+            background: #069b45;
+            color: white;
+            padding: 9px 15px;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+
+        .save-btn:hover {
+            background: #057d38;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 1000px) {
+
+            .sidebar {
+                width: 190px;
+            }
+
+            .main {
+                margin-left: 190px;
+            }
+
+            .inventory-summary {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+        @media (max-width: 650px) {
+
+            .sidebar {
+                display: none;
+            }
+
+            .main {
+                margin-left: 0;
+            }
+
+            .content {
+                padding: 18px;
+            }
+
+            .header {
+                align-items: center;
+            }
+
+            .title {
+                font-size: 25px;
+            }
+
+            .add-btn {
+                padding: 8px 12px;
+            }
+
+            .inventory-summary {
+                grid-template-columns: 1fr;
+            }
+
+            .bottom {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="layout">
+
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            <span style="color:white;">E</span><span>LEE</span>
+        </div>
+
+        <div class="hardware">
+            HARDWARE
+        </div>
+
+        <div class="menu">
+
+            <a href="{{ url('/') }}">
+                <span class="icon">☼</span>
+                Dashboard
+            </a>
+
+            <a href="{{ url('/orders') }}">
+                <span class="icon">▣</span>
+                Orders
+            </a>
+
+            <a href="{{ url('/products') }}" class="active">
+                <span class="icon">◇</span>
+                Products
+            </a>
+
+            <a href="{{ url('/ai-recommendations') }}">
+                <span class="icon">↗</span>
+                AI Recommendations
+            </a>
+
+            <a href="{{ url('/payments') }}">
+                <span class="icon"><svg aria-hidden="true" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5.5" width="17" height="14" rx="2"/><path d="M3.5 9h17M7 5.5v-.75A1.75 1.75 0 0 1 8.75 3h8.5"/><path d="M16 13h4.5"/><circle cx="16" cy="13" r=".55"/></svg></span>
+                Payments
+            </a>
+
+            <a href="{{ url('/customers') }}">
+                <span class="icon">♙</span>
+                Customers
+            </a>
+
+            <a href="{{ url('/queuing') }}">
+                <span class="icon">▱</span>
+                Queuing
+            </a>
+
+            <a href="{{ url('/receipt-records') }}">
+                <span class="icon">▤</span>
+                Receipt Records
+            </a>
+
+            <a href="{{ url('/settings') }}">
+                <span class="icon">⚙</span>
+                Settings
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="main">
+
+        <div class="content">
+
+
+            <!-- HEADER -->
+
+            <div class="header">
+
+                <div>
+
+                    <h1 class="title">
+                        Products & Inventory
+                    </h1>
+
+                    <p class="subtitle">
+                        Manage products, prices, availability and stock
+                    </p>
+
+                </div>
+
+                <button
+                    class="add-btn"
+                    onclick="openAddModal()"
+                >
+                    + Add Product
+                </button>
+
+            </div>
+
+
+            <!-- ================= INVENTORY SUMMARY ================= -->
+
+            <div class="inventory-summary">
+
+                <div class="summary-card">
+
+                    <div class="summary-title">
+                        Total Products
+                    </div>
+
+                    <div
+                        class="summary-number summary-green"
+                        id="totalProducts"
+                    >
+                        0
+                    </div>
+
+                </div>
+
+
+                <div class="summary-card">
+
+                    <div class="summary-title">
+                        In Stock
+                    </div>
+
+                    <div
+                        class="summary-number summary-green"
+                        id="inStockCount"
+                    >
+                        0
+                    </div>
+
+                </div>
+
+
+                <div class="summary-card">
+
+                    <div class="summary-title">
+                        Low Stock
+                    </div>
+
+                    <div
+                        class="summary-number summary-yellow"
+                        id="lowStockCount"
+                    >
+                        0
+                    </div>
+
+                </div>
+
+
+                <div class="summary-card">
+
+                    <div class="summary-title">
+                        Out of Stock
+                    </div>
+
+                    <div
+                        class="summary-number summary-red"
+                        id="outStockCount"
+                    >
+                        0
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= SEARCH ================= -->
+
+            <div class="search-area">
+
+                <div class="search-box">
+
+                    <span class="search-icon">
+                        ⌕
+                    </span>
+
+                    <input
+                        type="text"
+                        id="searchInput"
+                        placeholder="Search products..."
+                        oninput="filterProducts()"
+                    >
+
+                </div>
+
+
+                <div class="filter-area">
+
+                    <select
+                        id="categoryFilter"
+                        onchange="filterProducts()"
+                    >
+
+                        <option value="all">
+                            All Categories
+                        </option>
+
+                        <option value="Building Materials">
+                            Building Materials
+                        </option>
+
+                        <option value="Tools">
+                            Tools
+                        </option>
+
+                        <option value="Electrical">
+                            Electrical
+                        </option>
+
+                        <option value="Plumbing">
+                            Plumbing
+                        </option>
+
+                    </select>
+
+
+                    <select
+                        id="statusFilter"
+                        onchange="filterProducts()"
+                    >
+
+                        <option value="all">
+                            All Status
+                        </option>
+
+                        <option value="In Stock">
+                            In Stock
+                        </option>
+
+                        <option value="Low Stock">
+                            Low Stock
+                        </option>
+
+                        <option value="Out of Stock">
+                            Out of Stock
+                        </option>
+
+                        <option value="Unavailable">
+                            Unavailable
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= PRODUCT TABLE ================= -->
+
+            <div class="product-table">
+
+                <div class="product-header">
+
+                    <div>Image</div>
+                    <div>Product Name</div>
+                    <div>Category</div>
+                    <div>Price</div>
+                    <div>Stock</div>
+                    <div>Unit</div>
+                    <div>Status</div>
+                    <div>Actions</div>
+
+                </div>
+
+
+                <div id="productList"></div>
+
+
+                <div
+                    id="noResults"
+                    class="no-results"
+                >
+                    No products found.
+                </div>
+
+            </div>
+
+
+            <!-- ================= AUTOMATIC STOCK NOTICE ================= -->
+
+            <div class="stock-notice">
+
+                <span>
+                    📦
+                </span>
+
+                <span>
+                    <strong>Automatic Stock Update:</strong>
+                    Stock is automatically deducted when an order is confirmed.
+                    Staff can use the <strong>+</strong> button to add new stock
+                    when supplies arrive.
+                </span>
+
+            </div>
+
+
+            <!-- ================= PAGINATION ================= -->
+
+            <div class="bottom">
+
+                <div
+                    class="showing-text"
+                    id="showingText"
+                >
+                    Showing 0 to 0 of 0 products
+                </div>
+
+                <div
+                    class="pagination"
+                    id="pagination"
+                ></div>
+
+            </div>
+
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<!-- ================================================= -->
+<!-- ADD / EDIT PRODUCT MODAL -->
+<!-- ================================================= -->
+
+<div
+    class="modal"
+    id="productModal"
+>
+
+    <div class="modal-box">
+
+        <h2 id="modalTitle">
+            Add Product
+        </h2>
+
+
+        <div class="form-group">
+
+            <label>
+                Product Image
+            </label>
+
+            <div class="image-upload-area">
+
+                <img
+                    id="imagePreview"
+                    class="image-preview"
+                    alt="Image Preview"
+                >
+
+                <input
+                    type="file"
+                    id="productImage"
+                    accept="image/*"
+                    onchange="previewImage(event)"
+                >
+
+                <div class="upload-text">
+                    Choose a product picture
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Product Name
+            </label>
+
+            <input
+                type="text"
+                id="productName"
+                placeholder="Enter product name"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Category
+            </label>
+
+            <select id="productCategory">
+
+                <option value="">
+                    Select category
+                </option>
+
+                <option value="Building Materials">
+                    Building Materials
+                </option>
+
+                <option value="Tools">
+                    Tools
+                </option>
+
+                <option value="Electrical">
+                    Electrical
+                </option>
+
+                <option value="Plumbing">
+                    Plumbing
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Price
+            </label>
+
+            <input
+                type="number"
+                id="productPrice"
+                min="0"
+                step="0.01"
+                placeholder="Enter price"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Unit
+            </label>
+
+            <select id="productUnit">
+
+                <option value="">
+                    Select unit
+                </option>
+
+                <option value="piece">
+                    Piece
+                </option>
+
+                <option value="set">
+                    Set
+                </option>
+
+                <option value="box">
+                    Box
+                </option>
+
+                <option value="meter">
+                    Meter
+                </option>
+
+                <option value="kg">
+                    Kilogram
+                </option>
+
+                <option value="liter">
+                    Liter
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Stock Quantity
+            </label>
+
+            <input
+                type="number"
+                id="productStock"
+                min="0"
+                placeholder="Enter stock quantity"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Availability
+            </label>
+
+            <div class="availability-box">
+
+                <input
+                    type="checkbox"
+                    id="productAvailability"
+                    checked
+                >
+
+                <span>
+                    Product is available for ordering
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="modal-buttons">
+
+            <button
+                class="cancel-btn"
+                onclick="closeModal()"
+            >
+                Cancel
+            </button>
+
+            <button
+                class="save-btn"
+                onclick="saveProduct()"
+                id="saveButton"
+            >
+                Add Product
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ================================================= -->
+<!-- ADD STOCK MODAL -->
+<!-- ================================================= -->
+
+<div
+    class="modal"
+    id="stockModal"
+>
+
+    <div class="modal-box">
+
+        <h2>
+            Add New Stock
+        </h2>
+
+
+        <p
+            id="stockProductName"
+            style="
+                font-size:13px;
+                color:#777;
+                margin-bottom:18px;
+            "
+        >
+            Product
+        </p>
+
+
+        <div class="form-group">
+
+            <label>
+                Current Stock
+            </label>
+
+            <input
+                type="number"
+                id="currentStock"
+                readonly
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Quantity to Add
+            </label>
+
+            <input
+                type="number"
+                id="stockToAdd"
+                min="1"
+                placeholder="Enter quantity"
+            >
+
+        </div>
+
+
+        <div
+            style="
+                background:#f4faf5;
+                border:1px solid #d6eadb;
+                padding:12px;
+                border-radius:7px;
+                font-size:12px;
+                color:#397049;
+            "
+        >
+            New stock will be added to the existing quantity.
+        </div>
+
+
+        <div class="modal-buttons">
+
+            <button
+                class="cancel-btn"
+                onclick="closeStockModal()"
+            >
+                Cancel
+            </button>
+
+            <button
+                class="save-btn"
+                onclick="addStock()"
+            >
+                Add Stock
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   SETTINGS
+===================================================== */
+
+const STORAGE_KEY = "elee_products";
+
+const productsPerPage = 5;
+
+let products = [];
+
+let currentPage = 1;
+
+let editingProductId = null;
+
+let stockProductId = null;
+
+let pendingImage = "";
+
+
+/* =====================================================
+   DEFAULT PRODUCTS
+===================================================== */
+
+const defaultProducts = [
+
+    {
+        id: 1,
+        name: "Claw Hammer",
+        category: "Building Materials",
+        price: 1200,
+        stock: 200,
+        unit: "piece",
+        available: true,
+        image: ""
+    },
+
+    {
+        id: 2,
+        name: "Screwdriver Set",
+        category: "Tools",
+        price: 1200,
+        stock: 120,
+        unit: "set",
+        available: true,
+        image: ""
+    },
+
+    {
+        id: 3,
+        name: 'Hollow Blocks 4"',
+        category: "Building Materials",
+        price: 1200,
+        stock: 8,
+        unit: "piece",
+        available: true,
+        image: ""
+    }
+
+];
+
+
+/* =====================================================
+   LOAD PRODUCTS
+===================================================== */
+
+function loadProducts() {
+
+    const savedProducts =
+        localStorage.getItem(STORAGE_KEY);
+
+    if (!savedProducts) {
+
+        products = [...defaultProducts];
+
+        saveProducts();
+
+        return;
+    }
+
+    try {
+
+        const parsed =
+            JSON.parse(savedProducts);
+
+        if (Array.isArray(parsed)) {
+
+            products = parsed;
+
+        } else {
+
+            products = [...defaultProducts];
+
+            saveProducts();
+
+        }
+
+    } catch (error) {
+
+        products = [...defaultProducts];
+
+        saveProducts();
+
+    }
+
+}
+
+
+/* =====================================================
+   SAVE PRODUCTS
+===================================================== */
+
+function saveProducts() {
+
+    localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(products)
+    );
+
+}
+
+
+/* =====================================================
+   PRODUCT STATUS
+===================================================== */
+
+function getProductStatus(stock, available) {
+
+    stock = Number(stock);
+
+    if (!available) {
+
+        return {
+            text: "Unavailable",
+            className: "unavailable"
+        };
+
+    }
+
+    if (stock <= 0) {
+
+        return {
+            text: "Out of Stock",
+            className: "out-stock"
+        };
+
+    }
+
+    if (stock <= 10) {
+
+        return {
+            text: "Low Stock",
+            className: "low-stock"
+        };
+
+    }
+
+    return {
+        text: "In Stock",
+        className: "in-stock"
+    };
+
+}
+
+
+/* =====================================================
+   GET FILTERED PRODUCTS
+===================================================== */
+
+function getFilteredProducts() {
+
+    const search =
+        document.getElementById("searchInput")
+            .value
+            .toLowerCase()
+            .trim();
+
+    const category =
+        document.getElementById("categoryFilter")
+            .value;
+
+    const status =
+        document.getElementById("statusFilter")
+            .value;
+
+
+    return products.filter(function(product) {
+
+        const productStatus =
+            getProductStatus(
+                product.stock,
+                product.available
+            ).text;
+
+
+        const matchesSearch =
+            product.name
+                .toLowerCase()
+                .includes(search) ||
+
+            product.category
+                .toLowerCase()
+                .includes(search) ||
+
+            product.unit
+                .toLowerCase()
+                .includes(search);
+
+
+        const matchesCategory =
+            category === "all" ||
+            product.category === category;
+
+
+        const matchesStatus =
+            status === "all" ||
+            productStatus === status;
+
+
+        return (
+            matchesSearch &&
+            matchesCategory &&
+            matchesStatus
+        );
+
+    });
+
+}
+
+
+/* =====================================================
+   RENDER PRODUCTS
+===================================================== */
+
+function renderProducts() {
+
+    const productList =
+        document.getElementById("productList");
+
+    productList.innerHTML = "";
+
+
+    const filteredProducts =
+        getFilteredProducts();
+
+
+    const totalPages =
+        Math.max(
+            1,
+            Math.ceil(
+                filteredProducts.length /
+                productsPerPage
+            )
+        );
+
+
+    if (currentPage > totalPages) {
+
+        currentPage = totalPages;
+
+    }
+
+
+    const startIndex =
+        (currentPage - 1) *
+        productsPerPage;
+
+
+    const endIndex =
+        startIndex +
+        productsPerPage;
+
+
+    const pageProducts =
+        filteredProducts.slice(
+            startIndex,
+            endIndex
+        );
+
+
+    pageProducts.forEach(function(product) {
+
+        const status =
+            getProductStatus(
+                product.stock,
+                product.available
+            );
+
+
+        const row =
+            document.createElement("div");
+
+        row.className =
+            "product-row";
+
+        row.dataset.id =
+            product.id;
+
+
+        let imageHTML = `
+            <span class="image-placeholder">
+                📦
+            </span>
+        `;
+
+
+        if (product.image) {
+
+            imageHTML = `
+                <img
+                    src="${product.image}"
+                    class="product-image"
+                    alt="${escapeHTML(product.name)}"
+                >
+            `;
+
+        } else {
+
+            if (product.category === "Tools") {
+
+                imageHTML = `
+                    <span class="image-placeholder">
+                        🪛
+                    </span>
+                `;
+
+            } else if (
+                product.category === "Building Materials"
+            ) {
+
+                imageHTML = `
+                    <span class="image-placeholder">
+                        🧱
+                    </span>
+                `;
+
+            } else if (
+                product.category === "Electrical"
+            ) {
+
+                imageHTML = `
+                    <span class="image-placeholder">
+                        💡
+                    </span>
+                `;
+
+            } else if (
+                product.category === "Plumbing"
+            ) {
+
+                imageHTML = `
+                    <span class="image-placeholder">
+                        🔧
+                    </span>
+                `;
+
+            }
+
+        }
+
+
+        row.innerHTML = `
+
+            <div class="product-image-box">
+                ${imageHTML}
+            </div>
+
+
+            <div class="product-name">
+                ${escapeHTML(product.name)}
+            </div>
+
+
+            <div class="category">
+                ${escapeHTML(product.category)}
+            </div>
+
+
+            <div class="price">
+                ₱${Number(product.price).toLocaleString()}
+            </div>
+
+
+            <div class="stock">
+                ${Number(product.stock)}
+            </div>
+
+
+            <div class="unit">
+                ${escapeHTML(product.unit)}
+            </div>
+
+
+            <div>
+
+                <span class="status ${status.className}">
+                    ${status.text}
+                </span>
+
+            </div>
+
+
+            <div class="actions">
+
+                <button
+                    class="edit"
+                    onclick="editProduct(${product.id})"
+                    title="Edit Product"
+                >
+                    ✎
+                </button>
+
+
+                <button
+                    class="stock-btn"
+                    onclick="openStockModal(${product.id})"
+                    title="Add New Stock"
+                >
+                    +
+                </button>
+
+
+                <button
+                    class="delete"
+                    onclick="deleteProduct(${product.id})"
+                    title="Delete Product"
+                >
+                    🗑
+                </button>
+
+            </div>
+
+        `;
+
+
+        productList.appendChild(row);
+
+    });
+
+
+    const noResults =
+        document.getElementById("noResults");
+
+
+    if (filteredProducts.length === 0) {
+
+        noResults.style.display = "block";
+
+    } else {
+
+        noResults.style.display = "none";
+
+    }
+
+
+    updateSummary();
+
+
+    updateShowingText(
+        filteredProducts.length,
+        startIndex,
+        pageProducts.length
+    );
+
+
+    renderPagination(totalPages);
+
+}
+
+
+/* =====================================================
+   SEARCH / FILTER
+===================================================== */
+
+function filterProducts() {
+
+    currentPage = 1;
+
+    renderProducts();
+
+}
+
+
+/* =====================================================
+   SHOWING TEXT
+===================================================== */
+
+function updateShowingText(
+    total,
+    startIndex,
+    visibleCount
+) {
+
+    const showing =
+        document.getElementById(
+            "showingText"
+        );
+
+
+    if (total === 0) {
+
+        showing.innerText =
+            "Showing 0 to 0 of 0 products";
+
+        return;
+
+    }
+
+
+    const start =
+        startIndex + 1;
+
+
+    const end =
+        startIndex + visibleCount;
+
+
+    showing.innerText =
+        "Showing " +
+        start +
+        " to " +
+        end +
+        " of " +
+        total +
+        " products";
+
+}
+
+
+/* =====================================================
+   PAGINATION
+===================================================== */
+
+function renderPagination(totalPages) {
+
+    const pagination =
+        document.getElementById(
+            "pagination"
+        );
+
+
+    pagination.innerHTML = "";
+
+
+    /*
+       PREVIOUS BUTTON
+    */
+
+    const previous =
+        document.createElement("div");
+
+    previous.className =
+        "page";
+
+
+    if (currentPage === 1) {
+
+        previous.classList.add(
+            "disabled"
+        );
+
+    }
+
+
+    previous.innerText = "‹";
+
+
+    previous.title = "Previous";
+
+
+    previous.onclick =
+        function() {
+
+            if (
+                currentPage > 1
+            ) {
+
+                currentPage--;
+
+                renderProducts();
+
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                });
+
+            }
+
+        };
+
+
+    pagination.appendChild(
+        previous
+    );
+
+
+    /*
+       PAGE NUMBERS
+    */
+
+    const pageNumbers =
+        getPageNumbers(
+            currentPage,
+            totalPages
+        );
+
+
+    pageNumbers.forEach(function(page) {
+
+        if (page === "...") {
+
+            const dots =
+                document.createElement(
+                    "div"
+                );
+
+            dots.className =
+                "page dots";
+
+            dots.innerText =
+                "...";
+
+            pagination.appendChild(
+                dots
+            );
+
+            return;
+
+        }
+
+
+        const pageButton =
+            document.createElement(
+                "div"
+            );
+
+        pageButton.className =
+            "page";
+
+
+        if (
+            page === currentPage
+        ) {
+
+            pageButton.classList.add(
+                "active"
+            );
+
+        }
+
+
+        pageButton.innerText =
+            page;
+
+
+        pageButton.onclick =
+            function() {
+
+                currentPage =
+                    page;
+
+                renderProducts();
+
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                });
+
+            };
+
+
+        pagination.appendChild(
+            pageButton
+        );
+
+    });
+
+
+    /*
+       NEXT BUTTON
+    */
+
+    const next =
+        document.createElement("div");
+
+    next.className =
+        "page";
+
+
+    if (
+        currentPage === totalPages
+    ) {
+
+        next.classList.add(
+            "disabled"
+        );
+
+    }
+
+
+    next.innerText = "›";
+
+
+    next.title = "Next";
+
+
+    next.onclick =
+        function() {
+
+            if (
+                currentPage <
+                totalPages
+            ) {
+
+                currentPage++;
+
+                renderProducts();
+
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                });
+
+            }
+
+        };
+
+
+    pagination.appendChild(
+        next
+    );
+
+}
+
+
+/* =====================================================
+   PAGE NUMBERS
+===================================================== */
+
+function getPageNumbers(
+    current,
+    total
+) {
+
+    if (total <= 7) {
+
+        return Array.from(
+            {
+                length: total
+            },
+            function(_, index) {
+
+                return index + 1;
+
+            }
+        );
+
+    }
+
+
+    if (current <= 4) {
+
+        return [
+            1,
+            2,
+            3,
+            4,
+            5,
+            "...",
+            total
+        ];
+
+    }
+
+
+    if (
+        current >= total - 3
+    ) {
+
+        return [
+            1,
+            "...",
+            total - 4,
+            total - 3,
+            total - 2,
+            total - 1,
+            total
+        ];
+
+    }
+
+
+    return [
+        1,
+        "...",
+        current - 1,
+        current,
+        current + 1,
+        "...",
+        total
+    ];
+
+}
+
+
+/* =====================================================
+   OPEN ADD MODAL
+===================================================== */
+
+function openAddModal() {
+
+    editingProductId = null;
+
+    pendingImage = "";
+
+
+    document.getElementById(
+        "modalTitle"
+    ).innerText =
+        "Add Product";
+
+
+    document.getElementById(
+        "saveButton"
+    ).innerText =
+        "Add Product";
+
+
+    clearForm();
+
+
+    document.getElementById(
+        "productModal"
+    ).style.display =
+        "flex";
+
+}
+
+
+/* =====================================================
+   CLOSE PRODUCT MODAL
+===================================================== */
+
+function closeModal() {
+
+    document.getElementById(
+        "productModal"
+    ).style.display =
+        "none";
+
+
+    clearForm();
+
+
+    editingProductId = null;
+
+    pendingImage = "";
+
+}
+
+
+/* =====================================================
+   CLEAR FORM
+===================================================== */
+
+function clearForm() {
+
+    document.getElementById(
+        "productName"
+    ).value = "";
+
+
+    document.getElementById(
+        "productCategory"
+    ).value = "";
+
+
+    document.getElementById(
+        "productPrice"
+    ).value = "";
+
+
+    document.getElementById(
+        "productUnit"
+    ).value = "";
+
+
+    document.getElementById(
+        "productStock"
+    ).value = "";
+
+
+    document.getElementById(
+        "productAvailability"
+    ).checked = true;
+
+
+    document.getElementById(
+        "productImage"
+    ).value = "";
+
+
+    document.getElementById(
+        "imagePreview"
+    ).src = "";
+
+
+    document.getElementById(
+        "imagePreview"
+    ).style.display =
+        "none";
+
+}
+
+
+/* =====================================================
+   PREVIEW IMAGE
+===================================================== */
+
+function previewImage(event) {
+
+    const file =
+        event.target.files[0];
+
+
+    const preview =
+        document.getElementById(
+            "imagePreview"
+        );
+
+
+    if (!file) {
+
+        pendingImage = "";
+
+        preview.src = "";
+
+        preview.style.display =
+            "none";
+
+        return;
+
+    }
+
+
+    const reader =
+        new FileReader();
+
+
+    reader.onload =
+        function(event) {
+
+            pendingImage =
+                event.target.result;
+
+
+            preview.src =
+                event.target.result;
+
+
+            preview.style.display =
+                "block";
+
+        };
+
+
+    reader.readAsDataURL(file);
+
+}
+
+
+/* =====================================================
+   SAVE PRODUCT
+===================================================== */
+
+function saveProduct() {
+
+    const name =
+        document.getElementById(
+            "productName"
+        ).value.trim();
+
+
+    const category =
+        document.getElementById(
+            "productCategory"
+        ).value;
+
+
+    const price =
+        document.getElementById(
+            "productPrice"
+        ).value;
+
+
+    const unit =
+        document.getElementById(
+            "productUnit"
+        ).value;
+
+
+    const stock =
+        document.getElementById(
+            "productStock"
+        ).value;
+
+
+    const available =
+        document.getElementById(
+            "productAvailability"
+        ).checked;
+
+
+    if (
+        name === "" ||
+        category === "" ||
+        price === "" ||
+        unit === "" ||
+        stock === ""
+    ) {
+
+        alert(
+            "Please complete all product fields."
+        );
+
+        return;
+
+    }
+
+
+    if (
+        Number(price) < 0 ||
+        Number(stock) < 0
+    ) {
+
+        alert(
+            "Price and stock cannot be negative."
+        );
+
+        return;
+
+    }
+
+
+    if (
+        editingProductId !== null
+    ) {
+
+        updateExistingProduct(
+            name,
+            category,
+            Number(price),
+            unit,
+            Number(stock),
+            available
+        );
+
+        return;
+
+    }
+
+
+    addNewProduct(
+        name,
+        category,
+        Number(price),
+        unit,
+        Number(stock),
+        available
+    );
+
+}
+
+
+/* =====================================================
+   ADD NEW PRODUCT
+===================================================== */
+
+function addNewProduct(
+    name,
+    category,
+    price,
+    unit,
+    stock,
+    available
+) {
+
+    const newId =
+        products.length > 0
+            ? Math.max(
+                ...products.map(
+                    function(product) {
+                        return Number(
+                            product.id
+                        );
+                    }
+                )
+            ) + 1
+            : 1;
+
+
+    products.push({
+
+        id: newId,
+
+        name: name,
+
+        category: category,
+
+        price: price,
+
+        stock: stock,
+
+        unit: unit,
+
+        available: available,
+
+        image: pendingImage || ""
+
+    });
+
+
+    saveProducts();
+
+
+    closeModal();
+
+
+    const filteredProducts =
+        getFilteredProducts();
+
+
+    currentPage =
+        Math.max(
+            1,
+            Math.ceil(
+                filteredProducts.length /
+                productsPerPage
+            )
+        );
+
+
+    renderProducts();
+
+
+    alert(
+        "Product added successfully."
+    );
+
+}
+
+
+/* =====================================================
+   UPDATE EXISTING PRODUCT
+===================================================== */
+
+function updateExistingProduct(
+    name,
+    category,
+    price,
+    unit,
+    stock,
+    available
+) {
+
+    const product =
+        products.find(
+            function(item) {
+
+                return Number(item.id) ===
+                    Number(editingProductId);
+
+            }
+        );
+
+
+    if (!product) {
+
+        alert(
+            "Product not found."
+        );
+
+        return;
+
+    }
+
+
+    product.name =
+        name;
+
+    product.category =
+        category;
+
+    product.price =
+        price;
+
+    product.stock =
+        stock;
+
+    product.unit =
+        unit;
+
+    product.available =
+        available;
+
+
+    if (pendingImage) {
+
+        product.image =
+            pendingImage;
+
+    }
+
+
+    saveProducts();
+
+
+    closeModal();
+
+
+    renderProducts();
+
+
+    alert(
+        "Product updated successfully."
+    );
+
+}
+
+
+/* =====================================================
+   EDIT PRODUCT
+===================================================== */
+
+function editProduct(id) {
+
+    const product =
+        products.find(
+            function(item) {
+
+                return Number(item.id) ===
+                    Number(id);
+
+            }
+        );
+
+
+    if (!product) {
+
+        alert(
+            "Product not found."
+        );
+
+        return;
+
+    }
+
+
+    editingProductId =
+        Number(id);
+
+
+    pendingImage = "";
+
+
+    document.getElementById(
+        "modalTitle"
+    ).innerText =
+        "Edit Product";
+
+
+    document.getElementById(
+        "saveButton"
+    ).innerText =
+        "Save Changes";
+
+
+    document.getElementById(
+        "productName"
+    ).value =
+        product.name;
+
+
+    document.getElementById(
+        "productCategory"
+    ).value =
+        product.category;
+
+
+    document.getElementById(
+        "productPrice"
+    ).value =
+        product.price;
+
+
+    document.getElementById(
+        "productUnit"
+    ).value =
+        product.unit;
+
+
+    document.getElementById(
+        "productStock"
+    ).value =
+        product.stock;
+
+
+    document.getElementById(
+        "productAvailability"
+    ).checked =
+        product.available;
+
+
+    document.getElementById(
+        "productImage"
+    ).value = "";
+
+
+    const preview =
+        document.getElementById(
+            "imagePreview"
+        );
+
+
+    if (product.image) {
+
+        preview.src =
+            product.image;
+
+        preview.style.display =
+            "block";
+
+    } else {
+
+        preview.src = "";
+
+        preview.style.display =
+            "none";
+
+    }
+
+
+    document.getElementById(
+        "productModal"
+    ).style.display =
+        "flex";
+
+}
+
+
+/* =====================================================
+   DELETE PRODUCT
+===================================================== */
+
+function deleteProduct(id) {
+
+    const product =
+        products.find(
+            function(item) {
+
+                return Number(item.id) ===
+                    Number(id);
+
+            }
+        );
+
+
+    if (!product) {
+
+        return;
+
+    }
+
+
+    const confirmed =
+        confirm(
+            "Are you sure you want to delete " +
+            product.name +
+            "?"
+        );
+
+
+    if (!confirmed) {
+
+        return;
+
+    }
+
+
+    products =
+        products.filter(
+            function(item) {
+
+                return Number(item.id) !==
+                    Number(id);
+
+            }
+        );
+
+
+    saveProducts();
+
+
+    const filteredProducts =
+        getFilteredProducts();
+
+
+    const totalPages =
+        Math.max(
+            1,
+            Math.ceil(
+                filteredProducts.length /
+                productsPerPage
+            )
+        );
+
+
+    if (
+        currentPage >
+        totalPages
+    ) {
+
+        currentPage =
+            totalPages;
+
+    }
+
+
+    renderProducts();
+
+
+    alert(
+        "Product deleted successfully."
+    );
+
+}
+
+
+/* =====================================================
+   OPEN STOCK MODAL
+===================================================== */
+
+function openStockModal(id) {
+
+    const product =
+        products.find(
+            function(item) {
+
+                return Number(item.id) ===
+                    Number(id);
+
+            }
+        );
+
+
+    if (!product) {
+
+        return;
+
+    }
+
+
+    stockProductId =
+        Number(id);
+
+
+    document.getElementById(
+        "stockProductName"
+    ).innerText =
+        "Product: " +
+        product.name;
+
+
+    document.getElementById(
+        "currentStock"
+    ).value =
+        Number(product.stock);
+
+
+    document.getElementById(
+        "stockToAdd"
+    ).value = "";
+
+
+    document.getElementById(
+        "stockModal"
+    ).style.display =
+        "flex";
+
+}
+
+
+/* =====================================================
+   CLOSE STOCK MODAL
+===================================================== */
+
+function closeStockModal() {
+
+    document.getElementById(
+        "stockModal"
+    ).style.display =
+        "none";
+
+
+    stockProductId = null;
+
+
+    document.getElementById(
+        "stockToAdd"
+    ).value = "";
+
+}
+
+
+/* =====================================================
+   ADD STOCK
+===================================================== */
+
+function addStock() {
+
+    if (
+        stockProductId === null
+    ) {
+
+        return;
+
+    }
+
+
+    const stockToAdd =
+        Number(
+            document.getElementById(
+                "stockToAdd"
+            ).value
+        );
+
+
+    if (
+        !Number.isInteger(stockToAdd) ||
+        stockToAdd <= 0
+    ) {
+
+        alert(
+            "Please enter a valid whole number greater than 0."
+        );
+
+        return;
+
+    }
+
+
+    const product =
+        products.find(
+            function(item) {
+
+                return Number(item.id) ===
+                    Number(stockProductId);
+
+            }
+        );
+
+
+    if (!product) {
+
+        alert(
+            "Product not found."
+        );
+
+        return;
+
+    }
+
+
+    const previousStock =
+        Number(product.stock);
+
+
+    product.stock =
+        previousStock +
+        stockToAdd;
+
+
+    saveProducts();
+
+
+    closeStockModal();
+
+
+    renderProducts();
+
+
+    alert(
+        "Stock added successfully.\n\n" +
+        "Previous Stock: " +
+        previousStock +
+        "\n" +
+        "Added Stock: " +
+        stockToAdd +
+        "\n" +
+        "New Stock: " +
+        product.stock
+    );
+
+}
+
+
+/* =====================================================
+   AUTOMATIC ORDER STOCK DEDUCTION
+===================================================== */
+
+function confirmOrderAndDeductStock(
+    productId,
+    orderedQuantity
+) {
+
+    const product =
+        products.find(
+            function(item) {
+
+                return Number(item.id) ===
+                    Number(productId);
+
+            }
+        );
+
+
+    if (!product) {
+
+        alert(
+            "Product not found."
+        );
+
+        return false;
+
+    }
+
+
+    orderedQuantity =
+        Number(orderedQuantity);
+
+
+    if (
+        !Number.isInteger(
+            orderedQuantity
+        ) ||
+        orderedQuantity <= 0
+    ) {
+
+        alert(
+            "Invalid ordered quantity."
+        );
+
+        return false;
+
+    }
+
+
+    if (
+        orderedQuantity >
+        Number(product.stock)
+    ) {
+
+        alert(
+            "Not enough stock available."
+        );
+
+        return false;
+
+    }
+
+
+    product.stock =
+        Number(product.stock) -
+        orderedQuantity;
+
+
+    saveProducts();
+
+
+    renderProducts();
+
+
+    return true;
+
+}
+
+
+/* =====================================================
+   UPDATE SUMMARY
+===================================================== */
+
+function updateSummary() {
+
+    const total =
+        products.length;
+
+
+    let inStock = 0;
+
+    let lowStock = 0;
+
+    let outStock = 0;
+
+
+    products.forEach(
+        function(product) {
+
+            const status =
+                getProductStatus(
+                    product.stock,
+                    product.available
+                );
+
+
+            if (
+                status.text ===
+                "In Stock"
+            ) {
+
+                inStock++;
+
+            }
+
+
+            if (
+                status.text ===
+                "Low Stock"
+            ) {
+
+                lowStock++;
+
+            }
+
+
+            if (
+                status.text ===
+                "Out of Stock"
+            ) {
+
+                outStock++;
+
+            }
+
+        }
+    );
+
+
+    document.getElementById(
+        "totalProducts"
+    ).innerText =
+        total;
+
+
+    document.getElementById(
+        "inStockCount"
+    ).innerText =
+        inStock;
+
+
+    document.getElementById(
+        "lowStockCount"
+    ).innerText =
+        lowStock;
+
+
+    document.getElementById(
+        "outStockCount"
+    ).innerText =
+        outStock;
+
+}
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHTML(value) {
+
+    return String(value)
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/* =====================================================
+   CLOSE MODALS WHEN CLICKING OUTSIDE
+===================================================== */
+
+window.addEventListener(
+    "click",
+    function(event) {
+
+        const productModal =
+            document.getElementById(
+                "productModal"
+            );
+
+
+        const stockModal =
+            document.getElementById(
+                "stockModal"
+            );
+
+
+        if (
+            event.target ===
+            productModal
+        ) {
+
+            closeModal();
+
+        }
+
+
+        if (
+            event.target ===
+            stockModal
+        ) {
+
+            closeStockModal();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   INITIALIZE
+===================================================== */
+
+loadProducts();
+
+renderProducts();
+
+</script>
+
+</body>
+
+</html>

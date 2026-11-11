@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EleeSiWeb - Orders & Products</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,Helvetica,sans-serif;background:#fff;color:#111}
+
+.sidebar{position:fixed;left:0;top:0;width:235px;height:100vh;background:#00551f;color:#fff;padding:28px 16px;z-index:100}
+.logo{font-size:36px;font-weight:900;margin-left:12px;letter-spacing:-2px}
+.logo span{color:#ffbd00}
+.hardware{color:#ffbd00;font-size:14px;font-weight:bold;margin-left:13px;margin-top:3px;margin-bottom:25px}
+.menu{display:flex;flex-direction:column;gap:7px}
+.menu a{text-decoration:none;color:#fff;padding:13px 14px;border-radius:7px;font-size:14px;display:flex;align-items:center;gap:12px}
+.menu a:hover,.menu a.active{background:#08732e}
+.icon{width:20px;text-align:center;font-size:18px}
+
+.main{margin-left:235px;padding:46px 42px;min-height:100vh}
+.section-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;gap:20px}
+.section-title{font-size:25px;color:#147a36;font-weight:600}
+.section-description{color:#777;font-size:14px;margin-top:4px}
+
+.tabs{
+    display:grid;
+    grid-template-columns:repeat(6,minmax(0,1fr));
+    align-items:center;
+    column-gap:18px;
+    width:100%;
+    min-width:950px;
+    margin-bottom:18px
+}
+.tab{
+    width:100%;border:none;background:transparent;font-size:15px;
+    font-weight:600;cursor:pointer;padding:10px 8px;white-space:nowrap;
+    color:#111;border-radius:7px;text-align:center
+}
+.tab.active{background:#b9e8c0;color:#075b21}
+.tab:hover{background:#e4f5e7;color:#075b21}
+
+.search-container{width:100%;margin-bottom:25px}
+.search-box{
+    width:100%;height:55px;border:1px solid #dedede;border-radius:10px;
+    display:flex;align-items:center;padding:0 18px;
+    box-shadow:0 1px 4px rgba(0,0,0,.03)
+}
+.search-icon{font-size:28px;color:#999;margin-right:15px}
+.search-box input{border:none;outline:none;width:100%;font-size:16px;color:#333}
+.search-box input::placeholder{color:#999}
+
+.orders-table,.products-table{width:100%;overflow-x:auto}
+.table-header,.order-row{
+    display:grid;
+    grid-template-columns:1.45fr 1.25fr 1fr .75fr 1.55fr .55fr;
+    align-items:center;column-gap:18px;min-width:950px
+}
+.table-header{padding:0 3px 16px;font-size:15px;font-weight:700}
+.order-row{min-height:75px;border-top:1px solid #eee;font-size:14px}
+.order-id,.customer,.total{font-weight:600}
+.date{color:#555}
+
+.status{display:inline-block;width:max-content;padding:6px 10px;border-radius:5px;font-size:12px;font-weight:600}
+.pending{background:#fff0bd;color:#e49b00}
+.processing{background:#c9e0ff;color:#277ed8}
+.ready{background:#c3edc5;color:#13a52a}
+.completed{background:#bcebbf;color:#08a425}
+.cancelled{background:#ffc5c5;color:#e33b3b}
+
+.view-btn,.edit-btn{
+    border:none;background:#b9e8c0;color:#16833a;padding:7px 13px;
+    border-radius:5px;cursor:pointer;font-size:13px;font-weight:600
+}
+.view-btn:hover,.edit-btn:hover{background:#91d99d}
+
+.add-btn{
+    background:#08752f;color:#fff;border:none;padding:11px 18px;
+    border-radius:7px;cursor:pointer;font-size:14px;font-weight:600
+}
+.add-btn:hover{background:#065b25}
+
+.no-results{display:none;padding:25px;text-align:center;color:#777}
+
+.bottom{
+    display:flex;justify-content:space-between;align-items:center;
+    margin-top:30px;margin-bottom:70px;font-size:14px;color:#444
+}
+.pagination{display:flex;align-items:center;gap:8px}
+.page{
+    cursor:pointer;font-weight:500;min-width:32px;height:32px;
+    display:flex;align-items:center;justify-content:center;
+    border-radius:5px;padding:0 7px
+}
+.page.active{background:#299b4d;color:#fff}
+.page:hover{background:#e4f5e7;color:#147a36}
+.page.disabled{color:#bbb;cursor:not-allowed;background:none}
+
+.section-divider{height:1px;background:#e5e5e5;margin:20px 0 45px}
+
+.product-header,.product-row{
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr 1.2fr 1fr 1fr .8fr;
+    align-items:center;column-gap:18px;min-width:900px
+}
+.product-header{padding:0 3px 16px;font-size:15px;font-weight:700}
+.product-row{min-height:82px;border-top:1px solid #eee;font-size:14px}
+.product-info{display:flex;align-items:center;gap:12px}
+.product-image{
+    width:48px;height:48px;border-radius:8px;background:#e8f5eb;
+    display:flex;align-items:center;justify-content:center;
+    color:#147a36;font-size:22px;font-weight:bold
+}
+.product-name{font-weight:700}
+.product-category{color:#777;font-size:12px;margin-top:3px}
+.price,.stock{font-weight:600}
+.stock.low{color:#e49b00}
+.stock.critical{color:#e33b3b}
+.availability{
+    display:inline-block;padding:6px 10px;border-radius:5px;
+    font-size:12px;font-weight:600
+}
+.available{background:#bcebbf;color:#08a425}
+.unavailable{background:#ffc5c5;color:#e33b3b}
+
+.product-form{
+    display:none;background:#f8faf8;border:1px solid #e2e8e3;
+    border-radius:12px;padding:25px;margin-bottom:25px
+}
+.product-form.show{display:block}
+.form-title{font-size:20px;color:#147a36;margin-bottom:20px;font-weight:600}
+.form-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.form-group{display:flex;flex-direction:column}
+.form-group label{font-size:13px;font-weight:600;margin-bottom:7px;color:#444}
+.form-group input,.form-group select{
+    width:100%;height:43px;padding:0 12px;border:1px solid #d7d7d7;
+    border-radius:7px;outline:none;background:#fff;font-size:14px
+}
+.form-buttons{display:flex;justify-content:flex-end;gap:10px;margin-top:20px}
+.cancel-form{background:#eee;border:none;padding:10px 18px;border-radius:6px;cursor:pointer}
+.save-product,.save-btn{
+    background:#08752f;color:#fff;border:none;padding:10px 18px;
+    border-radius:6px;cursor:pointer
+}
+
+.modal-bg{
+    display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);
+    justify-content:center;align-items:center;z-index:999;padding:20px
+}
+.modal{
+    background:#fff;width:500px;max-width:100%;border-radius:12px;
+    padding:28px;box-shadow:0 10px 40px rgba(0,0,0,.2)
+}
+.modal h2{color:#147a36;margin-bottom:22px}
+.detail{margin-bottom:15px}
+.detail label{display:block;color:#777;font-size:13px;margin-bottom:5px}
+.detail strong{font-size:16px}
+.status-select{
+    width:100%;padding:11px;border:1px solid #ddd;
+    border-radius:7px;font-size:15px;outline:none
+}
+.modal-buttons{display:flex;justify-content:flex-end;gap:10px;margin-top:25px}
+.close-btn{background:#eee;border:none;padding:10px 18px;border-radius:6px;cursor:pointer}
+
+@media(max-width:1100px){
+.sidebar{width:190px}
+.main{margin-left:190px;padding:35px 25px}
+.form-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:700px){
+.sidebar{position:relative;width:100%;height:auto}
+.menu{display:grid;grid-template-columns:repeat(2,1fr)}
+.main{margin-left:0;padding:30px 18px}
+.section-header{align-items:flex-start;flex-direction:column}
+.form-grid{grid-template-columns:1fr}
+.bottom{flex-direction:column;gap:20px;align-items:flex-start}
+}
+</style>
+</head>
+
+<body>
+
+<div class="sidebar">
+    <div class="logo"><span style="color:white">E</span><span>LEE</span></div>
+    <div class="hardware">HARDWARE</div>
+
+    <div class="menu">
+        <a href="/"><span class="icon">☼</span><span>Dashboard</span></a>
+        <a href="/orders" class="active"><span class="icon">▣</span><span>Orders</span></a>
+        <a href="/products"><span class="icon">◇</span><span>Products</span></a>
+        <a href="/ai-recommendations"><span class="icon">↗</span><span>AI Recommendations</span></a>
+        <a href="/payments"><span class="icon"><svg aria-hidden="true" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5.5" width="17" height="14" rx="2"/><path d="M3.5 9h17M7 5.5v-.75A1.75 1.75 0 0 1 8.75 3h8.5"/><path d="M16 13h4.5"/><circle cx="16" cy="13" r=".55"/></svg></span><span>Payments</span></a>
+        <a href="/customers"><span class="icon">♙</span><span>Customers</span></a>
+        <a href="/queuing"><span class="icon">▱</span><span>Queuing</span></a>
+        <a href="/receipt-records"><span class="icon">▤</span><span>Receipt Records</span></a>
+        <a href="/settings"><span class="icon">⚙</span><span>Settings</span></a>
+    </div>
+</div>
+
+<div class="main">
+
+<div class="section-header">
+    <div>
+        <div class="section-title">Order Management</div>
+        <div class="section-description">View customer orders and update order status</div>
+    </div>
+</div>
+
+<div class="tabs">
+    <button class="tab active" data-status="All Orders">All Orders</button>
+    <button class="tab" data-status="Pending">Pending</button>
+    <button class="tab" data-status="Processing">Processing</button>
+    <button class="tab" data-status="Ready for Delivery">Ready for Delivery</button>
+    <button class="tab" data-status="Completed">Completed</button>
+    <button class="tab" data-status="Cancelled">Cancelled</button>
+</div>
+
+<div class="search-container" id="searchContainer">
+    <div class="search-box">
+        <span class="search-icon">⌕</span>
+        <input type="text" id="searchInput" placeholder="Search order ID or customer...">
+    </div>
+</div>
+
+<div class="orders-table">
+
+    <div class="table-header">
+        <div>Order ID</div>
+        <div>Customer</div>
+        <div>Status</div>
+        <div>Total</div>
+        <div>Date</div>
+        <div>Actions</div>
+    </div>
+
+    <div id="ordersList"></div>
+
+    <div class="no-results" id="noResults">
+        No orders found.
+    </div>
+</div>
+
+<div class="bottom">
+    <div id="orderCount">Showing 0 to 0 of 0 orders</div>
+    <div class="pagination" id="pagination"></div>
+</div>
+
+<div class="section-divider"></div>
+
+<div class="section-header">
+    <div>
+        <div class="section-title">Products & Inventory</div>
+        <div class="section-description">
+            Add, edit, and manage product information, prices, units, categories, availability, images, and stock quantities
+        </div>
+    </div>
+
+    <button class="add-btn" id="addProductButton" type="button">+ Add Product</button>
+</div>
+
+<div class="product-form" id="productForm">
+
+    <div class="form-title">Add / Edit Product</div>
+
+    <div class="form-grid">
+
+        <div class="form-group">
+            <label>Product Name</label>
+            <input type="text" id="productName" placeholder="Enter product name">
+        </div>
+
+        <div class="form-group">
+            <label>Price</label>
+            <input type="number" id="productPrice" placeholder="Enter price">
+        </div>
+
+        <div class="form-group">
+            <label>Unit</label>
+            <select id="productUnit">
+                <option value="pc">Piece (pc)</option>
+                <option value="kg">Kilogram (kg)</option>
+                <option value="bag">Bag</option>
+                <option value="box">Box</option>
+                <option value="meter">Meter</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Category</label>
+            <select id="productCategory">
+                <option value="Construction">Construction</option>
+                <option value="Electrical">Electrical</option>
+                <option value="Plumbing">Plumbing</option>
+                <option value="Tools">Tools</option>
+                <option value="Others">Others</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Stock Quantity</label>
+            <input type="number" id="productStock" placeholder="Enter stock quantity">
+        </div>
+
+        <div class="form-group">
+            <label>Availability</label>
+            <select id="productAvailability">
+                <option value="Available">Available</option>
+                <option value="Unavailable">Unavailable</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Product Image</label>
+            <input type="file" id="productImage" accept="image/*">
+        </div>
+
+    </div>
+
+    <div class="form-buttons">
+        <button class="cancel-form" id="cancelProductButton" type="button">Cancel</button>
+        <button class="save-product" id="productSaveButton" type="button">Save Product</button>
+    </div>
+</div>
+
+<div class="search-container">
+    <div class="search-box">
+        <span class="search-icon">⌕</span>
+        <input type="text" id="productSearch" placeholder="Search product...">
+    </div>
+</div>
+
+<div class="products-table">
+
+    <div class="product-header">
+        <div>Product</div>
+        <div>Price</div>
+        <div>Unit</div>
+        <div>Category</div>
+        <div>Stock</div>
+        <div>Availability</div>
+        <div>Actions</div>
+    </div>
+
+    <div id="productsList"></div>
+</div>
+
+</div>
+
+<!-- ORDER MODAL -->
+
+<div class="modal-bg" id="modalBg">
+    <div class="modal">
+
+        <h2>Order Details</h2>
+
+        <div class="detail">
+            <label>Order ID</label>
+            <strong id="modalOrderId"></strong>
+        </div>
+
+        <div class="detail">
+            <label>Customer</label>
+            <strong id="modalCustomer"></strong>
+        </div>
+
+        <div class="detail">
+            <label>Total</label>
+            <strong id="modalTotal"></strong>
+        </div>
+
+        <div class="detail">
+            <label>Date</label>
+            <strong id="modalDate"></strong>
+        </div>
+
+        <div class="detail">
+            <label>Order Status</label>
+            <select id="statusSelect" class="status-select">
+                <option value="Pending">Pending</option>
+                <option value="Processing">Processing</option>
+                <option value="Ready for Delivery">Ready for Delivery</option>
+                <option value="Completed">Completed</option>
+                <option value="Cancelled">Cancelled</option>
+            </select>
+        </div>
+
+        <div class="modal-buttons">
+            <button class="close-btn" id="closeOrderButton" type="button">Close</button>
+            <button class="save-btn" id="saveOrderStatusButton" type="button">Save Status</button>
+        </div>
+
+    </div>
+</div>
+
+<script>
+
+/* =====================================================
+   DATA
+===================================================== */
+
+const defaultOrders = [
+    {
+        id:"#ELEE-2026-000123",
+        customer:"Elias Goldstein",
+        status:"Pending",
+        total:"₱1,234",
+        date:"September 04, 2026 10:10 AM"
+    },
+    {
+        id:"#ELEE-2026-000124",
+        customer:"Light Fildora",
+        status:"Processing",
+        total:"₱2,450",
+        date:"September 04, 2026 10:10 AM"
+    },
+    {
+        id:"#ELEE-2026-000125",
+        customer:"Yukiya Reizen",
+        status:"Ready for Delivery",
+        total:"₱3,200",
+        date:"September 04, 2026 10:10 AM"
+    },
+    {
+        id:"#ELEE-2026-000126",
+        customer:"Joel Crawford",
+        status:"Completed",
+        total:"₱4,120",
+        date:"September 04, 2026 10:10 AM"
+    },
+    {
+        id:"#ELEE-2026-000127",
+        customer:"Hiro Tachibana",
+        status:"Cancelled",
+        total:"₱1,890",
+        date:"September 04, 2026 10:10 AM"
+    }
+];
+
+const defaultProducts = [
+    {
+        name:'Hollow Blocks 4"',
+        price:250,
+        unit:"pc",
+        category:"Construction",
+        stock:340,
+        availability:"Available"
+    },
+    {
+        name:"GI Sheet 0.3mm",
+        price:350,
+        unit:"pc",
+        category:"Construction",
+        stock:12,
+        availability:"Available"
+    },
+    {
+        name:"Cement 25kg",
+        price:125,
+        unit:"bag",
+        category:"Construction",
+        stock:8,
+        availability:"Available"
+    },
+    {
+        name:'PVC Elbow 3/4"',
+        price:35,
+        unit:"pc",
+        category:"Plumbing",
+        stock:15,
+        availability:"Available"
+    },
+    {
+        name:"Claw Hammer",
+        price:280,
+        unit:"pc",
+        category:"Tools",
+        stock:5,
+        availability:"Available"
+    }
+];
+
+let orders = JSON.parse(localStorage.getItem("eleeOrders")) || defaultOrders;
+let products = JSON.parse(localStorage.getItem("eleeProducts")) || defaultProducts;
+
+let currentOrderIndex = null;
+let currentPage = 1;
+let rowsPerPage = 5;
+let selectedStatus = "All Orders";
+let searchText = "";
+let productEditIndex = null;
+
+function saveOrders(){
+    localStorage.setItem("eleeOrders", JSON.stringify(orders));
+}
+
+function saveProducts(){
+    localStorage.setItem("eleeProducts", JSON.stringify(products));
+}
+
+/* =====================================================
+   ORDERS
+===================================================== */
+
+function statusClass(status){
+    if(status === "Pending") return "pending";
+    if(status === "Processing") return "processing";
+    if(status === "Ready for Delivery") return "ready";
+    if(status === "Completed") return "completed";
+    return "cancelled";
+}
+
+function getFilteredOrders(){
+
+    return orders.filter(order => {
+
+        const statusMatch =
+            selectedStatus === "All Orders" ||
+            order.status === selectedStatus;
+
+        const searchMatch =
+            order.id.toLowerCase().includes(searchText) ||
+            order.customer.toLowerCase().includes(searchText);
+
+        return statusMatch && searchMatch;
+    });
+}
+
+function renderOrders(){
+
+    const list = document.getElementById("ordersList");
+    const noResults = document.getElementById("noResults");
+
+    const filtered = getFilteredOrders();
+
+    const totalPages = Math.max(
+        1,
+        Math.ceil(filtered.length / rowsPerPage)
+    );
+
+    if(currentPage > totalPages){
+        currentPage = totalPages;
+    }
+
+    const start = (currentPage - 1) * rowsPerPage;
+    const end = Math.min(
+        start + rowsPerPage,
+        filtered.length
+    );
+
+    const pageOrders = filtered.slice(start,end);
+
+    list.innerHTML = "";
+
+    pageOrders.forEach(order => {
+
+        const originalIndex = orders.indexOf(order);
+
+        const row = document.createElement("div");
+
+        row.className = "order-row";
+
+        row.innerHTML = `
+            <div class="order-id">${order.id}</div>
+
+            <div class="customer">${order.customer}</div>
+
+            <div>
+                <span class="status ${statusClass(order.status)}">
+                    ${order.status}
+                </span>
+            </div>
+
+            <div class="total">${order.total}</div>
+
+            <div class="date">${order.date}</div>
+
+            <div>
+                <button class="view-btn"
+                    type="button">
+                    View
+                </button>
+            </div>
+        `;
+
+        row.querySelector(".view-btn").addEventListener("click", () => {
+            openOrder(originalIndex);
+        });
+
+        list.appendChild(row);
+    });
+
+    noResults.style.display =
+        filtered.length === 0 ? "block" : "none";
+
+    if(filtered.length === 0){
+        document.getElementById("orderCount").innerText =
+            "Showing 0 to 0 of 0 orders";
+    }else{
+        document.getElementById("orderCount").innerText =
+            `Showing ${start + 1} to ${end} of ${filtered.length} orders`;
+    }
+
+    renderPagination(totalPages);
+}
+
+function renderPagination(totalPages){
+
+    const pagination =
+        document.getElementById("pagination");
+
+    pagination.innerHTML = "";
+
+    function addPage(textValue,pageNumber,disabled=false){
+
+        const span = document.createElement("span");
+
+        span.className =
+            "page" +
+            (pageNumber === currentPage ? " active" : "") +
+            (disabled ? " disabled" : "");
+
+        span.innerText = textValue;
+
+        if(!disabled){
+            span.onclick = function(){
+                currentPage = pageNumber;
+                renderOrders();
+            };
+        }
+
+        pagination.appendChild(span);
+    }
+
+    addPage(
+        "<",
+        Math.max(1,currentPage - 1),
+        currentPage === 1
+    );
+
+    if(totalPages <= 6){
+
+        for(let i=1;i<=totalPages;i++){
+            addPage(i,i);
+        }
+
+    }else{
+
+        addPage(1,1);
+
+        if(currentPage > 3){
+            const dots = document.createElement("span");
+            dots.innerText = "...";
+            pagination.appendChild(dots);
+        }
+
+        let start = Math.max(2,currentPage - 1);
+        let end = Math.min(totalPages - 1,currentPage + 1);
+
+        for(let i=start;i<=end;i++){
+            addPage(i,i);
+        }
+
+        if(currentPage < totalPages - 2){
+            const dots = document.createElement("span");
+            dots.innerText = "...";
+            pagination.appendChild(dots);
+        }
+
+        addPage(totalPages,totalPages);
+    }
+
+    addPage(
+        ">",
+        Math.min(totalPages,currentPage + 1),
+        currentPage === totalPages
+    );
+}
+
+/* STATUS TABS */
+
+document.querySelectorAll(".tab").forEach(tab => {
+
+    tab.addEventListener("click",function(){
+
+        document.querySelectorAll(".tab").forEach(t =>
+            t.classList.remove("active")
+        );
+
+        this.classList.add("active");
+
+        selectedStatus =
+            this.getAttribute("data-status");
+
+        currentPage = 1;
+
+        const searchContainer =
+            document.getElementById("searchContainer");
+
+        searchContainer.style.display =
+            selectedStatus === "All Orders"
+            ? "block"
+            : "none";
+
+        renderOrders();
+    });
+
+});
+
+/* ORDER SEARCH */
+
+document.getElementById("searchInput")
+.addEventListener("input",function(){
+
+    searchText = this.value.toLowerCase().trim();
+
+    currentPage = 1;
+
+    renderOrders();
+});
+
+/* OPEN ORDER */
+
+function openOrder(index){
+
+    currentOrderIndex = index;
+
+    const order = orders[index];
+
+    document.getElementById("modalOrderId").innerText =
+        order.id;
+
+    document.getElementById("modalCustomer").innerText =
+        order.customer;
+
+    document.getElementById("modalTotal").innerText =
+        order.total;
+
+    document.getElementById("modalDate").innerText =
+        order.date;
+
+    document.getElementById("statusSelect").value =
+        order.status;
+
+    document.getElementById("modalBg").style.display =
+        "flex";
+}
+
+/* CLOSE ORDER */
+
+function closeOrder(){
+
+    document.getElementById("modalBg").style.display =
+        "none";
+
+    currentOrderIndex = null;
+}
+
+/* SAVE STATUS */
+
+function saveStatus(){
+
+    if(currentOrderIndex === null) return;
+
+    const newStatus =
+        document.getElementById("statusSelect").value;
+
+    orders[currentOrderIndex].status = newStatus;
+
+    saveOrders();
+
+    closeOrder();
+
+    renderOrders();
+
+    alert("Order status saved successfully.");
+}
+
+/* CLOSE MODAL */
+
+document.getElementById("modalBg")
+.addEventListener("click",function(e){
+
+    if(e.target === this){
+        closeOrder();
+    }
+
+});
+
+/* =====================================================
+   PRODUCTS
+===================================================== */
+
+function stockClass(stock){
+
+    if(Number(stock) <= 5){
+        return "critical";
+    }
+
+    if(Number(stock) <= 15){
+        return "low";
+    }
+
+    return "";
+}
+
+function availabilityClass(availability){
+
+    return availability === "Available"
+        ? "available"
+        : "unavailable";
+}
+
+function renderProducts(){
+
+    const list =
+        document.getElementById("productsList");
+
+    const search =
+        document.getElementById("productSearch")
+        .value
+        .toLowerCase()
+        .trim();
+
+    list.innerHTML = "";
+
+    products.forEach((product,index) => {
+
+        const searchable =
+            (
+                product.name + " " +
+                product.category
+            ).toLowerCase();
+
+        if(!searchable.includes(search)){
+            return;
+        }
+
+        const row =
+            document.createElement("div");
+
+        row.className = "product-row";
+
+        row.innerHTML = `
+
+            <div class="product-info">
+
+                <div class="product-image">
+                    ${product.name.substring(0,2).toUpperCase()}
+                </div>
+
+                <div>
+                    <div class="product-name">
+                        ${product.name}
+                    </div>
+
+                    <div class="product-category">
+                        ${product.category}
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="price">
+                ₱${Number(product.price).toLocaleString()}
+            </div>
+
+            <div>${product.unit}</div>
+
+            <div>${product.category}</div>
+
+            <div class="stock ${stockClass(product.stock)}">
+                ${product.stock}
+            </div>
+
+            <div>
+                <span class="availability ${availabilityClass(product.availability)}">
+                    ${product.availability}
+                </span>
+            </div>
+
+            <div>
+                <button
+                    class="edit-btn"
+                    type="button">
+                    Edit
+                </button>
+            </div>
+        `;
+
+        row.querySelector(".edit-btn").addEventListener("click", () => {
+            editProduct(index);
+        });
+
+        list.appendChild(row);
+    });
+}
+
+/* SHOW FORM */
+
+function showProductForm(){
+
+    document.getElementById("productForm")
+        .classList.add("show");
+
+    document.getElementById("productName")
+        .focus();
+}
+
+/* HIDE FORM */
+
+function hideProductForm(){
+
+    document.getElementById("productForm")
+        .classList.remove("show");
+
+    clearProductForm();
+
+    productEditIndex = null;
+
+    document.getElementById("productSaveButton")
+        .innerText = "Save Product";
+
+}
+
+/* CLEAR FORM */
+
+function clearProductForm(){
+
+    document.getElementById("productName").value = "";
+    document.getElementById("productPrice").value = "";
+    document.getElementById("productStock").value = "";
+    document.getElementById("productUnit").value = "pc";
+    document.getElementById("productCategory").value = "Construction";
+    document.getElementById("productAvailability").value = "Available";
+    document.getElementById("productImage").value = "";
+}
+
+/* ADD PRODUCT */
+
+function addProduct(){
+
+    const name =
+        document.getElementById("productName")
+        .value.trim();
+
+    const price =
+        document.getElementById("productPrice")
+        .value;
+
+    const unit =
+        document.getElementById("productUnit")
+        .value;
+
+    const category =
+        document.getElementById("productCategory")
+        .value;
+
+    const stock =
+        document.getElementById("productStock")
+        .value;
+
+    const availability =
+        document.getElementById("productAvailability")
+        .value;
+
+    if(!name || !price || stock === ""){
+
+        alert("Please complete the required product information.");
+
+        return;
+    }
+
+    products.push({
+        name:name,
+        price:Number(price),
+        unit:unit,
+        category:category,
+        stock:Number(stock),
+        availability:availability
+    });
+
+    saveProducts();
+
+    renderProducts();
+
+    hideProductForm();
+
+    alert("Product added successfully.");
+}
+
+/* EDIT PRODUCT */
+
+function editProduct(index){
+
+    const product = products[index];
+
+    productEditIndex = index;
+
+    showProductForm();
+
+    document.getElementById("productName").value =
+        product.name;
+
+    document.getElementById("productPrice").value =
+        product.price;
+
+    document.getElementById("productUnit").value =
+        product.unit;
+
+    document.getElementById("productCategory").value =
+        product.category;
+
+    document.getElementById("productStock").value =
+        product.stock;
+
+    document.getElementById("productAvailability").value =
+        product.availability;
+
+    document.getElementById("productSaveButton")
+        .innerText = "Update Product";
+
+}
+
+/* UPDATE PRODUCT */
+
+function updateProduct(){
+
+    if(productEditIndex === null) return;
+
+    const name =
+        document.getElementById("productName")
+        .value.trim();
+
+    const price =
+        document.getElementById("productPrice")
+        .value;
+
+    const unit =
+        document.getElementById("productUnit")
+        .value;
+
+    const category =
+        document.getElementById("productCategory")
+        .value;
+
+    const stock =
+        document.getElementById("productStock")
+        .value;
+
+    const availability =
+        document.getElementById("productAvailability")
+        .value;
+
+    if(!name || !price || stock === ""){
+
+        alert("Please complete the required product information.");
+
+        return;
+    }
+
+    products[productEditIndex] = {
+        name:name,
+        price:Number(price),
+        unit:unit,
+        category:category,
+        stock:Number(stock),
+        availability:availability
+    };
+
+    saveProducts();
+
+    renderProducts();
+
+    hideProductForm();
+
+    alert("Product updated successfully.");
+}
+
+/* PRODUCT SEARCH */
+
+document.getElementById("productSearch")
+.addEventListener("input",function(){
+
+    renderProducts();
+
+});
+
+/* =====================================================
+   INITIAL LOAD
+===================================================== */
+
+renderOrders();
+renderProducts();
+
+document.getElementById("addProductButton")
+    .addEventListener("click", showProductForm);
+
+document.getElementById("cancelProductButton")
+    .addEventListener("click", hideProductForm);
+
+document.getElementById("productSaveButton")
+    .addEventListener("click", () => {
+        if (productEditIndex === null) {
+            addProduct();
+        } else {
+            updateProduct();
+        }
+    });
+
+document.getElementById("closeOrderButton")
+    .addEventListener("click", closeOrder);
+
+document.getElementById("saveOrderStatusButton")
+    .addEventListener("click", saveStatus);
+
+</script>
+
+</body>
+</html>

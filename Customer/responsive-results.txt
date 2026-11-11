@@ -1,0 +1,88 @@
+00:00 +0: loading C:/EELE_MOB_APP/test/responsive_test.dart
+00:00 +0: TargetPlatform.android Size(320.0, 568.0) text 1.0
+00:02 +1: TargetPlatform.android Size(320.0, 568.0) text 1.5
+00:03 +2: TargetPlatform.android Size(320.0, 568.0) text 2.0
+00:03 +3: TargetPlatform.android Size(390.0, 844.0) text 1.0
+00:04 +4: TargetPlatform.android Size(390.0, 844.0) text 1.5
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following TestFailure was thrown running a test:
+Expected: null
+  Actual: FlutterError:<A RenderFlex overflowed by 59 pixels on the right.>
+cart
+
+When the exception was thrown, this was the stack:
+#4      main.<anonymous closure> (file:///C:/EELE_MOB_APP/test/responsive_test.dart:34:13)
+<asynchronous suspension>
+#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1059:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+This was caught by the test expectation on the following line:
+  file:///C:/EELE_MOB_APP/test/responsive_test.dart line 34
+The test description was:
+  TargetPlatform.android Size(390.0, 844.0) text 1.5
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:05 +4 -1: TargetPlatform.android Size(390.0, 844.0) text 1.5 [E]
+  Test failed. See exception logs above.
+  The test description was: TargetPlatform.android Size(390.0, 844.0) text 1.5
+  
+00:05 +4 -1: TargetPlatform.android Size(390.0, 844.0) text 2.0
+00:06 +5 -1: TargetPlatform.android Size(844.0, 390.0) text 1.0
+00:06 +6 -1: TargetPlatform.android Size(844.0, 390.0) text 1.5
+00:07 +7 -1: TargetPlatform.android Size(844.0, 390.0) text 2.0
+00:07 +8 -1: TargetPlatform.android Size(768.0, 1024.0) text 1.0
+00:08 +9 -1: TargetPlatform.android Size(768.0, 1024.0) text 1.5
+00:08 +10 -1: TargetPlatform.android Size(768.0, 1024.0) text 2.0
+00:09 +11 -1: TargetPlatform.android Size(1024.0, 768.0) text 1.0
+00:10 +12 -1: TargetPlatform.android Size(1024.0, 768.0) text 1.5
+00:10 +13 -1: TargetPlatform.android Size(1024.0, 768.0) text 2.0
+00:11 +14 -1: TargetPlatform.android Size(1366.0, 1024.0) text 1.0
+00:11 +15 -1: TargetPlatform.android Size(1366.0, 1024.0) text 1.5
+00:12 +16 -1: TargetPlatform.android Size(1366.0, 1024.0) text 2.0
+00:12 +17 -1: TargetPlatform.iOS Size(320.0, 568.0) text 1.0
+00:13 +18 -1: TargetPlatform.iOS Size(320.0, 568.0) text 1.5
+00:13 +19 -1: TargetPlatform.iOS Size(320.0, 568.0) text 2.0
+00:14 +20 -1: TargetPlatform.iOS Size(390.0, 844.0) text 1.0
+00:14 +21 -1: TargetPlatform.iOS Size(390.0, 844.0) text 1.5
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following TestFailure was thrown running a test:
+Expected: null
+  Actual: FlutterError:<A RenderFlex overflowed by 59 pixels on the right.>
+cart
+
+When the exception was thrown, this was the stack:
+#4      main.<anonymous closure> (file:///C:/EELE_MOB_APP/test/responsive_test.dart:34:13)
+<asynchronous suspension>
+#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1059:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+This was caught by the test expectation on the following line:
+  file:///C:/EELE_MOB_APP/test/responsive_test.dart line 34
+The test description was:
+  TargetPlatform.iOS Size(390.0, 844.0) text 1.5
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:15 +21 -2: TargetPlatform.iOS Size(390.0, 844.0) text 1.5 [E]
+  Test failed. See exception logs above.
+  The test description was: TargetPlatform.iOS Size(390.0, 844.0) text 1.5
+  
+00:15 +21 -2: TargetPlatform.iOS Size(390.0, 844.0) text 2.0
+00:15 +22 -2: TargetPlatform.iOS Size(844.0, 390.0) text 1.0
+00:16 +23 -2: TargetPlatform.iOS Size(844.0, 390.0) text 1.5
+00:16 +24 -2: TargetPlatform.iOS Size(844.0, 390.0) text 2.0
+00:16 +25 -2: TargetPlatform.iOS Size(768.0, 1024.0) text 1.0
+00:17 +26 -2: TargetPlatform.iOS Size(768.0, 1024.0) text 1.5
+00:17 +27 -2: TargetPlatform.iOS Size(768.0, 1024.0) text 2.0
+00:18 +28 -2: TargetPlatform.iOS Size(1024.0, 768.0) text 1.0
+00:18 +29 -2: TargetPlatform.iOS Size(1024.0, 768.0) text 1.5
+00:18 +30 -2: TargetPlatform.iOS Size(1024.0, 768.0) text 2.0
+00:19 +31 -2: TargetPlatform.iOS Size(1366.0, 1024.0) text 1.0
+00:19 +32 -2: TargetPlatform.iOS Size(1366.0, 1024.0) text 1.5
+00:20 +33 -2: TargetPlatform.iOS Size(1366.0, 1024.0) text 2.0
+00:20 +34 -2: Some tests failed.

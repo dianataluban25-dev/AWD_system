@@ -1,0 +1,2852 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Payments - ELEE Hardware</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background: #f5f7f6;
+            min-height: 100vh;
+        }
+
+        .dashboard {
+            display: flex;
+            min-height: 100vh;
+            width: 100%;
+        }
+
+
+        /* =====================================================
+           SIDEBAR
+        ===================================================== */
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 235px;
+            height: 100vh;
+            background: #00551f;
+            color: white;
+            padding: 28px 16px;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 36px;
+            font-weight: 900;
+            margin-left: 12px;
+            letter-spacing: -2px;
+            color: white;
+        }
+
+        .logo span {
+            color: #ffbd00;
+        }
+
+        .hardware {
+            color: #ffbd00;
+            font-size: 14px;
+            font-weight: bold;
+            margin-left: 13px;
+            margin-top: 3px;
+            margin-bottom: 25px;
+        }
+
+        .menu {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: white;
+            padding: 13px 14px;
+            border-radius: 7px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: 0.2s;
+        }
+
+        .menu a:hover {
+            background: #08732e;
+        }
+
+        .menu a.active {
+            background: #08732e;
+        }
+
+        .icon {
+            width: 20px;
+            text-align: center;
+            font-size: 18px;
+        }
+
+
+        /* =====================================================
+           CONTENT
+        ===================================================== */
+
+        .content {
+            flex: 1;
+            min-height: 100vh;
+            background: #f8faf9;
+            padding: 35px 40px;
+            margin-left: 235px;
+            overflow-x: hidden;
+        }
+
+        .page-header {
+            margin-bottom: 25px;
+        }
+
+        .page-title {
+            color: #0b5c25;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .page-subtitle {
+            color: #929292;
+            font-size: 14px;
+        }
+
+
+        /* =====================================================
+           SUMMARY CARDS
+        ===================================================== */
+
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .summary-card {
+            background: white;
+            border: 1px solid #e2e7e4;
+            border-radius: 12px;
+            padding: 17px;
+            display: flex;
+            align-items: center;
+            gap: 13px;
+        }
+
+        .summary-icon {
+            width: 43px;
+            height: 43px;
+            border-radius: 10px;
+            background: #e8f7ec;
+            color: #19803c;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .summary-info small {
+            display: block;
+            color: #999;
+            font-size: 11px;
+            margin-bottom: 4px;
+        }
+
+        .summary-info strong {
+            color: #222;
+            font-size: 19px;
+        }
+
+
+        /* =====================================================
+           FILTERS
+        ===================================================== */
+
+        .filters {
+            display: grid;
+            grid-template-columns: 170px 1fr 220px;
+            gap: 15px;
+            margin-bottom: 22px;
+        }
+
+        .filter-wrapper {
+            position: relative;
+        }
+
+        .filter-box {
+            width: 100%;
+            height: 46px;
+            border: 1px solid #dedede;
+            border-radius: 7px;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 14px;
+            cursor: pointer;
+            font-size: 13px;
+            color: #333;
+        }
+
+        .filter-box:hover {
+            border-color: #239447;
+        }
+
+        .filter-arrow {
+            color: #555;
+        }
+
+        .filter-dropdown {
+            display: none;
+            position: absolute;
+            top: 52px;
+            left: 0;
+            width: 100%;
+            background: white;
+            border: 1px solid #dedede;
+            border-radius: 7px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.12);
+            z-index: 1000;
+            overflow: hidden;
+        }
+
+        .filter-dropdown.show {
+            display: block;
+        }
+
+        .filter-dropdown button {
+            width: 100%;
+            padding: 11px 14px;
+            border: none;
+            background: white;
+            text-align: left;
+            cursor: pointer;
+            font-size: 12px;
+            color: #333;
+        }
+
+        .filter-dropdown button:hover {
+            background: #eaf8ed;
+            color: #19803c;
+        }
+
+
+        /* =====================================================
+           SEARCH
+        ===================================================== */
+
+        .search-box {
+            height: 46px;
+            border: 1px solid #dedede;
+            border-radius: 7px;
+            background: white;
+            display: flex;
+            align-items: center;
+            padding: 0 14px;
+            gap: 10px;
+        }
+
+        .search-icon {
+            font-size: 20px;
+            color: #555;
+        }
+
+        .search-box input {
+            border: none;
+            outline: none;
+            width: 100%;
+            font-size: 13px;
+        }
+
+
+        /* =====================================================
+           DATE
+        ===================================================== */
+
+        .date-box {
+            height: 46px;
+            border: 1px solid #dedede;
+            border-radius: 7px;
+            background: white;
+            display: flex;
+            align-items: center;
+            padding: 0 12px;
+            gap: 8px;
+        }
+
+        .calendar-icon {
+            font-size: 17px;
+        }
+
+        .date-box input {
+            border: none;
+            outline: none;
+            width: 100%;
+            font-size: 12px;
+            background: transparent;
+        }
+
+
+        /* =====================================================
+           PAYMENT TABLE
+        ===================================================== */
+
+        .table-card {
+            background: white;
+            border: 1px solid #e2e7e4;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            min-width: 1100px;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: #f8faf9;
+        }
+
+        thead th {
+            text-align: left;
+            font-size: 12px;
+            font-weight: 700;
+            color: #444;
+            padding: 16px 12px;
+            border-bottom: 1px solid #e5e5e5;
+            white-space: nowrap;
+        }
+
+        tbody td {
+            font-size: 12px;
+            color: #222;
+            padding: 16px 12px;
+            border-bottom: 1px solid #f0f0f0;
+            vertical-align: middle;
+            white-space: nowrap;
+        }
+
+        tbody tr:hover {
+            background: #fbfdfb;
+        }
+
+
+        /* =====================================================
+           PAYMENT METHOD
+        ===================================================== */
+
+        .payment-method {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #f1f7f3;
+            color: #167636;
+            padding: 6px 9px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .method-icon {
+            font-size: 12px;
+        }
+
+
+        /* =====================================================
+           STATUS
+        ===================================================== */
+
+        .status {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 68px;
+            height: 24px;
+            padding: 0 9px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .unpaid {
+            background: #fff0bd;
+            color: #966f00;
+        }
+
+        .paid {
+            background: #b8f2b9;
+            color: #268238;
+        }
+
+        .cancelled {
+            background: #ffb6b6;
+            color: #d83c3c;
+        }
+
+
+        /* =====================================================
+           ACTION BUTTONS
+        ===================================================== */
+
+        .actions {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            border: none;
+            border-radius: 6px;
+            padding: 7px 9px;
+            cursor: pointer;
+            font-size: 10px;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .action-btn:hover {
+            opacity: 0.8;
+        }
+
+        .view-btn {
+            background: #edf5ff;
+            color: #2766a5;
+        }
+
+        .pay-btn {
+            background: #dff6e5;
+            color: #16813a;
+        }
+
+        .undo-btn {
+            background: #fff0bd;
+            color: #966f00;
+        }
+
+        .cancel-btn {
+            background: #ffe8e8;
+            color: #c93434;
+        }
+
+
+        /* =====================================================
+           EMPTY
+        ===================================================== */
+
+        .no-results {
+            display: none;
+            text-align: center;
+            padding: 45px;
+            color: #999;
+            font-size: 14px;
+        }
+
+
+        /* =====================================================
+           BOTTOM
+        ===================================================== */
+
+        .table-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 20px;
+            gap: 20px;
+        }
+
+        .showing {
+            color: #929292;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .pagination {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .page-number,
+        .next {
+            width: 28px;
+            height: 28px;
+            border: none;
+            background: transparent;
+            color: #777;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .page-number:hover,
+        .next:hover {
+            background: #eaf8ed;
+            color: #19803c;
+        }
+
+        .page-number.active {
+            background: #239447;
+            color: white;
+        }
+
+        .next:disabled {
+            color: #ccc;
+            cursor: not-allowed;
+            background: transparent;
+        }
+
+        .page-dots {
+            color: #777;
+            font-size: 12px;
+            padding: 0 2px;
+        }
+
+
+        /* =====================================================
+           MODAL
+        ===================================================== */
+
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.55);
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            padding: 20px;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            width: 470px;
+            max-width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            right: 15px;
+            top: 10px;
+            border: none;
+            background: transparent;
+            font-size: 25px;
+            color: #555;
+            cursor: pointer;
+        }
+
+        .modal-title {
+            color: #19803c;
+            font-size: 21px;
+            margin-bottom: 5px;
+        }
+
+        .modal-subtitle {
+            color: #999;
+            font-size: 12px;
+            margin-bottom: 20px;
+        }
+
+
+        /* =====================================================
+           RECEIPT
+        ===================================================== */
+
+        .receipt {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            background: white;
+        }
+
+        .receipt-header {
+            text-align: center;
+            border-bottom: 1px dashed #bbb;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+        }
+
+        .receipt-logo {
+            color: #00551b;
+            font-size: 25px;
+            font-weight: 900;
+        }
+
+        .receipt-logo span {
+            color: #ffc400;
+        }
+
+        .receipt-title {
+            color: #777;
+            font-size: 12px;
+            margin-top: 4px;
+        }
+
+        .receipt-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            padding: 7px 0;
+            font-size: 12px;
+        }
+
+        .receipt-row span:first-child {
+            color: #888;
+        }
+
+        .receipt-row span:last-child {
+            color: #222;
+            font-weight: 600;
+            text-align: right;
+        }
+
+        .receipt-total {
+            border-top: 1px dashed #bbb;
+            margin-top: 10px;
+            padding-top: 12px;
+        }
+
+        .receipt-total span:last-child {
+            color: #19803c;
+            font-size: 17px;
+        }
+
+        .receipt-note {
+            margin-top: 15px;
+            background: #eaf8ed;
+            padding: 10px;
+            border-radius: 7px;
+            text-align: center;
+            color: #19803c;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .modal-btn {
+            flex: 1;
+            height: 40px;
+            border: none;
+            border-radius: 7px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .modal-green {
+            background: #069b45;
+            color: white;
+        }
+
+        .modal-gray {
+            background: #eeeeee;
+            color: #555;
+        }
+
+
+        /* =====================================================
+           PAYMENT FLOW
+        ===================================================== */
+
+        .flow-box {
+            margin-top: 18px;
+            background: #f7faf8;
+            border: 1px solid #e5ebe7;
+            border-radius: 10px;
+            padding: 15px;
+        }
+
+        .flow-title {
+            color: #19803c;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .flow-step {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+            font-size: 11px;
+            color: #555;
+        }
+
+        .flow-number {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: #dff4e5;
+            color: #19803c;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+
+        /* =====================================================
+           PRINT
+        ===================================================== */
+
+        @media print {
+
+            body * {
+                visibility: hidden;
+            }
+
+            #receiptModal,
+            #receiptModal * {
+                visibility: visible;
+            }
+
+            #receiptModal {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                background: white;
+            }
+
+            .close-modal,
+            .modal-actions {
+                display: none !important;
+            }
+
+            .modal-content {
+                box-shadow: none;
+                width: 100%;
+            }
+
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 1100px) {
+
+            .content {
+                padding: 30px;
+            }
+
+            .summary {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .filters {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .date-box {
+                grid-column: 1 / 3;
+            }
+
+        }
+
+
+        @media (max-width: 800px) {
+
+            .dashboard {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+                min-height: auto;
+            }
+
+            .content {
+                margin-left: 0;
+                padding: 25px 20px;
+            }
+
+            .menu {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .summary {
+                grid-template-columns: 1fr;
+            }
+
+            .filters {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .date-box {
+                width: 100%;
+            }
+
+            .table-bottom {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+<div class="dashboard">
+
+
+    <!-- =====================================================
+         SIDEBAR
+    ===================================================== -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            <span style="color:white;">E</span><span>LEE</span>
+        </div>
+
+        <div class="hardware">
+            HARDWARE
+        </div>
+
+        <nav class="menu">
+
+            <a href="{{ url('/dashboard') }}">
+                <span class="icon">☼</span>
+                Dashboard
+            </a>
+
+            <a href="{{ url('/orders') }}">
+                <span class="icon">▣</span>
+                Orders
+            </a>
+
+            <a href="{{ url('/products') }}">
+                <span class="icon">◇</span>
+                Products
+            </a>
+
+            <a href="{{ url('/ai-recommendations') }}">
+                <span class="icon">↗</span>
+                AI Recommendations
+            </a>
+
+            <a href="{{ url('/payments') }}" class="active">
+                <span class="icon"><svg aria-hidden="true" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5.5" width="17" height="14" rx="2"/><path d="M3.5 9h17M7 5.5v-.75A1.75 1.75 0 0 1 8.75 3h8.5"/><path d="M16 13h4.5"/><circle cx="16" cy="13" r=".55"/></svg></span>
+                Payments
+            </a>
+
+            <a href="{{ url('/customers') }}">
+                <span class="icon">♙</span>
+                Customers
+            </a>
+
+            <a href="{{ url('/queuing') }}">
+                <span class="icon">▱</span>
+                Queuing
+            </a>
+
+            <a href="{{ url('/receipt-records') }}">
+                <span class="icon">▤</span>
+                Receipt Records
+            </a>
+
+            <a href="{{ url('/settings') }}">
+                <span class="icon">⚙</span>
+                Settings
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+    ===================================================== -->
+
+    <main class="content">
+
+
+        <div class="page-header">
+
+            <h1 class="page-title">
+                Payments
+            </h1>
+
+            <p class="page-subtitle">
+                Manage customer payments and payment status
+            </p>
+
+        </div>
+
+
+
+        <!-- =====================================================
+             SUMMARY
+        ===================================================== -->
+
+        <div class="summary">
+
+            <div class="summary-card">
+
+                <div class="summary-icon">
+                    ₱
+                </div>
+
+                <div class="summary-info">
+                    <small>Total Payments</small>
+                    <strong id="totalPayments">0</strong>
+                </div>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <div class="summary-icon">
+                    ✓
+                </div>
+
+                <div class="summary-info">
+                    <small>Paid</small>
+                    <strong id="paidCount">0</strong>
+                </div>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <div class="summary-icon">
+                    !
+                </div>
+
+                <div class="summary-info">
+                    <small>Unpaid</small>
+                    <strong id="unpaidCount">0</strong>
+                </div>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <div class="summary-icon">
+                    #
+                </div>
+
+                <div class="summary-info">
+                    <small>Cancelled</small>
+                    <strong id="cancelledCount">0</strong>
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =====================================================
+             FILTERS
+        ===================================================== -->
+
+        <div class="filters">
+
+
+            <!-- STATUS FILTER -->
+
+            <div class="filter-wrapper">
+
+                <button
+                    type="button"
+                    class="filter-box"
+                    onclick="toggleFilter()"
+                >
+
+                    <span id="filterText">
+                        All Payments
+                    </span>
+
+                    <span class="filter-arrow">
+                        ▾
+                    </span>
+
+                </button>
+
+
+                <div
+                    class="filter-dropdown"
+                    id="filterDropdown"
+                >
+
+                    <button
+                        type="button"
+                        onclick="filterPayments('all')"
+                    >
+                        All Payments
+                    </button>
+
+                    <button
+                        type="button"
+                        onclick="filterPayments('unpaid')"
+                    >
+                        Unpaid
+                    </button>
+
+                    <button
+                        type="button"
+                        onclick="filterPayments('paid')"
+                    >
+                        Paid
+                    </button>
+
+                    <button
+                        type="button"
+                        onclick="filterPayments('cancelled')"
+                    >
+                        Cancelled
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- SEARCH -->
+
+            <div class="search-box">
+
+                <span class="search-icon">
+                    ⌕
+                </span>
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search payment ID, order ID, customer..."
+                    oninput="applyFilters()"
+                >
+
+            </div>
+
+
+
+            <!-- DATE -->
+
+            <div class="date-box">
+
+                <span class="calendar-icon">
+                    ▣
+                </span>
+
+                <input
+                    type="date"
+                    id="dateFilter"
+                    onchange="applyFilters()"
+                >
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =====================================================
+             TABLE
+        ===================================================== -->
+
+        <div class="table-card">
+
+            <div class="table-wrapper">
+
+                <table id="paymentTable">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Payment ID</th>
+
+                            <th>Order ID</th>
+
+                            <th>Customer</th>
+
+                            <th>Amount</th>
+
+                            <th>Payment Method</th>
+
+                            <th>Status</th>
+
+                            <th>Date</th>
+
+                            <th>Actions</th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="paymentBody">
+                    </tbody>
+
+                </table>
+
+
+                <div
+                    class="no-results"
+                    id="noResults"
+                >
+                    No payments found.
+                </div>
+
+            </div>
+
+
+            <!-- TABLE BOTTOM -->
+
+            <div class="table-bottom">
+
+                <div
+                    class="showing"
+                    id="showingText"
+                >
+                    Showing 0 payments
+                </div>
+
+
+                <div
+                    class="pagination"
+                    id="pagination"
+                >
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+
+<!-- =====================================================
+     PAYMENT DETAILS MODAL
+===================================================== -->
+
+<div
+    class="modal"
+    id="paymentModal"
+>
+
+    <div class="modal-content">
+
+        <button
+            class="close-modal"
+            onclick="closePaymentModal()"
+        >
+            ×
+        </button>
+
+
+        <h2 class="modal-title">
+            Payment Details
+        </h2>
+
+        <p class="modal-subtitle">
+            Review the customer's payment information.
+        </p>
+
+
+        <div class="receipt">
+
+            <div class="receipt-header">
+
+                <div class="receipt-logo">
+                    EL<span>EE</span>
+                </div>
+
+                <div class="receipt-title">
+                    HARDWARE
+                </div>
+
+            </div>
+
+
+            <div class="receipt-row">
+                <span>Payment ID</span>
+                <span id="detailPaymentId">-</span>
+            </div>
+
+            <div class="receipt-row">
+                <span>Order ID</span>
+                <span id="detailOrderId">-</span>
+            </div>
+
+            <div class="receipt-row">
+                <span>Customer</span>
+                <span id="detailCustomer">-</span>
+            </div>
+
+            <div class="receipt-row">
+                <span>Amount</span>
+                <span id="detailAmount">-</span>
+            </div>
+
+            <div class="receipt-row">
+                <span>Payment Method</span>
+                <span id="detailMethod">-</span>
+            </div>
+
+            <div class="receipt-row">
+                <span>Status</span>
+                <span id="detailStatus">-</span>
+            </div>
+
+            <div class="receipt-row">
+                <span>Date</span>
+                <span id="detailDate">-</span>
+            </div>
+
+
+            <div
+                class="flow-box"
+                id="flowBox"
+            >
+
+                <div class="flow-title">
+                    Payment Flow
+                </div>
+
+                <div id="flowContent">
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="modal-actions">
+
+            <button
+                class="modal-btn modal-gray"
+                onclick="closePaymentModal()"
+            >
+                Close
+            </button>
+
+            <button
+                class="modal-btn modal-green"
+                id="modalPayButton"
+                onclick="markModalPaymentPaid()"
+            >
+                Mark as Paid
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     PAID RECEIPT MODAL
+===================================================== -->
+
+<div
+    class="modal"
+    id="receiptModal"
+>
+
+    <div class="modal-content">
+
+        <button
+            class="close-modal"
+            onclick="closeReceiptModal()"
+        >
+            ×
+        </button>
+
+
+        <h2 class="modal-title">
+            Paid Receipt
+        </h2>
+
+        <p class="modal-subtitle">
+            Physical receipt record
+        </p>
+
+
+        <div class="receipt">
+
+            <div class="receipt-header">
+
+                <div class="receipt-logo">
+                    EL<span>EE</span>
+                </div>
+
+                <div class="receipt-title">
+                    HARDWARE
+                </div>
+
+                <div
+                    style="
+                        color:#19803c;
+                        font-size:12px;
+                        font-weight:bold;
+                        margin-top:8px;
+                    "
+                >
+                    PAID RECEIPT
+                </div>
+
+            </div>
+
+
+            <div class="receipt-row">
+                <span>Payment ID</span>
+                <span id="receiptPaymentId">-</span>
+            </div>
+
+            <div class="receipt-row">
+                <span>Order ID</span>
+                <span id="receiptOrderId">-</span>
+            </div>
+
+            <div class="receipt-row">
+                <span>Customer</span>
+                <span id="receiptCustomer">-</span>
+            </div>
+
+            <div class="receipt-row">
+                <span>Payment Method</span>
+                <span id="receiptMethod">-</span>
+            </div>
+
+            <div class="receipt-row receipt-total">
+                <span>Total Paid</span>
+                <span id="receiptAmount">-</span>
+            </div>
+
+            <div class="receipt-row">
+                <span>Date Paid</span>
+                <span id="receiptDate">-</span>
+            </div>
+
+
+            <div class="receipt-note">
+                Payment received successfully.
+                Thank you for shopping at ELEE Hardware.
+            </div>
+
+        </div>
+
+
+        <div class="modal-actions">
+
+            <button
+                class="modal-btn modal-gray"
+                onclick="closeReceiptModal()"
+            >
+                Close
+            </button>
+
+            <button
+                class="modal-btn modal-green"
+                onclick="window.print()"
+            >
+                Print Receipt
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+    /* =====================================================
+       STORAGE + PAGINATION
+    ===================================================== */
+
+    const PAYMENT_STORAGE_KEY = "elee_payments";
+    const PAYMENTS_PER_PAGE = 5;
+
+    let payments = [];
+    let currentFilter = "all";
+    let currentPage = 1;
+    let selectedPaymentId = null;
+
+
+    /* =====================================================
+       DEFAULT PAYMENT DATA
+    ===================================================== */
+
+    const defaultPayments = [
+
+        {
+            id: "PAY-2026-000119",
+            orderId: "#ELEE-2026-000119",
+            customer: "Kobe Foster",
+            amount: "₱1,090.00",
+            method: "Cash at Store",
+            status: "paid",
+            date: "2026-01-02",
+            displayDate: "January 2, 2026"
+        },
+
+        {
+            id: "PAY-2026-000120",
+            orderId: "#ELEE-2026-000120",
+            customer: "Myka Santos",
+            amount: "₱750.00",
+            method: "Cash on Delivery",
+            status: "paid",
+            date: "2026-01-08",
+            displayDate: "January 8, 2026"
+        },
+
+        {
+            id: "PAY-2026-000121",
+            orderId: "#ELEE-2026-000121",
+            customer: "Janna Salvador",
+            amount: "₱2,090.00",
+            method: "Cash at Store",
+            status: "unpaid",
+            date: "2026-01-17",
+            displayDate: "January 17, 2026"
+        },
+
+        {
+            id: "PAY-2026-000122",
+            orderId: "#ELEE-2026-000122",
+            customer: "Anna Corpuz",
+            amount: "₱3,090.00",
+            method: "Cash at Store",
+            status: "paid",
+            date: "2026-01-18",
+            displayDate: "January 18, 2026"
+        },
+
+        {
+            id: "PAY-2026-000123",
+            orderId: "#ELEE-2026-000123",
+            customer: "Bea Sanchez",
+            amount: "₱16,090.00",
+            method: "Cash on Delivery",
+            status: "unpaid",
+            date: "2026-02-02",
+            displayDate: "February 2, 2026"
+        },
+
+        {
+            id: "PAY-2026-000124",
+            orderId: "#ELEE-2026-000124",
+            customer: "John Bautista",
+            amount: "₱7,090.00",
+            method: "Cash on Delivery",
+            status: "paid",
+            date: "2026-02-11",
+            displayDate: "February 11, 2026"
+        },
+
+        {
+            id: "PAY-2026-000125",
+            orderId: "#ELEE-2026-000125",
+            customer: "Lito Navares",
+            amount: "₱14,090.00",
+            method: "Cash on Delivery",
+            status: "cancelled",
+            date: "2026-02-14",
+            displayDate: "February 14, 2026"
+        }
+
+    ];
+
+
+    /* =====================================================
+       LOAD PAYMENTS
+    ===================================================== */
+
+    function loadPayments() {
+
+        try {
+
+            const savedPayments =
+                localStorage.getItem(PAYMENT_STORAGE_KEY);
+
+            if (savedPayments) {
+
+                payments = JSON.parse(savedPayments);
+
+            } else {
+
+                payments = JSON.parse(
+                    JSON.stringify(defaultPayments)
+                );
+
+                savePayments();
+
+            }
+
+        } catch (error) {
+
+            console.error(
+                "Unable to load payments:",
+                error
+            );
+
+            payments = JSON.parse(
+                JSON.stringify(defaultPayments)
+            );
+
+            savePayments();
+
+        }
+
+    }
+
+
+    /* =====================================================
+       SAVE PAYMENTS
+    ===================================================== */
+
+    function savePayments() {
+
+        localStorage.setItem(
+            PAYMENT_STORAGE_KEY,
+            JSON.stringify(payments)
+        );
+
+    }
+
+
+    /* =====================================================
+       ESCAPE HTML
+    ===================================================== */
+
+    function escapeHTML(value) {
+
+        return String(value)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+
+    }
+
+
+    /* =====================================================
+       PAYMENT METHOD ICON
+    ===================================================== */
+
+    function getMethodIcon(method) {
+
+        if (method === "Cash on Delivery") {
+            return "▱";
+        }
+
+        return "▣";
+
+    }
+
+
+    /* =====================================================
+       GET FILTERED PAYMENTS
+    ===================================================== */
+
+    function getFilteredPayments() {
+
+        const search =
+            document
+                .getElementById("searchInput")
+                .value
+                .toLowerCase()
+                .trim();
+
+        const date =
+            document
+                .getElementById("dateFilter")
+                .value;
+
+        return payments.filter(function(payment) {
+
+            const matchesStatus =
+                currentFilter === "all" ||
+                payment.status === currentFilter;
+
+            const searchableText =
+                (
+                    payment.id +
+                    " " +
+                    payment.orderId +
+                    " " +
+                    payment.customer +
+                    " " +
+                    payment.amount +
+                    " " +
+                    payment.method
+                ).toLowerCase();
+
+            const matchesSearch =
+                search === "" ||
+                searchableText.includes(search);
+
+            const matchesDate =
+                date === "" ||
+                payment.date === date;
+
+            return (
+                matchesStatus &&
+                matchesSearch &&
+                matchesDate
+            );
+
+        });
+
+    }
+
+
+    /* =====================================================
+       RENDER PAYMENT TABLE
+    ===================================================== */
+
+    function renderPayments() {
+
+        const filteredPayments =
+            getFilteredPayments();
+
+        const totalItems =
+            filteredPayments.length;
+
+        const totalPages =
+            Math.max(
+                1,
+                Math.ceil(
+                    totalItems / PAYMENTS_PER_PAGE
+                )
+            );
+
+        if (currentPage > totalPages) {
+            currentPage = totalPages;
+        }
+
+        if (currentPage < 1) {
+            currentPage = 1;
+        }
+
+        const startIndex =
+            (currentPage - 1) *
+            PAYMENTS_PER_PAGE;
+
+        const endIndex =
+            Math.min(
+                startIndex + PAYMENTS_PER_PAGE,
+                totalItems
+            );
+
+        const visiblePayments =
+            filteredPayments.slice(
+                startIndex,
+                endIndex
+            );
+
+        const paymentBody =
+            document.getElementById(
+                "paymentBody"
+            );
+
+        paymentBody.innerHTML = "";
+
+
+        /* =====================================================
+           NO RESULTS
+        ===================================================== */
+
+        const noResults =
+            document.getElementById(
+                "noResults"
+            );
+
+        if (totalItems === 0) {
+
+            noResults.style.display = "block";
+
+        } else {
+
+            noResults.style.display = "none";
+
+        }
+
+
+        /* =====================================================
+           CREATE ROWS
+        ===================================================== */
+
+        visiblePayments.forEach(function(payment) {
+
+            const row =
+                document.createElement("tr");
+
+            row.setAttribute(
+                "data-payment-id",
+                payment.id
+            );
+
+            let statusHTML = "";
+
+            if (payment.status === "paid") {
+
+                statusHTML = `
+                    <span class="status paid">
+                        Paid
+                    </span>
+                `;
+
+            }
+
+            else if (payment.status === "unpaid") {
+
+                statusHTML = `
+                    <span class="status unpaid">
+                        Unpaid
+                    </span>
+                `;
+
+            }
+
+            else {
+
+                statusHTML = `
+                    <span class="status cancelled">
+                        Cancelled
+                    </span>
+                `;
+
+            }
+
+
+            let actionHTML = `
+                <button
+                    class="action-btn view-btn"
+                    onclick="viewPayment('${escapeHTML(payment.id)}')"
+                >
+                    View
+                </button>
+            `;
+
+
+            if (payment.status === "unpaid") {
+
+                actionHTML += `
+                    <button
+                        class="action-btn pay-btn"
+                        onclick="markAsPaid('${escapeHTML(payment.id)}')"
+                    >
+                        Mark Paid
+                    </button>
+                `;
+
+            }
+
+            else if (payment.status === "paid") {
+
+                actionHTML += `
+                    <button
+                        class="action-btn undo-btn"
+                        onclick="undoPaid('${escapeHTML(payment.id)}')"
+                    >
+                        Undo Paid
+                    </button>
+                `;
+
+            }
+
+
+            row.innerHTML = `
+
+                <td>
+                    ${escapeHTML(payment.id)}
+                </td>
+
+                <td>
+                    ${escapeHTML(payment.orderId)}
+                </td>
+
+                <td>
+                    ${escapeHTML(payment.customer)}
+                </td>
+
+                <td>
+                    ${escapeHTML(payment.amount)}
+                </td>
+
+                <td>
+
+                    <span class="payment-method">
+
+                        <span class="method-icon">
+                            ${getMethodIcon(payment.method)}
+                        </span>
+
+                        ${escapeHTML(payment.method)}
+
+                    </span>
+
+                </td>
+
+                <td>
+                    ${statusHTML}
+                </td>
+
+                <td>
+                    ${escapeHTML(payment.displayDate)}
+                </td>
+
+                <td>
+
+                    <div class="actions">
+
+                        ${actionHTML}
+
+                    </div>
+
+                </td>
+
+            `;
+
+            paymentBody.appendChild(row);
+
+        });
+
+
+        /* =====================================================
+           SHOWING TEXT
+        ===================================================== */
+
+        const showingText =
+            document.getElementById(
+                "showingText"
+            );
+
+        if (totalItems === 0) {
+
+            showingText.innerText =
+                "Showing 0 payments";
+
+        } else {
+
+            showingText.innerText =
+                "Showing " +
+                (startIndex + 1) +
+                " to " +
+                endIndex +
+                " of " +
+                totalItems +
+                " payments";
+
+        }
+
+
+        renderPagination(totalPages);
+
+        updateSummary();
+
+    }
+
+
+    /* =====================================================
+       PAGINATION
+    ===================================================== */
+
+    function renderPagination(totalPages) {
+
+        const pagination =
+            document.getElementById(
+                "pagination"
+            );
+
+        pagination.innerHTML = "";
+
+
+        /* PREVIOUS */
+
+        const previous =
+            document.createElement("button");
+
+        previous.type = "button";
+        previous.className = "next";
+        previous.innerText = "‹";
+        previous.title = "Previous page";
+
+        previous.disabled =
+            currentPage === 1;
+
+        previous.onclick = function() {
+
+            if (currentPage > 1) {
+
+                currentPage--;
+
+                renderPayments();
+
+            }
+
+        };
+
+        pagination.appendChild(previous);
+
+
+        /* PAGE NUMBERS */
+
+        const pages = getPageNumbers(
+            currentPage,
+            totalPages
+        );
+
+        pages.forEach(function(page) {
+
+            if (page === "...") {
+
+                const dots =
+                    document.createElement("span");
+
+                dots.className = "page-dots";
+                dots.innerText = "...";
+
+                pagination.appendChild(dots);
+
+                return;
+
+            }
+
+
+            const pageButton =
+                document.createElement("button");
+
+            pageButton.type = "button";
+            pageButton.className =
+                "page-number";
+
+            pageButton.innerText = page;
+
+
+            if (page === currentPage) {
+
+                pageButton.classList.add(
+                    "active"
+                );
+
+            }
+
+
+            pageButton.onclick = function() {
+
+                currentPage = page;
+
+                renderPayments();
+
+            };
+
+
+            pagination.appendChild(
+                pageButton
+            );
+
+        });
+
+
+        /* NEXT */
+
+        const next =
+            document.createElement("button");
+
+        next.type = "button";
+        next.className = "next";
+        next.innerText = "›";
+        next.title = "Next page";
+
+        next.disabled =
+            currentPage === totalPages;
+
+        next.onclick = function() {
+
+            if (currentPage < totalPages) {
+
+                currentPage++;
+
+                renderPayments();
+
+            }
+
+        };
+
+        pagination.appendChild(next);
+
+    }
+
+
+    /* =====================================================
+       PAGE NUMBER GENERATOR
+    ===================================================== */
+
+    function getPageNumbers(
+        current,
+        total
+    ) {
+
+        if (total <= 7) {
+
+            const pages = [];
+
+            for (
+                let i = 1;
+                i <= total;
+                i++
+            ) {
+
+                pages.push(i);
+
+            }
+
+            return pages;
+
+        }
+
+
+        const pages = [];
+
+
+        pages.push(1);
+
+
+        if (current > 4) {
+
+            pages.push("...");
+
+        }
+
+
+        const start =
+            Math.max(
+                2,
+                current - 1
+            );
+
+        const end =
+            Math.min(
+                total - 1,
+                current + 1
+            );
+
+
+        for (
+            let i = start;
+            i <= end;
+            i++
+        ) {
+
+            pages.push(i);
+
+        }
+
+
+        if (current < total - 3) {
+
+            pages.push("...");
+
+        }
+
+
+        pages.push(total);
+
+
+        return pages;
+
+    }
+
+
+    /* =====================================================
+       TOGGLE FILTER
+    ===================================================== */
+
+    function toggleFilter() {
+
+        document
+            .getElementById("filterDropdown")
+            .classList.toggle("show");
+
+    }
+
+
+    /* =====================================================
+       FILTER PAYMENTS
+    ===================================================== */
+
+    function filterPayments(status) {
+
+        currentFilter = status;
+
+        currentPage = 1;
+
+
+        const filterText =
+            document.getElementById(
+                "filterText"
+            );
+
+
+        if (status === "all") {
+
+            filterText.innerText =
+                "All Payments";
+
+        }
+
+        else if (status === "unpaid") {
+
+            filterText.innerText =
+                "Unpaid";
+
+        }
+
+        else if (status === "paid") {
+
+            filterText.innerText =
+                "Paid";
+
+        }
+
+        else if (status === "cancelled") {
+
+            filterText.innerText =
+                "Cancelled";
+
+        }
+
+
+        document
+            .getElementById("filterDropdown")
+            .classList.remove("show");
+
+
+        renderPayments();
+
+    }
+
+
+    /* =====================================================
+       APPLY FILTERS
+    ===================================================== */
+
+    function applyFilters() {
+
+        currentPage = 1;
+
+        renderPayments();
+
+    }
+
+
+    /* =====================================================
+       UPDATE SUMMARY
+    ===================================================== */
+
+    function updateSummary() {
+
+        let paid = 0;
+        let unpaid = 0;
+        let cancelled = 0;
+
+        payments.forEach(function(payment) {
+
+            if (payment.status === "paid") {
+
+                paid++;
+
+            }
+
+            else if (payment.status === "unpaid") {
+
+                unpaid++;
+
+            }
+
+            else if (payment.status === "cancelled") {
+
+                cancelled++;
+
+            }
+
+        });
+
+
+        document.getElementById(
+            "totalPayments"
+        ).innerText = payments.length;
+
+
+        document.getElementById(
+            "paidCount"
+        ).innerText = paid;
+
+
+        document.getElementById(
+            "unpaidCount"
+        ).innerText = unpaid;
+
+
+        document.getElementById(
+            "cancelledCount"
+        ).innerText = cancelled;
+
+    }
+
+
+    /* =====================================================
+       FIND PAYMENT
+    ===================================================== */
+
+    function findPayment(paymentId) {
+
+        return payments.find(
+            function(payment) {
+
+                return payment.id === paymentId;
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       MARK AS PAID
+    ===================================================== */
+
+    function markAsPaid(paymentId) {
+
+        const payment =
+            findPayment(paymentId);
+
+
+        if (!payment) {
+            return;
+        }
+
+
+        if (payment.status !== "unpaid") {
+            return;
+        }
+
+
+        const confirmation =
+            confirm(
+                "Confirm payment received from " +
+                payment.customer +
+                "?\n\n" +
+                "Payment Method: " +
+                payment.method +
+                "\n" +
+                "Amount: " +
+                payment.amount
+            );
+
+
+        if (!confirmation) {
+            return;
+        }
+
+
+        payment.status = "paid";
+
+        savePayments();
+
+        renderPayments();
+
+
+        alert(
+            "Payment successfully marked as Paid.\n\n" +
+            "You can use 'Undo Paid' if this was done by mistake."
+        );
+
+
+        openPaidReceipt(payment);
+
+    }
+
+
+    /* =====================================================
+       UNDO PAID
+    ===================================================== */
+
+    function undoPaid(paymentId) {
+
+        const payment =
+            findPayment(paymentId);
+
+
+        if (!payment) {
+            return;
+        }
+
+
+        if (payment.status !== "paid") {
+            return;
+        }
+
+
+        const confirmation =
+            confirm(
+                "Undo the Paid status for " +
+                payment.customer +
+                "?\n\n" +
+                "The payment will be changed back to Unpaid."
+            );
+
+
+        if (!confirmation) {
+            return;
+        }
+
+
+        payment.status = "unpaid";
+
+        savePayments();
+
+        renderPayments();
+
+
+        alert(
+            "Payment status changed back to Unpaid."
+        );
+
+    }
+
+
+    /* =====================================================
+       VIEW PAYMENT
+    ===================================================== */
+
+    function viewPayment(paymentId) {
+
+        const payment =
+            findPayment(paymentId);
+
+
+        if (!payment) {
+            return;
+        }
+
+
+        selectedPaymentId =
+            payment.id;
+
+
+        document.getElementById(
+            "detailPaymentId"
+        ).innerText =
+            payment.id;
+
+
+        document.getElementById(
+            "detailOrderId"
+        ).innerText =
+            payment.orderId;
+
+
+        document.getElementById(
+            "detailCustomer"
+        ).innerText =
+            payment.customer;
+
+
+        document.getElementById(
+            "detailAmount"
+        ).innerText =
+            payment.amount;
+
+
+        document.getElementById(
+            "detailMethod"
+        ).innerText =
+            payment.method;
+
+
+        document.getElementById(
+            "detailStatus"
+        ).innerText =
+            payment.status
+                .charAt(0)
+                .toUpperCase() +
+            payment.status.slice(1);
+
+
+        document.getElementById(
+            "detailDate"
+        ).innerText =
+            payment.displayDate;
+
+
+        createPaymentFlow(
+            payment.method,
+            payment.status
+        );
+
+
+        const payButton =
+            document.getElementById(
+                "modalPayButton"
+            );
+
+
+        if (payment.status === "unpaid") {
+
+            payButton.style.display =
+                "block";
+
+            payButton.innerText =
+                "Mark as Paid";
+
+        }
+
+        else if (payment.status === "paid") {
+
+            payButton.style.display =
+                "block";
+
+            payButton.innerText =
+                "Undo Paid";
+
+        }
+
+        else {
+
+            payButton.style.display =
+                "none";
+
+        }
+
+
+        document
+            .getElementById("paymentModal")
+            .classList.add("show");
+
+    }
+
+
+    /* =====================================================
+       PAYMENT FLOW
+    ===================================================== */
+
+    function createPaymentFlow(
+        method,
+        status
+    ) {
+
+        const flowContent =
+            document.getElementById(
+                "flowContent"
+            );
+
+
+        if (method === "Cash at Store") {
+
+            flowContent.innerHTML = `
+
+                <div class="flow-step">
+                    <span class="flow-number">1</span>
+                    Place Order
+                </div>
+
+                <div class="flow-step">
+                    <span class="flow-number">2</span>
+                    Digital Order Receipt – Unpaid
+                </div>
+
+                <div class="flow-step">
+                    <span class="flow-number">3</span>
+                    Customer Pays at Store
+                </div>
+
+                <div class="flow-step">
+                    <span class="flow-number">4</span>
+                    Staff Marks Payment as Paid
+                </div>
+
+                <div class="flow-step">
+                    <span class="flow-number">5</span>
+                    Physical Paid Receipt
+                </div>
+
+            `;
+
+        }
+
+        else if (method === "Cash on Delivery") {
+
+            flowContent.innerHTML = `
+
+                <div class="flow-step">
+                    <span class="flow-number">1</span>
+                    Place Order
+                </div>
+
+                <div class="flow-step">
+                    <span class="flow-number">2</span>
+                    Digital Order Receipt – Unpaid
+                </div>
+
+                <div class="flow-step">
+                    <span class="flow-number">3</span>
+                    Staff Prepares Order
+                </div>
+
+                <div class="flow-step">
+                    <span class="flow-number">4</span>
+                    Delivery to Customer
+                </div>
+
+                <div class="flow-step">
+                    <span class="flow-number">5</span>
+                    Customer Pays Cash
+                </div>
+
+                <div class="flow-step">
+                    <span class="flow-number">6</span>
+                    Staff Marks as Paid / Completed
+                </div>
+
+                <div class="flow-step">
+                    <span class="flow-number">7</span>
+                    Physical Paid Receipt
+                </div>
+
+            `;
+
+        }
+
+
+        if (status === "paid") {
+
+            document.getElementById(
+                "flowBox"
+            ).style.borderColor =
+                "#b8e7c2";
+
+        }
+
+        else {
+
+            document.getElementById(
+                "flowBox"
+            ).style.borderColor =
+                "#e5ebe7";
+
+        }
+
+    }
+
+
+    /* =====================================================
+       MARK / UNDO FROM MODAL
+    ===================================================== */
+
+    function markModalPaymentPaid() {
+
+        if (!selectedPaymentId) {
+            return;
+        }
+
+
+        const payment =
+            findPayment(
+                selectedPaymentId
+            );
+
+
+        if (!payment) {
+            return;
+        }
+
+
+        if (payment.status === "unpaid") {
+
+            const confirmation =
+                confirm(
+                    "Confirm that payment from " +
+                    payment.customer +
+                    " has been received?"
+                );
+
+
+            if (!confirmation) {
+                return;
+            }
+
+
+            payment.status = "paid";
+
+            savePayments();
+
+            closePaymentModal();
+
+            renderPayments();
+
+
+            alert(
+                "Payment successfully marked as Paid."
+            );
+
+
+            openPaidReceipt(payment);
+
+        }
+
+        else if (payment.status === "paid") {
+
+            const confirmation =
+                confirm(
+                    "Undo the Paid status for " +
+                    payment.customer +
+                    "?\n\n" +
+                    "The payment will be changed back to Unpaid."
+                );
+
+
+            if (!confirmation) {
+                return;
+            }
+
+
+            payment.status = "unpaid";
+
+            savePayments();
+
+            closePaymentModal();
+
+            renderPayments();
+
+
+            alert(
+                "Payment status changed back to Unpaid."
+            );
+
+        }
+
+    }
+
+
+    /* =====================================================
+       OPEN PAID RECEIPT
+    ===================================================== */
+
+    function openPaidReceipt(payment) {
+
+        if (!payment) {
+            return;
+        }
+
+
+        document.getElementById(
+            "receiptPaymentId"
+        ).innerText =
+            payment.id;
+
+
+        document.getElementById(
+            "receiptOrderId"
+        ).innerText =
+            payment.orderId;
+
+
+        document.getElementById(
+            "receiptCustomer"
+        ).innerText =
+            payment.customer;
+
+
+        document.getElementById(
+            "receiptMethod"
+        ).innerText =
+            payment.method;
+
+
+        document.getElementById(
+            "receiptAmount"
+        ).innerText =
+            payment.amount;
+
+
+        document.getElementById(
+            "receiptDate"
+        ).innerText =
+            payment.displayDate;
+
+
+        document
+            .getElementById("receiptModal")
+            .classList.add("show");
+
+    }
+
+
+    /* =====================================================
+       CLOSE PAYMENT MODAL
+    ===================================================== */
+
+    function closePaymentModal() {
+
+        document
+            .getElementById("paymentModal")
+            .classList.remove("show");
+
+        selectedPaymentId = null;
+
+    }
+
+
+    /* =====================================================
+       CLOSE RECEIPT MODAL
+    ===================================================== */
+
+    function closeReceiptModal() {
+
+        document
+            .getElementById("receiptModal")
+            .classList.remove("show");
+
+    }
+
+
+    /* =====================================================
+       CLOSE DROPDOWN OUTSIDE
+    ===================================================== */
+
+    document.addEventListener(
+        "click",
+        function(event) {
+
+            const wrapper =
+                document.querySelector(
+                    ".filter-wrapper"
+                );
+
+
+            if (
+                wrapper &&
+                !wrapper.contains(event.target)
+            ) {
+
+                document
+                    .getElementById(
+                        "filterDropdown"
+                    )
+                    .classList.remove("show");
+
+            }
+
+        }
+    );
+
+
+    /* =====================================================
+       CLOSE PAYMENT MODAL OUTSIDE
+    ===================================================== */
+
+    document
+        .getElementById("paymentModal")
+        .addEventListener(
+            "click",
+            function(event) {
+
+                if (event.target === this) {
+
+                    closePaymentModal();
+
+                }
+
+            }
+        );
+
+
+    /* =====================================================
+       CLOSE RECEIPT MODAL OUTSIDE
+    ===================================================== */
+
+    document
+        .getElementById("receiptModal")
+        .addEventListener(
+            "click",
+            function(event) {
+
+                if (event.target === this) {
+
+                    closeReceiptModal();
+
+                }
+
+            }
+        );
+
+
+    /* =====================================================
+       INITIALIZE
+    ===================================================== */
+
+    loadPayments();
+
+    renderPayments();
+
+</script>
+
+</body>
+</html>

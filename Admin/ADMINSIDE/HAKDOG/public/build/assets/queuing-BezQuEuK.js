@@ -1,0 +1,203 @@
+const e=`<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Queue - ELEE Hardware</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif; }
+        body { background: #f5f7f6; color: #17211b; }
+        .sidebar { position: fixed; inset: 0 auto 0 0; width: 235px; background: #00551f; color: white; padding: 28px 16px; z-index: 10; }
+        .logo { font-size: 36px; font-weight: 900; margin-left: 12px; letter-spacing: -2px; }
+        .logo span { color: #ffbd00; }
+        .hardware { color: #ffbd00; font-size: 14px; font-weight: bold; margin: 3px 0 25px 13px; }
+        .menu { display: flex; flex-direction: column; gap: 7px; }
+        .menu a { color: white; text-decoration: none; padding: 13px 14px; border-radius: 7px; font-size: 14px; display: flex; align-items: center; gap: 12px; }
+        .menu a:hover, .menu a.active { background: #08732e; }
+        .main { margin-left: 235px; padding: 42px; min-height: 100vh; }
+        .section-header { display: flex; justify-content: space-between; align-items: center; gap: 20px; margin-bottom: 25px; }
+        .section-title { color: #147a36; font-size: 27px; font-weight: 700; }
+        .section-description { color: #748078; font-size: 14px; margin-top: 6px; }
+        .orders-link { display: inline-flex; padding: 11px 16px; border-radius: 8px; background: #08752f; color: #fff; font-size: 14px; text-decoration: none; font-weight: 600; white-space: nowrap; }
+        .summary { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-bottom: 22px; }
+        .summary-card { background: #fff; border: 1px solid #e7ece8; border-radius: 12px; padding: 18px 20px; box-shadow: 0 2px 8px #12301508; }
+        .summary-label { color: #78827b; font-size: 13px; margin-bottom: 10px; }
+        .summary-value { color: #075b27; font-size: 27px; font-weight: 700; }
+        .queue-panel { background: #fff; border: 1px solid #e7ece8; border-radius: 12px; overflow: hidden; }
+        .queue-toolbar { display: flex; justify-content: space-between; align-items: center; gap: 14px; padding: 18px 20px; border-bottom: 1px solid #edf0ed; }
+        .queue-toolbar h2 { font-size: 17px; }
+        .controls { display: flex; gap: 10px; }
+        .controls input, .controls select { height: 40px; border: 1px solid #dce3dd; border-radius: 7px; padding: 0 11px; background: white; color: #26352b; font-size: 13px; }
+        .controls input { width: 235px; }
+        .table-wrap { overflow-x: auto; }
+        table { width: 100%; min-width: 740px; border-collapse: collapse; text-align: left; }
+        th { color: #718077; background: #fafcfb; font-size: 12px; font-weight: 600; padding: 14px 16px; white-space: nowrap; }
+        td { padding: 16px; border-top: 1px solid #eff2ef; font-size: 13px; }
+        .position { width: 52px; color: #13813c; font-size: 16px; font-weight: 700; }
+        .order-id { color: #147a36; font-weight: 700; white-space: nowrap; }
+        .customer-name { font-weight: 600; }
+        .order-time { color: #718077; white-space: nowrap; }
+        .status { display: inline-block; border-radius: 20px; padding: 6px 10px; background: #fff2cd; color: #896400; font-size: 11px; font-weight: 700; white-space: nowrap; }
+        .status.processing { background: #e7efff; color: #345ca0; }
+        .status.ready { background: #e2f5e8; color: #167338; }
+        .status.completed { background: #e9eeee; color: #56625b; }
+        .status.cancelled { background: #ffebeb; color: #af3838; }
+        .total { font-weight: 700; white-space: nowrap; }
+        .empty { display: none; padding: 48px 20px; color: #77827a; text-align: center; font-size: 14px; }
+        .empty strong { display: block; color: #36463b; font-size: 16px; margin-bottom: 7px; }
+        .queue-footer { padding: 14px 20px; border-top: 1px solid #edf0ed; color: #748078; font-size: 12px; }
+        @media(max-width: 1050px) { .sidebar { width: 195px; } .main { margin-left: 195px; padding: 30px 24px; } .queue-toolbar { align-items: flex-start; flex-direction: column; } .controls { width: 100%; } .controls input { flex: 1; } }
+        @media(max-width: 700px) { .sidebar { position: static; width: 100%; height: auto; } .menu { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); } .main { margin: 0; padding: 24px 16px; } .section-header { align-items: flex-start; flex-direction: column; } .summary { grid-template-columns: 1fr; gap: 10px; } .summary-card { padding: 15px 17px; } .summary-value { font-size: 23px; } .controls { flex-direction: column; } .controls input { width: 100%; flex: initial; } }
+    </style>
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="logo"><span style="color:white">E</span><span>LEE</span></div>
+        <div class="hardware">HARDWARE</div>
+        <nav class="menu">
+            <a href="/"><span class="icon">☼</span><span>Dashboard</span></a>
+            <a href="/orders"><span class="icon">▣</span><span>Orders</span></a>
+            <a href="/products"><span class="icon">◇</span><span>Products</span></a>
+            <a href="/ai-recommendations"><span class="icon">↗</span><span>AI Recommendations</span></a>
+            <a href="/payments"><span class="icon"><svg aria-hidden="true" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5.5" width="17" height="14" rx="2"/><path d="M3.5 9h17M7 5.5v-.75A1.75 1.75 0 0 1 8.75 3h8.5"/><path d="M16 13h4.5"/><circle cx="16" cy="13" r=".55"/></svg></span><span>Payments</span></a>
+            <a href="/customers"><span class="icon">♙</span><span>Customers</span></a>
+            <a href="/queuing" class="active"><span class="icon">☷</span><span>Queuing</span></a>
+            <a href="/receipt-records"><span class="icon">▤</span><span>Receipt Records</span></a>
+            <a href="/settings"><span class="icon">⚙</span><span>Settings</span></a>
+        </nav>
+    </aside>
+
+    <main class="main">
+        <header class="section-header">
+            <div>
+                <h1 class="section-title">Order Queue</h1>
+                <p class="section-description">Orders are lined up by the time they were placed. Oldest orders are served first.</p>
+            </div>
+            <a class="orders-link" href="/orders">Manage orders</a>
+        </header>
+
+        <section class="summary" aria-label="Queue summary">
+            <div class="summary-card"><div class="summary-label">Active orders in queue</div><div class="summary-value" id="activeCount">0</div></div>
+            <div class="summary-card"><div class="summary-label">Waiting for processing</div><div class="summary-value" id="pendingCount">0</div></div>
+            <div class="summary-card"><div class="summary-label">Next order</div><div class="summary-value" id="nextOrder" style="font-size:18px">—</div></div>
+        </section>
+
+        <section class="queue-panel">
+            <div class="queue-toolbar">
+                <h2>Customer order sequence</h2>
+                <div class="controls">
+                    <input id="queueSearch" type="search" placeholder="Search order or customer" oninput="renderQueue()" aria-label="Search queue">
+                    <select id="statusFilter" onchange="renderQueue()" aria-label="Filter by order status">
+                        <option value="active">Active orders</option>
+                        <option value="all">All orders</option>
+                        <option value="Pending">Pending</option>
+                        <option value="Processing">Processing</option>
+                        <option value="Ready for Delivery">Ready for Delivery</option>
+                        <option value="Completed">Completed</option>
+                        <option value="Cancelled">Cancelled</option>
+                    </select>
+                    <select id="sortBy" onchange="renderQueue()" aria-label="Sort queue">
+                        <option value="oldest">Oldest order first (FIFO)</option>
+                        <option value="newest">Newest order first</option>
+                        <option value="customer">Customer A–Z</option>
+                        <option value="amount">Highest amount</option>
+                    </select>
+                </div>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead><tr><th>Queue</th><th>Order</th><th>Customer</th><th>Placed</th><th>Status</th><th>Total</th></tr></thead>
+                    <tbody id="queueRows"></tbody>
+                </table>
+            </div>
+            <div class="empty" id="queueEmpty"><strong>No orders in this view</strong>New customer orders will appear here in the order they are received.</div>
+            <div class="queue-footer" id="queueFooter">Showing 0 orders</div>
+        </section>
+    </main>
+
+    <script>
+        const fallbackQueueOrders = [
+            { id: "#ELEE-2026-000123", customer: "Elias Goldstein", status: "Pending", total: "₱1,234", date: "September 04, 2026 10:10 AM" },
+            { id: "#ELEE-2026-000124", customer: "Light Fildora", status: "Processing", total: "₱2,450", date: "September 04, 2026 10:10 AM" },
+            { id: "#ELEE-2026-000125", customer: "Yukiya Reizen", status: "Ready for Delivery", total: "₱3,200", date: "September 04, 2026 10:10 AM" },
+            { id: "#ELEE-2026-000126", customer: "Joel Crawford", status: "Completed", total: "₱4,120", date: "September 04, 2026 10:10 AM" },
+            { id: "#ELEE-2026-000127", customer: "Hiro Tachibana", status: "Cancelled", total: "₱1,890", date: "September 04, 2026 10:10 AM" }
+        ];
+
+        let queueOrders = loadQueueOrders();
+
+        function loadQueueOrders() {
+            try {
+                const saved = localStorage.getItem("eleeOrders");
+                return saved ? JSON.parse(saved) : fallbackQueueOrders;
+            } catch (error) {
+                return fallbackQueueOrders;
+            }
+        }
+
+        function escapeQueueText(value) {
+            return String(value ?? "").replace(/[&<>"']/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" })[char]);
+        }
+
+        function queueTime(order, index) {
+            const date = order.createdAt || order.orderedAt || order.date;
+            const parsed = Date.parse(date || "");
+            return Number.isNaN(parsed) ? index : parsed;
+        }
+
+        function queueStatusClass(status) {
+            if (status === "Processing") return "processing";
+            if (status === "Ready for Delivery") return "ready";
+            if (status === "Completed") return "completed";
+            if (status === "Cancelled") return "cancelled";
+            return "";
+        }
+
+        function renderQueue() {
+            const statusFilter = document.getElementById("statusFilter").value;
+            const search = document.getElementById("queueSearch").value.trim().toLowerCase();
+            const sortBy = document.getElementById("sortBy").value;
+            const fifoOrders = queueOrders
+                .map((order, index) => ({ ...order, _queueIndex: index, _queueTime: queueTime(order, index) }))
+                .filter(order => !["Completed", "Cancelled"].includes(order.status))
+                .sort((a, b) => a._queueTime - b._queueTime || a._queueIndex - b._queueIndex);
+            const activeOrders = fifoOrders;
+            const queuePosition = new Map(fifoOrders.map((order, index) => [order.id, index + 1]));
+            let visibleOrders = queueOrders
+                .map((order, index) => ({ ...order, _queueIndex: index, _queueTime: queueTime(order, index) }))
+                .filter(order => statusFilter === "all" || (statusFilter === "active" ? !["Completed", "Cancelled"].includes(order.status) : order.status === statusFilter))
+                .filter(order => \`\${order.id} \${order.customer}\`.toLowerCase().includes(search));
+
+            if (sortBy === "newest") visibleOrders.sort((a, b) => b._queueTime - a._queueTime || b._queueIndex - a._queueIndex);
+            else if (sortBy === "customer") visibleOrders.sort((a, b) => String(a.customer).localeCompare(String(b.customer)));
+            else if (sortBy === "amount") visibleOrders.sort((a, b) => Number(String(b.total).replace(/[^\\d.]/g, "")) - Number(String(a.total).replace(/[^\\d.]/g, "")));
+            else visibleOrders.sort((a, b) => a._queueTime - b._queueTime || a._queueIndex - b._queueIndex);
+
+            document.getElementById("activeCount").textContent = activeOrders.length;
+            document.getElementById("pendingCount").textContent = activeOrders.filter(order => order.status === "Pending").length;
+            document.getElementById("nextOrder").textContent = activeOrders[0]?.id || "—";
+            document.getElementById("queueRows").innerHTML = visibleOrders.map((order, index) => \`
+                <tr>
+                    <td class="position">\${sortBy === "oldest" && !["Completed", "Cancelled"].includes(order.status) ? \`#\${queuePosition.get(order.id)}\` : "—"}</td>
+                    <td class="order-id">\${escapeQueueText(order.id)}</td>
+                    <td class="customer-name">\${escapeQueueText(order.customer)}</td>
+                    <td class="order-time">\${escapeQueueText(order.createdAt || order.orderedAt || order.date || "—")}</td>
+                    <td><span class="status \${queueStatusClass(order.status)}">\${escapeQueueText(order.status || "Pending")}</span></td>
+                    <td class="total">\${escapeQueueText(order.total || "—")}</td>
+                </tr>\`).join("");
+            document.getElementById("queueEmpty").style.display = visibleOrders.length ? "none" : "block";
+            document.getElementById("queueFooter").textContent = \`Showing \${visibleOrders.length} \${visibleOrders.length === 1 ? "order" : "orders"}\`;
+        }
+
+        window.addEventListener("storage", event => {
+            if (event.key === "eleeOrders") {
+                queueOrders = loadQueueOrders();
+                renderQueue();
+            }
+        });
+
+        renderQueue();
+    <\/script>
+</body>
+</html>
+`;export{e as default};

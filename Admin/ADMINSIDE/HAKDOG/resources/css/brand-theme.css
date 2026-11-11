@@ -1,0 +1,20 @@
+@font-face{font-family:NotoSans;src:url('/brand/NotoSans-Regular.ttf') format('truetype');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:NotoSans;src:url('/brand/NotoSans-Bold.ttf') format('truetype');font-weight:700;font-style:normal;font-display:swap}
+:root{--brand-green:#08752f;--brand-gold:#ffbd00;--brand-text:#202a24;--brand-muted:#6e7b73;--brand-border:#dde5df;font-family:NotoSans,sans-serif;color:var(--brand-text)}
+body,.legacy-screen,.api-dialog,.api-history-dialog,.model-training,.store-alerts{font-family:NotoSans,sans-serif}
+.legacy-screen *, .api-dialog *, .api-history-dialog *, .model-training *{font-family:inherit}
+.legacy-screen.restored-page{--admin-text:var(--brand-text);--admin-muted:var(--brand-muted);background:#f7f9f7;color:var(--brand-text)}
+.legacy-screen.restored-page .sidebar{background:var(--brand-green);color:white}
+.legacy-screen:is(.restored-page,.original-login) .sidebar .logo span,.legacy-screen:is(.restored-page,.original-login) .sidebar .hardware,.original-login .logo span,.original-login .hardware{color:var(--brand-gold)}
+.legacy-screen:is(.restored-page,.original-login) .sidebar .menu a.active,.legacy-screen:is(.restored-page,.original-login) .sidebar .menu a:hover{background:#065c25;color:white}
+.legacy-screen:is(.restored-page,.original-login) .page-title,.legacy-screen:is(.restored-page,.original-login) .section-title,.legacy-screen:is(.restored-page,.original-login) .header h1,.legacy-screen:is(.restored-page,.original-login) .settings-card h2,.legacy-screen:is(.restored-page,.original-login) .summary-value,.legacy-screen:is(.restored-page,.original-login) .summary-number,.legacy-screen:is(.restored-page,.original-login) .card-number,.legacy-screen:is(.restored-page,.original-login) .order-id,.legacy-screen:is(.restored-page,.original-login) .position{color:var(--brand-green)}
+.legacy-screen:is(.restored-page,.original-login) .page-subtitle,.legacy-screen:is(.restored-page,.original-login) .section-description,.legacy-screen:is(.restored-page,.original-login) .summary-label{color:var(--brand-muted)}
+.legacy-screen:is(.restored-page,.original-login) .add-btn,.legacy-screen:is(.restored-page,.original-login) .login-btn,.legacy-screen:is(.restored-page,.original-login) .settings-footer button,.legacy-screen:is(.restored-page,.original-login) .recommendation-editor button,.legacy-screen:is(.restored-page,.original-login) .history-btn,.model-training button,.api-dialog .actions button:not(.secondary):not(.danger){background:var(--brand-green);color:white}
+.legacy-screen:is(.restored-page,.original-login) .settings-tabs button.active{background:var(--brand-green);border-color:var(--brand-green);color:white}
+.legacy-screen:is(.restored-page,.original-login) .status.pending,.legacy-screen:is(.restored-page,.original-login) .status.unpaid{background:#fff3d6;color:#8a5a00}
+.legacy-screen:is(.restored-page,.original-login) .status.processing{background:#e8f2ff;color:#245da8}
+.legacy-screen:is(.restored-page,.original-login) .status.ready,.legacy-screen:is(.restored-page,.original-login) .status.completed,.legacy-screen:is(.restored-page,.original-login) .status.paid{background:#e7f8e8;color:var(--brand-green)}
+.legacy-screen:is(.restored-page,.original-login) .status.cancelled{background:#fde8e8;color:#b42318}
+.legacy-screen input,.legacy-screen select,.legacy-screen textarea,.api-dialog input,.api-dialog textarea{color:var(--brand-text);border-color:var(--brand-border)}
+.legacy-screen input:focus,.legacy-screen select:focus,.legacy-screen textarea:focus{outline-color:var(--brand-green)}
+button,input,select,textarea{font-family:NotoSans,sans-serif}

@@ -1,0 +1,102 @@
+00:00 +0: loading C:/EELE_MOB_APP/test/widget_test.dart
+00:00 +0: C:/EELE_MOB_APP/test/widget_test.dart: Customer presentation hides demo branding and staff simulator
+00:01 +1: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.android Size(280.0, 653.0) text 1.0
+00:03 +2: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.android Size(280.0, 653.0) text 1.0
+00:03 +3: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.android Size(280.0, 653.0) text 1.0
+00:03 +4: C:/EELE_MOB_APP/test/widget_test.dart: Catalog selects one category per tap and All resets it
+00:04 +5: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.android Size(280.0, 653.0) text 1.5
+00:05 +6: C:/EELE_MOB_APP/test/widget_test.dart: Add feedback expires; deleting and adding again stays usable
+00:06 +7: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.android Size(280.0, 653.0) text 2.0
+00:06 +8: C:/EELE_MOB_APP/test/widget_test.dart: Cash on Delivery (COD) checkout clears cart and receipt back returns Home
+00:07 +9: C:/EELE_MOB_APP/test/widget_test.dart: Cash on Delivery (COD) checkout clears cart and receipt back returns Home
+00:08 +10: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.android Size(320.0, 568.0) text 1.5
+00:08 +11: C:/EELE_MOB_APP/test/widget_test.dart: Cash at Store checkout clears cart and receipt back returns Home
+00:10 +12: C:/EELE_MOB_APP/test/widget_test.dart: Cash at Store checkout clears cart and receipt back returns Home
+00:10 +13: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.android Size(360.0, 640.0) text 1.0
+00:10 +14: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.android Size(360.0, 640.0) text 1.0
+00:11 +15: C:/EELE_MOB_APP/test/widget_test.dart: Partial checkout retains unchecked items and selection persists
+00:11 +16: C:/EELE_MOB_APP/test/widget_test.dart: Partial checkout retains unchecked items and selection persists
+00:12 +17: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.android Size(360.0, 640.0) text 2.0
+00:12 +18: C:/EELE_MOB_APP/test/widget_test.dart: Buy Now checks out only current product without changing cart
+00:13 +19: C:/EELE_MOB_APP/test/widget_test.dart: Buy Now checks out only current product without changing cart
+00:13 +20: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.android Size(390.0, 844.0) text 1.5
+00:14 +21: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.android Size(390.0, 844.0) text 1.5
+00:14 +22: C:/EELE_MOB_APP/test/widget_test.dart: Cart badges count distinct items instead of quantities
+00:15 +23: C:/EELE_MOB_APP/test/widget_test.dart: Cart badges count distinct items instead of quantities
+00:15 +24: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.android Size(412.0, 915.0) text 1.0
+00:15 +25: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.android Size(412.0, 915.0) text 1.0
+00:16 +26: C:/EELE_MOB_APP/test/widget_test.dart: Home search opens focused search, filters, clears and preserves results on Back
+00:16 +27: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.android Size(412.0, 915.0) text 1.5
+00:16 +28: C:/EELE_MOB_APP/test/widget_test.dart: Shop Now browses the catalog; category tiles open only their category
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following StateError was thrown running a test:
+Bad state: No element
+
+When the exception was thrown, this was the stack:
+#0      Iterable.single (dart:core/iterable.dart:694:25)
+#1      WidgetController.element (package:flutter_test/src/controller.dart:868:30)
+#2      WidgetController.ensureVisible (package:flutter_test/src/controller.dart:2305:32)
+#3      main.<anonymous closure> (file:///C:/EELE_MOB_APP/test/widget_test.dart:415:18)
+<asynchronous suspension>
+#4      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#5      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1059:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+The test description was:
+  Shop Now browses the catalog; category tiles open only their category
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:16 +28 -1: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.android Size(412.0, 915.0) text 2.0
+00:16 +28 -1: C:/EELE_MOB_APP/test/widget_test.dart: Shop Now browses the catalog; category tiles open only their category [E]
+  Test failed. See exception logs above.
+  The test description was: Shop Now browses the catalog; category tiles open only their category
+  
+00:17 +29 -1: C:/EELE_MOB_APP/test/widget_test.dart: Cancelling checkout preserves cart
+00:18 +30 -1: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.android Size(568.0, 320.0) text 1.0
+00:18 +31 -1: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.android Size(568.0, 320.0) text 1.5
+00:19 +32 -1: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.android Size(568.0, 320.0) text 2.0
+00:20 +33 -1: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.android Size(844.0, 390.0) text 1.0
+00:21 +34 -1: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.android Size(844.0, 390.0) text 1.5
+00:21 +35 -1: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.android Size(844.0, 390.0) text 2.0
+00:22 +36 -1: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.android Size(768.0, 1024.0) text 1.0
+00:22 +37 -1: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.android Size(768.0, 1024.0) text 1.5
+00:23 +38 -1: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.android Size(768.0, 1024.0) text 2.0
+00:24 +39 -1: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.android Size(1024.0, 768.0) text 1.0
+00:24 +40 -1: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.android Size(1024.0, 768.0) text 1.5
+00:25 +41 -1: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.android Size(1024.0, 768.0) text 2.0
+00:26 +42 -1: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.android Size(1366.0, 1024.0) text 1.0
+00:26 +43 -1: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.android Size(1366.0, 1024.0) text 1.5
+00:27 +44 -1: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.android Size(1366.0, 1024.0) text 2.0
+00:27 +45 -1: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(280.0, 653.0) text 1.0
+00:28 +46 -1: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(280.0, 653.0) text 1.5
+00:29 +47 -1: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(280.0, 653.0) text 2.0
+00:29 +48 -1: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(320.0, 568.0) text 1.0
+00:30 +49 -1: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(320.0, 568.0) text 1.5
+00:30 +50 -1: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(320.0, 568.0) text 2.0
+00:31 +51 -1: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(360.0, 640.0) text 1.0
+00:31 +52 -1: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(360.0, 640.0) text 1.5
+00:32 +53 -1: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(360.0, 640.0) text 2.0
+00:32 +54 -1: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(390.0, 844.0) text 1.0
+00:33 +55 -1: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(390.0, 844.0) text 1.5
+00:34 +56 -1: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(390.0, 844.0) text 2.0
+00:34 +57 -1: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(412.0, 915.0) text 1.0
+00:35 +58 -1: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(412.0, 915.0) text 1.5
+00:35 +59 -1: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(412.0, 915.0) text 2.0
+00:36 +60 -1: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(568.0, 320.0) text 1.0
+00:37 +61 -1: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(568.0, 320.0) text 1.5
+00:37 +62 -1: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(568.0, 320.0) text 2.0
+00:38 +63 -1: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(844.0, 390.0) text 1.0
+00:39 +64 -1: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(844.0, 390.0) text 1.5
+00:40 +65 -1: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(844.0, 390.0) text 2.0
+00:40 +66 -1: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(768.0, 1024.0) text 1.0
+00:41 +67 -1: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(768.0, 1024.0) text 1.5
+00:41 +68 -1: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(768.0, 1024.0) text 2.0
+00:42 +69 -1: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(1024.0, 768.0) text 1.0
+00:43 +70 -1: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(1024.0, 768.0) text 1.5
+00:43 +71 -1: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(1024.0, 768.0) text 2.0
+00:43 +72 -1: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(1366.0, 1024.0) text 1.0
+00:44 +73 -1: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(1366.0, 1024.0) text 1.5
+00:44 +74 -1: C:/EELE_MOB_APP/test/responsive_test.dart: TargetPlatform.iOS Size(1366.0, 1024.0) text 2.0
+00:45 +75 -1: Some tests failed.
